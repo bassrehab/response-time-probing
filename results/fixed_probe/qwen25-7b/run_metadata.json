@@ -1,0 +1,13 @@
+{
+  "experiment_name": "fixed_probe_validation",
+  "timestamp": "2026-03-31T19:32:10.847071",
+  "git_hash": "56bd39bf364aebe59b1a5d22fcb2ff123f5387b0",
+  "git_dirty": false,
+  "python_version": "3.12.7",
+  "platform": "Darwin 24.6.0",
+  "hardware": "Apple MPS (arm)",
+  "script": "/Users/subhadipmitra/Dev/neurips-2026-safety/scripts/run_fixed_probe_validation.py",
+  "args": {
+    "model": "qwen25-7b"
+  }
+}

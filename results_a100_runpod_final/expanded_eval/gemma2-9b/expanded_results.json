@@ -1,0 +1,32 @@
+{
+  "none": {
+    "dsr": 0.87,
+    "per_attack_asr": {
+      "autodan": 0.05,
+      "deep_inception": 0.0,
+      "gcg": 0.0,
+      "intent_laundering": 0.2,
+      "prefilling": 0.4
+    }
+  },
+  "static_1.3": {
+    "dsr": 0.88,
+    "per_attack_asr": {
+      "autodan": 0.05,
+      "deep_inception": 0.0,
+      "gcg": 0.0,
+      "intent_laundering": 0.15,
+      "prefilling": 0.4
+    }
+  },
+  "gated_bb_1.3": {
+    "dsr": 0.88,
+    "per_attack_asr": {
+      "autodan": 0.05,
+      "deep_inception": 0.0,
+      "gcg": 0.0,
+      "intent_laundering": 0.15,
+      "prefilling": 0.4
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "none": {
+    "dsr": 0.4,
+    "asr": 0.6,
+    "fpr": 0.0,
+    "hedging_rate": 0.01,
+    "mean_response_length": 1122.17
+  },
+  "static_1.3": {
+    "dsr": 0.675,
+    "asr": 0.325,
+    "fpr": 0.0,
+    "hedging_rate": 0.28,
+    "mean_response_length": 1223.82
+  },
+  "gated_bb_1.3": {
+    "dsr": 0.44999999999999996,
+    "asr": 0.55,
+    "fpr": 0.1,
+    "hedging_rate": 0.01,
+    "mean_response_length": 1123.26
+  },
+  "alphasteer_1.0": {
+    "dsr": 0.525,
+    "asr": 0.475,
+    "fpr": 0.0,
+    "hedging_rate": 0.02,
+    "mean_response_length": 1416.82
+  }
+}

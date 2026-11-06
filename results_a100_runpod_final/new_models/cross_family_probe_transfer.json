@@ -1,0 +1,26 @@
+{
+  "models": [
+    "mistral-7b",
+    "llama31-8b",
+    "qwen3-8b",
+    "gemma3-12b"
+  ],
+  "dimensions": {
+    "mistral-7b": 4096,
+    "llama31-8b": 4096,
+    "qwen3-8b": 4096,
+    "gemma3-12b": 3840
+  },
+  "pairwise_cosine": {
+    "mistral-7b_vs_mistral-7b": 0.9999999997470834,
+    "mistral-7b_vs_llama31-8b": 0.01732689336410707,
+    "mistral-7b_vs_qwen3-8b": -0.00045010712728642835,
+    "llama31-8b_vs_mistral-7b": 0.01732689336410707,
+    "llama31-8b_vs_llama31-8b": 0.9999999999375122,
+    "llama31-8b_vs_qwen3-8b": 0.009877600658661008,
+    "qwen3-8b_vs_mistral-7b": -0.00045010712728642835,
+    "qwen3-8b_vs_llama31-8b": 0.009877600658661008,
+    "qwen3-8b_vs_qwen3-8b": 0.9999999997215044,
+    "gemma3-12b_vs_gemma3-12b": 0.9999999999019622
+  }
+}

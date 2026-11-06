@@ -1,0 +1,13 @@
+{
+  "model": "qwen3-8b",
+  "prompt_probe_layer": 8,
+  "prompt_probe_auroc": 1.0,
+  "response_probe_layer": 1,
+  "response_probe_auroc": 1.0,
+  "steering_layer": 18,
+  "cos_sim_response_probe_vs_refusal": -0.0025174397202110937,
+  "halt_asr": 0.0,
+  "halt_rate": 0.825,
+  "weight_norm": 0.5992261669077816,
+  "weight_sparsity": 0.519287109375
+}

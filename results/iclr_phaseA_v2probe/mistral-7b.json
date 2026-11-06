@@ -1,0 +1,46 @@
+{
+  "paper_shallow": {
+    "layer": 1,
+    "cv_auroc": 1.0,
+    "n_train": 61,
+    "n_harm": 21,
+    "coh_canonical_novel_token": 1.0,
+    "n_canonical": 18,
+    "coh_novel_register": 1.0,
+    "n_novel_register": 11,
+    "benign_fpr": 1.0
+  },
+  "paper_deep": {
+    "layer": 26,
+    "cv_auroc": 1.0,
+    "n_train": 61,
+    "n_harm": 21,
+    "coh_canonical_novel_token": 1.0,
+    "n_canonical": 18,
+    "coh_novel_register": 1.0,
+    "n_novel_register": 11,
+    "benign_fpr": 0.83
+  },
+  "decorr_shallow": {
+    "layer": 32,
+    "cv_auroc": 1.0,
+    "n_train": 111,
+    "n_harm": 31,
+    "coh_canonical_novel_token": 1.0,
+    "n_canonical": 18,
+    "coh_novel_register": 1.0,
+    "n_novel_register": 11,
+    "benign_fpr": 0.08
+  },
+  "decorr_deep": {
+    "layer": 16,
+    "cv_auroc": 0.9958333333333332,
+    "n_train": 111,
+    "n_harm": 31,
+    "coh_canonical_novel_token": 1.0,
+    "n_canonical": 18,
+    "coh_novel_register": 1.0,
+    "n_novel_register": 11,
+    "benign_fpr": 0.01
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "best_layer": 11,
+  "halt": {
+    "asr": 0.025,
+    "fire_rate": 0.825,
+    "n": 40,
+    "n_harmful": 1
+  },
+  "steer": {
+    "asr": 0.475,
+    "fire_rate": 0.825,
+    "n": 40,
+    "n_harmful": 19
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "model": "qwen25-7b",
+  "probe": {
+    "best_layer": 7,
+    "auroc": 1.0,
+    "fpr": 0.025
+  },
+  "vector": {
+    "layer": 14,
+    "separation": 0.2631116211414337
+  },
+  "safety": {
+    "none": {
+      "dsr": 0.55,
+      "asr": 0.45,
+      "fpr": 0.0
+    },
+    "static_0.5": {
+      "dsr": 0.6,
+      "asr": 0.4,
+      "fpr": 0.0
+    },
+    "static_0.8": {
+      "dsr": 0.6,
+      "asr": 0.4,
+      "fpr": 0.0
+    },
+    "static_1.0": {
+      "dsr": 0.625,
+      "asr": 0.375,
+      "fpr": 0.0
+    },
+    "static_1.3": {
+      "dsr": 0.625,
+      "asr": 0.375,
+      "fpr": 0.0
+    },
+    "gated_bb_1.3_t0.3": {
+      "dsr": 0.625,
+      "asr": 0.375,
+      "fpr": 1.0
+    },
+    "gated_prop_1.0_t0.5": {
+      "dsr": 0.625,
+      "asr": 0.375,
+      "fpr": 1.0
+    }
+  },
+  "utility": {
+    "none": {
+      "hedging_rate": 0.01,
+      "over_refusal_rate": 0.0,
+      "mean_response_length": 1270.87
+    },
+    "static_0.5": {
+      "hedging_rate": 0.01,
+      "over_refusal_rate": 0.0,
+      "mean_response_length": 1269.19
+    },
+    "static_0.8": {
+      "hedging_rate": 0.0,
+      "over_refusal_rate": 0.0,
+      "mean_response_length": 1275.86
+    },
+    "static_1.0": {
+      "hedging_rate": 0.01,
+      "over_refusal_rate": 0.0,
+      "mean_response_length": 1276.53
+    },
+    "static_1.3": {
+      "hedging_rate": 0.01,
+      "over_refusal_rate": 0.0,
+      "mean_response_length": 1277.63
+    },
+    "gated_bb_1.3_t0.3": {
+      "hedging_rate": 0.0,
+      "over_refusal_rate": 0.0,
+      "mean_response_length": 1267.89
+    },
+    "gated_prop_1.0_t0.5": {
+      "hedging_rate": 0.01,
+      "over_refusal_rate": 0.0,
+      "mean_response_length": 1268.42
+    }
+  },
+  "pareto_check": {
+    "gated_dsr": 0.625,
+    "static_dsr": 0.625,
+    "gated_hedging": 0.0,
+    "static_hedging": 0.01,
+    "hedging_gap": 0.01,
+    "dominance": false
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "mistral-7b": {
+    "none": {
+      "jb_dsr": 0.25,
+      "syc_correction_rate": 0.25,
+      "jb_n": 20,
+      "syc_n": 20
+    },
+    "single_jailbreak": {
+      "jb_dsr": 0.25,
+      "syc_correction_rate": 0.25,
+      "jb_n": 20,
+      "syc_n": 20
+    },
+    "layer_separated": {
+      "jb_dsr": 0.30000000000000004,
+      "syc_correction_rate": 0.30000000000000004,
+      "jb_n": 20,
+      "syc_n": 20
+    }
+  },
+  "llama31-8b": {
+    "none": {
+      "jb_dsr": 0.35,
+      "syc_correction_rate": 0.85,
+      "jb_n": 20,
+      "syc_n": 20
+    },
+    "single_jailbreak": {
+      "jb_dsr": 0.30000000000000004,
+      "syc_correction_rate": 0.85,
+      "jb_n": 20,
+      "syc_n": 20
+    },
+    "layer_separated": {
+      "jb_dsr": 0.25,
+      "syc_correction_rate": 0.8,
+      "jb_n": 20,
+      "syc_n": 20
+    }
+  }
+}

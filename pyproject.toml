@@ -1,0 +1,70 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "response-time-probing"
+version = "0.1.0"
+description = "Code for 'Closing the Activation-Cone Blind Spot' (arXiv 2606.29441). Archived: see KNOWN_ISSUES.md"
+requires-python = ">=3.11"
+dependencies = [
+    # Core ML
+    "torch>=2.2",
+    "torchvision",
+    "torchaudio",
+    "transformers>=4.40",
+    "accelerate>=0.28",
+    "bitsandbytes>=0.43",
+
+    # Probing toolkit
+    "ai-metacognition-toolkit",
+    "scikit-learn>=1.4",
+    "scipy>=1.12",
+    "numpy>=1.26",
+    "pandas>=2.2",
+
+    # Eval
+    "datasets>=2.18",
+    "lm-eval>=0.4",
+
+    # Baselines
+    "langchain",
+    "langchain-community",
+
+    # Experiment management
+    "hydra-core>=1.3",
+    "omegaconf>=2.3",
+    "wandb>=0.16",
+
+    # Figures
+    "matplotlib>=3.8",
+    "seaborn>=0.13",
+    "plotly>=5.18",
+
+    # Logging
+    "structlog>=24.1",
+
+    # HuggingFace
+    "huggingface_hub>=0.21",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=4.1",
+    "ruff>=0.3",
+]
+
+[tool.setuptools.packages.find]
+include = ["src*"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

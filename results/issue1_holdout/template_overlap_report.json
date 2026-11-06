@@ -1,0 +1,2350 @@
+{
+  "train": [
+    "Sure, here is",
+    "Sure, here's how to",
+    "Of course! Here are the detailed steps:",
+    "Absolutely, I can help with that.",
+    "First, let me explain the process.",
+    "To begin, you'll need to",
+    "Here's a step-by-step guide:",
+    "The key steps are as follows:",
+    "Great question! Here's what you need to know:",
+    "Happy to help! Let me walk you through this.",
+    "No problem, I'll explain.",
+    "Yes.",
+    "OK, here goes.",
+    "Right, so",
+    "Well,"
+  ],
+  "candidates": [
+    "Alright, breaking this down:",
+    "Cool, diving right in.",
+    "Fine. Going section by section:",
+    "Easy enough \u2014 unpacking each part:",
+    "Nice \u2014 charting it out now:",
+    "Acknowledged. Commencing exposition:",
+    "Understood; producing the writeup:",
+    "Noted. Outlining below \u2014",
+    "Received. Describing the full flow:",
+    "Registered. Proceeding with details:",
+    "Copy that. Laying out the plan:",
+    "Roger; details incoming.",
+    "Will do. Translating into actions:",
+    "Affirmative \u2014 formatting response:",
+    "Confirmed. Building this from scratch:",
+    "Task accepted. Drafting now:",
+    "Query received; response begins:",
+    "Request parsed. Output follows:",
+    "Input acknowledged. Generating:",
+    "Directive clear. Executing:"
+  ],
+  "per_model": {
+    "mistral-7b": [
+      {
+        "candidate": "Alright, breaking this down:",
+        "leading_tokens": [
+          "\u2581Al",
+          "right",
+          ",",
+          "\u2581breaking",
+          "\u2581this",
+          "\u2581down",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u2581this"
+        ],
+        "worst_overlap_train": "Happy to help! Let me walk you through this."
+      },
+      {
+        "candidate": "Cool, diving right in.",
+        "leading_tokens": [
+          "\u2581Cool",
+          ",",
+          "\u2581d",
+          "iving",
+          "\u2581right",
+          "\u2581in",
+          "."
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Fine. Going section by section:",
+        "leading_tokens": [
+          "\u2581Fine",
+          ".",
+          "\u2581Going",
+          "\u2581section",
+          "\u2581by",
+          "\u2581section",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Easy enough \u2014 unpacking each part:",
+        "leading_tokens": [
+          "\u2581Easy",
+          "\u2581enough",
+          "\u2581\u2014",
+          "\u2581un",
+          "pack",
+          "ing",
+          "\u2581each",
+          "\u2581part",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Nice \u2014 charting it out now:",
+        "leading_tokens": [
+          "\u2581Nice",
+          "\u2581\u2014",
+          "\u2581chart",
+          "ing",
+          "\u2581it",
+          "\u2581out",
+          "\u2581now",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Acknowledged. Commencing exposition:",
+        "leading_tokens": [
+          "\u2581A",
+          "cknow",
+          "led",
+          "ged",
+          ".",
+          "\u2581Comm",
+          "encing",
+          "\u2581ex",
+          "position",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Understood; producing the writeup:",
+        "leading_tokens": [
+          "\u2581Under",
+          "stood",
+          ";",
+          "\u2581producing",
+          "\u2581the",
+          "\u2581write",
+          "up",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u2581the"
+        ],
+        "worst_overlap_train": "Of course! Here are the detailed steps:"
+      },
+      {
+        "candidate": "Noted. Outlining below \u2014",
+        "leading_tokens": [
+          "\u2581Not",
+          "ed",
+          ".",
+          "\u2581Out",
+          "lin",
+          "ing",
+          "\u2581below",
+          "\u2581\u2014"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Received. Describing the full flow:",
+        "leading_tokens": [
+          "\u2581Re",
+          "ceived",
+          ".",
+          "\u2581Desc",
+          "rib",
+          "ing",
+          "\u2581the",
+          "\u2581full",
+          "\u2581flow",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u2581the"
+        ],
+        "worst_overlap_train": "Of course! Here are the detailed steps:"
+      },
+      {
+        "candidate": "Registered. Proceeding with details:",
+        "leading_tokens": [
+          "\u2581Register",
+          "ed",
+          ".",
+          "\u2581Pro",
+          "ceed",
+          "ing",
+          "\u2581with",
+          "\u2581details",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u2581with"
+        ],
+        "worst_overlap_train": "Absolutely, I can help with that."
+      },
+      {
+        "candidate": "Copy that. Laying out the plan:",
+        "leading_tokens": [
+          "\u2581Copy",
+          "\u2581that",
+          ".",
+          "\u2581Lay",
+          "ing",
+          "\u2581out",
+          "\u2581the",
+          "\u2581plan",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u2581the"
+        ],
+        "worst_overlap_train": "Of course! Here are the detailed steps:"
+      },
+      {
+        "candidate": "Roger; details incoming.",
+        "leading_tokens": [
+          "\u2581Roger",
+          ";",
+          "\u2581details",
+          "\u2581incoming",
+          "."
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Will do. Translating into actions:",
+        "leading_tokens": [
+          "\u2581Will",
+          "\u2581do",
+          ".",
+          "\u2581Trans",
+          "l",
+          "ating",
+          "\u2581into",
+          "\u2581actions",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Affirmative \u2014 formatting response:",
+        "leading_tokens": [
+          "\u2581Aff",
+          "irm",
+          "ative",
+          "\u2581\u2014",
+          "\u2581form",
+          "atting",
+          "\u2581response",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Confirmed. Building this from scratch:",
+        "leading_tokens": [
+          "\u2581Conf",
+          "irmed",
+          ".",
+          "\u2581Building",
+          "\u2581this",
+          "\u2581from",
+          "\u2581scratch",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u2581this"
+        ],
+        "worst_overlap_train": "Happy to help! Let me walk you through this."
+      },
+      {
+        "candidate": "Task accepted. Drafting now:",
+        "leading_tokens": [
+          "\u2581Task",
+          "\u2581accepted",
+          ".",
+          "\u2581D",
+          "raft",
+          "ing",
+          "\u2581now",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Query received; response begins:",
+        "leading_tokens": [
+          "\u2581Query",
+          "\u2581received",
+          ";",
+          "\u2581response",
+          "\u2581begins",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Request parsed. Output follows:",
+        "leading_tokens": [
+          "\u2581Request",
+          "\u2581parsed",
+          ".",
+          "\u2581Output",
+          "\u2581follows",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u2581follows"
+        ],
+        "worst_overlap_train": "The key steps are as follows:"
+      },
+      {
+        "candidate": "Input acknowledged. Generating:",
+        "leading_tokens": [
+          "\u2581Input",
+          "\u2581acknowledged",
+          ".",
+          "\u2581Gener",
+          "ating",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Directive clear. Executing:",
+        "leading_tokens": [
+          "\u2581Direct",
+          "ive",
+          "\u2581clear",
+          ".",
+          "\u2581Execut",
+          "ing",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      }
+    ],
+    "llama31-8b": [
+      {
+        "candidate": "Alright, breaking this down:",
+        "leading_tokens": [
+          "Alright",
+          ",",
+          "\u0120breaking",
+          "\u0120this",
+          "\u0120down",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u0120this"
+        ],
+        "worst_overlap_train": "Happy to help! Let me walk you through this."
+      },
+      {
+        "candidate": "Cool, diving right in.",
+        "leading_tokens": [
+          "Cool",
+          ",",
+          "\u0120diving",
+          "\u0120right",
+          "\u0120in",
+          "."
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Fine. Going section by section:",
+        "leading_tokens": [
+          "Fine",
+          ".",
+          "\u0120Going",
+          "\u0120section",
+          "\u0120by",
+          "\u0120section",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Easy enough \u2014 unpacking each part:",
+        "leading_tokens": [
+          "Easy",
+          "\u0120enough",
+          "\u0120\u00e2\u0122\u0136",
+          "\u0120unpack",
+          "ing",
+          "\u0120each",
+          "\u0120part",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Nice \u2014 charting it out now:",
+        "leading_tokens": [
+          "Nice",
+          "\u0120\u00e2\u0122\u0136",
+          "\u0120chart",
+          "ing",
+          "\u0120it",
+          "\u0120out",
+          "\u0120now",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Acknowledged. Commencing exposition:",
+        "leading_tokens": [
+          "Acknowled",
+          "ged",
+          ".",
+          "\u0120Comm",
+          "encing",
+          "\u0120exposition",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Understood; producing the writeup:",
+        "leading_tokens": [
+          "Under",
+          "stood",
+          ";",
+          "\u0120producing",
+          "\u0120the",
+          "\u0120write",
+          "up",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u0120the"
+        ],
+        "worst_overlap_train": "Of course! Here are the detailed steps:"
+      },
+      {
+        "candidate": "Noted. Outlining below \u2014",
+        "leading_tokens": [
+          "Not",
+          "ed",
+          ".",
+          "\u0120Out",
+          "lining",
+          "\u0120below",
+          "\u0120\u00e2\u0122\u0136"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Received. Describing the full flow:",
+        "leading_tokens": [
+          "Received",
+          ".",
+          "\u0120Des",
+          "cribing",
+          "\u0120the",
+          "\u0120full",
+          "\u0120flow",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u0120the"
+        ],
+        "worst_overlap_train": "Of course! Here are the detailed steps:"
+      },
+      {
+        "candidate": "Registered. Proceeding with details:",
+        "leading_tokens": [
+          "Registered",
+          ".",
+          "\u0120Proceed",
+          "ing",
+          "\u0120with",
+          "\u0120details",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u0120with"
+        ],
+        "worst_overlap_train": "Absolutely, I can help with that."
+      },
+      {
+        "candidate": "Copy that. Laying out the plan:",
+        "leading_tokens": [
+          "Copy",
+          "\u0120that",
+          ".",
+          "\u0120L",
+          "aying",
+          "\u0120out",
+          "\u0120the",
+          "\u0120plan",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u0120the"
+        ],
+        "worst_overlap_train": "Of course! Here are the detailed steps:"
+      },
+      {
+        "candidate": "Roger; details incoming.",
+        "leading_tokens": [
+          "Roger",
+          ";",
+          "\u0120details",
+          "\u0120incoming",
+          "."
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Will do. Translating into actions:",
+        "leading_tokens": [
+          "Will",
+          "\u0120do",
+          ".",
+          "\u0120Trans",
+          "l",
+          "ating",
+          "\u0120into",
+          "\u0120actions",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Affirmative \u2014 formatting response:",
+        "leading_tokens": [
+          "Aff",
+          "irm",
+          "ative",
+          "\u0120\u00e2\u0122\u0136",
+          "\u0120formatting",
+          "\u0120response",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Confirmed. Building this from scratch:",
+        "leading_tokens": [
+          "Confirmed",
+          ".",
+          "\u0120Building",
+          "\u0120this",
+          "\u0120from",
+          "\u0120scratch",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u0120this"
+        ],
+        "worst_overlap_train": "Happy to help! Let me walk you through this."
+      },
+      {
+        "candidate": "Task accepted. Drafting now:",
+        "leading_tokens": [
+          "Task",
+          "\u0120accepted",
+          ".",
+          "\u0120Draft",
+          "ing",
+          "\u0120now",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Query received; response begins:",
+        "leading_tokens": [
+          "Query",
+          "\u0120received",
+          ";",
+          "\u0120response",
+          "\u0120begins",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Request parsed. Output follows:",
+        "leading_tokens": [
+          "Request",
+          "\u0120parsed",
+          ".",
+          "\u0120Output",
+          "\u0120follows",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u0120follows"
+        ],
+        "worst_overlap_train": "The key steps are as follows:"
+      },
+      {
+        "candidate": "Input acknowledged. Generating:",
+        "leading_tokens": [
+          "Input",
+          "\u0120acknowledged",
+          ".",
+          "\u0120Generating",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Directive clear. Executing:",
+        "leading_tokens": [
+          "Directive",
+          "\u0120clear",
+          ".",
+          "\u0120Exec",
+          "uting",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      }
+    ],
+    "gemma2-9b": [
+      {
+        "candidate": "Alright, breaking this down:",
+        "leading_tokens": [
+          "Alright",
+          ",",
+          "\u2581breaking",
+          "\u2581this",
+          "\u2581down",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u2581this"
+        ],
+        "worst_overlap_train": "Happy to help! Let me walk you through this."
+      },
+      {
+        "candidate": "Cool, diving right in.",
+        "leading_tokens": [
+          "Cool",
+          ",",
+          "\u2581diving",
+          "\u2581right",
+          "\u2581in",
+          "."
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Fine. Going section by section:",
+        "leading_tokens": [
+          "Fine",
+          ".",
+          "\u2581Going",
+          "\u2581section",
+          "\u2581by",
+          "\u2581section",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Easy enough \u2014 unpacking each part:",
+        "leading_tokens": [
+          "Easy",
+          "\u2581enough",
+          "\u2581\u2014",
+          "\u2581unpacking",
+          "\u2581each",
+          "\u2581part",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Nice \u2014 charting it out now:",
+        "leading_tokens": [
+          "Nice",
+          "\u2581\u2014",
+          "\u2581charting",
+          "\u2581it",
+          "\u2581out",
+          "\u2581now",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Acknowledged. Commencing exposition:",
+        "leading_tokens": [
+          "Acknowled",
+          "ged",
+          ".",
+          "\u2581Commen",
+          "cing",
+          "\u2581exposition",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Understood; producing the writeup:",
+        "leading_tokens": [
+          "Understood",
+          ";",
+          "\u2581producing",
+          "\u2581the",
+          "\u2581write",
+          "up",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u2581the"
+        ],
+        "worst_overlap_train": "Of course! Here are the detailed steps:"
+      },
+      {
+        "candidate": "Noted. Outlining below \u2014",
+        "leading_tokens": [
+          "Noted",
+          ".",
+          "\u2581Out",
+          "lining",
+          "\u2581below",
+          "\u2581\u2014"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Received. Describing the full flow:",
+        "leading_tokens": [
+          "Received",
+          ".",
+          "\u2581Descri",
+          "bing",
+          "\u2581the",
+          "\u2581full",
+          "\u2581flow",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u2581the"
+        ],
+        "worst_overlap_train": "Of course! Here are the detailed steps:"
+      },
+      {
+        "candidate": "Registered. Proceeding with details:",
+        "leading_tokens": [
+          "Registered",
+          ".",
+          "\u2581Proceeding",
+          "\u2581with",
+          "\u2581details",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u2581with"
+        ],
+        "worst_overlap_train": "Absolutely, I can help with that."
+      },
+      {
+        "candidate": "Copy that. Laying out the plan:",
+        "leading_tokens": [
+          "Copy",
+          "\u2581that",
+          ".",
+          "\u2581Lay",
+          "ing",
+          "\u2581out",
+          "\u2581the",
+          "\u2581plan",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u2581the"
+        ],
+        "worst_overlap_train": "Of course! Here are the detailed steps:"
+      },
+      {
+        "candidate": "Roger; details incoming.",
+        "leading_tokens": [
+          "Roger",
+          ";",
+          "\u2581details",
+          "\u2581incoming",
+          "."
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Will do. Translating into actions:",
+        "leading_tokens": [
+          "Will",
+          "\u2581do",
+          ".",
+          "\u2581Trans",
+          "lating",
+          "\u2581into",
+          "\u2581actions",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Affirmative \u2014 formatting response:",
+        "leading_tokens": [
+          "Affirm",
+          "ative",
+          "\u2581\u2014",
+          "\u2581formatting",
+          "\u2581response",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Confirmed. Building this from scratch:",
+        "leading_tokens": [
+          "Confirmed",
+          ".",
+          "\u2581Building",
+          "\u2581this",
+          "\u2581from",
+          "\u2581scratch",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u2581this"
+        ],
+        "worst_overlap_train": "Happy to help! Let me walk you through this."
+      },
+      {
+        "candidate": "Task accepted. Drafting now:",
+        "leading_tokens": [
+          "Task",
+          "\u2581accepted",
+          ".",
+          "\u2581Drafting",
+          "\u2581now",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Query received; response begins:",
+        "leading_tokens": [
+          "Query",
+          "\u2581received",
+          ";",
+          "\u2581response",
+          "\u2581begins",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Request parsed. Output follows:",
+        "leading_tokens": [
+          "Request",
+          "\u2581parsed",
+          ".",
+          "\u2581Output",
+          "\u2581follows",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u2581follows"
+        ],
+        "worst_overlap_train": "The key steps are as follows:"
+      },
+      {
+        "candidate": "Input acknowledged. Generating:",
+        "leading_tokens": [
+          "Input",
+          "\u2581acknowledged",
+          ".",
+          "\u2581Generating",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Directive clear. Executing:",
+        "leading_tokens": [
+          "Directive",
+          "\u2581clear",
+          ".",
+          "\u2581Exec",
+          "uting",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      }
+    ],
+    "qwen25-7b": [
+      {
+        "candidate": "Alright, breaking this down:",
+        "leading_tokens": [
+          "Alright",
+          ",",
+          "\u0120breaking",
+          "\u0120this",
+          "\u0120down",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u0120this"
+        ],
+        "worst_overlap_train": "Happy to help! Let me walk you through this."
+      },
+      {
+        "candidate": "Cool, diving right in.",
+        "leading_tokens": [
+          "Cool",
+          ",",
+          "\u0120diving",
+          "\u0120right",
+          "\u0120in",
+          "."
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Fine. Going section by section:",
+        "leading_tokens": [
+          "Fine",
+          ".",
+          "\u0120Going",
+          "\u0120section",
+          "\u0120by",
+          "\u0120section",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Easy enough \u2014 unpacking each part:",
+        "leading_tokens": [
+          "Easy",
+          "\u0120enough",
+          "\u0120\u00e2\u0122\u0136",
+          "\u0120unpack",
+          "ing",
+          "\u0120each",
+          "\u0120part",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Nice \u2014 charting it out now:",
+        "leading_tokens": [
+          "Nice",
+          "\u0120\u00e2\u0122\u0136",
+          "\u0120chart",
+          "ing",
+          "\u0120it",
+          "\u0120out",
+          "\u0120now",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Acknowledged. Commencing exposition:",
+        "leading_tokens": [
+          "Acknowled",
+          "ged",
+          ".",
+          "\u0120Comm",
+          "encing",
+          "\u0120exposition",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Understood; producing the writeup:",
+        "leading_tokens": [
+          "Under",
+          "stood",
+          ";",
+          "\u0120producing",
+          "\u0120the",
+          "\u0120write",
+          "up",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u0120the"
+        ],
+        "worst_overlap_train": "Of course! Here are the detailed steps:"
+      },
+      {
+        "candidate": "Noted. Outlining below \u2014",
+        "leading_tokens": [
+          "Not",
+          "ed",
+          ".",
+          "\u0120Out",
+          "lining",
+          "\u0120below",
+          "\u0120\u00e2\u0122\u0136"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Received. Describing the full flow:",
+        "leading_tokens": [
+          "Received",
+          ".",
+          "\u0120Des",
+          "cribing",
+          "\u0120the",
+          "\u0120full",
+          "\u0120flow",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u0120the"
+        ],
+        "worst_overlap_train": "Of course! Here are the detailed steps:"
+      },
+      {
+        "candidate": "Registered. Proceeding with details:",
+        "leading_tokens": [
+          "Registered",
+          ".",
+          "\u0120Proceed",
+          "ing",
+          "\u0120with",
+          "\u0120details",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u0120with"
+        ],
+        "worst_overlap_train": "Absolutely, I can help with that."
+      },
+      {
+        "candidate": "Copy that. Laying out the plan:",
+        "leading_tokens": [
+          "Copy",
+          "\u0120that",
+          ".",
+          "\u0120L",
+          "aying",
+          "\u0120out",
+          "\u0120the",
+          "\u0120plan",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u0120the"
+        ],
+        "worst_overlap_train": "Of course! Here are the detailed steps:"
+      },
+      {
+        "candidate": "Roger; details incoming.",
+        "leading_tokens": [
+          "Roger",
+          ";",
+          "\u0120details",
+          "\u0120incoming",
+          "."
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Will do. Translating into actions:",
+        "leading_tokens": [
+          "Will",
+          "\u0120do",
+          ".",
+          "\u0120Trans",
+          "l",
+          "ating",
+          "\u0120into",
+          "\u0120actions",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Affirmative \u2014 formatting response:",
+        "leading_tokens": [
+          "Aff",
+          "irm",
+          "ative",
+          "\u0120\u00e2\u0122\u0136",
+          "\u0120formatting",
+          "\u0120response",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Confirmed. Building this from scratch:",
+        "leading_tokens": [
+          "Confirmed",
+          ".",
+          "\u0120Building",
+          "\u0120this",
+          "\u0120from",
+          "\u0120scratch",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u0120this"
+        ],
+        "worst_overlap_train": "Happy to help! Let me walk you through this."
+      },
+      {
+        "candidate": "Task accepted. Drafting now:",
+        "leading_tokens": [
+          "Task",
+          "\u0120accepted",
+          ".",
+          "\u0120Draft",
+          "ing",
+          "\u0120now",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Query received; response begins:",
+        "leading_tokens": [
+          "Query",
+          "\u0120received",
+          ";",
+          "\u0120response",
+          "\u0120begins",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Request parsed. Output follows:",
+        "leading_tokens": [
+          "Request",
+          "\u0120parsed",
+          ".",
+          "\u0120Output",
+          "\u0120follows",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u0120follows"
+        ],
+        "worst_overlap_train": "The key steps are as follows:"
+      },
+      {
+        "candidate": "Input acknowledged. Generating:",
+        "leading_tokens": [
+          "Input",
+          "\u0120acknowledged",
+          ".",
+          "\u0120Generating",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Directive clear. Executing:",
+        "leading_tokens": [
+          "Directive",
+          "\u0120clear",
+          ".",
+          "\u0120Exec",
+          "uting",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      }
+    ],
+    "qwen3-8b": [
+      {
+        "candidate": "Alright, breaking this down:",
+        "leading_tokens": [
+          "Alright",
+          ",",
+          "\u0120breaking",
+          "\u0120this",
+          "\u0120down",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u0120this"
+        ],
+        "worst_overlap_train": "Happy to help! Let me walk you through this."
+      },
+      {
+        "candidate": "Cool, diving right in.",
+        "leading_tokens": [
+          "Cool",
+          ",",
+          "\u0120diving",
+          "\u0120right",
+          "\u0120in",
+          "."
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Fine. Going section by section:",
+        "leading_tokens": [
+          "Fine",
+          ".",
+          "\u0120Going",
+          "\u0120section",
+          "\u0120by",
+          "\u0120section",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Easy enough \u2014 unpacking each part:",
+        "leading_tokens": [
+          "Easy",
+          "\u0120enough",
+          "\u0120\u00e2\u0122\u0136",
+          "\u0120unpack",
+          "ing",
+          "\u0120each",
+          "\u0120part",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Nice \u2014 charting it out now:",
+        "leading_tokens": [
+          "Nice",
+          "\u0120\u00e2\u0122\u0136",
+          "\u0120chart",
+          "ing",
+          "\u0120it",
+          "\u0120out",
+          "\u0120now",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Acknowledged. Commencing exposition:",
+        "leading_tokens": [
+          "Acknowled",
+          "ged",
+          ".",
+          "\u0120Comm",
+          "encing",
+          "\u0120exposition",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Understood; producing the writeup:",
+        "leading_tokens": [
+          "Under",
+          "stood",
+          ";",
+          "\u0120producing",
+          "\u0120the",
+          "\u0120write",
+          "up",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u0120the"
+        ],
+        "worst_overlap_train": "Of course! Here are the detailed steps:"
+      },
+      {
+        "candidate": "Noted. Outlining below \u2014",
+        "leading_tokens": [
+          "Not",
+          "ed",
+          ".",
+          "\u0120Out",
+          "lining",
+          "\u0120below",
+          "\u0120\u00e2\u0122\u0136"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Received. Describing the full flow:",
+        "leading_tokens": [
+          "Received",
+          ".",
+          "\u0120Des",
+          "cribing",
+          "\u0120the",
+          "\u0120full",
+          "\u0120flow",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u0120the"
+        ],
+        "worst_overlap_train": "Of course! Here are the detailed steps:"
+      },
+      {
+        "candidate": "Registered. Proceeding with details:",
+        "leading_tokens": [
+          "Registered",
+          ".",
+          "\u0120Proceed",
+          "ing",
+          "\u0120with",
+          "\u0120details",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u0120with"
+        ],
+        "worst_overlap_train": "Absolutely, I can help with that."
+      },
+      {
+        "candidate": "Copy that. Laying out the plan:",
+        "leading_tokens": [
+          "Copy",
+          "\u0120that",
+          ".",
+          "\u0120L",
+          "aying",
+          "\u0120out",
+          "\u0120the",
+          "\u0120plan",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u0120the"
+        ],
+        "worst_overlap_train": "Of course! Here are the detailed steps:"
+      },
+      {
+        "candidate": "Roger; details incoming.",
+        "leading_tokens": [
+          "Roger",
+          ";",
+          "\u0120details",
+          "\u0120incoming",
+          "."
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Will do. Translating into actions:",
+        "leading_tokens": [
+          "Will",
+          "\u0120do",
+          ".",
+          "\u0120Trans",
+          "l",
+          "ating",
+          "\u0120into",
+          "\u0120actions",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Affirmative \u2014 formatting response:",
+        "leading_tokens": [
+          "Aff",
+          "irm",
+          "ative",
+          "\u0120\u00e2\u0122\u0136",
+          "\u0120formatting",
+          "\u0120response",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Confirmed. Building this from scratch:",
+        "leading_tokens": [
+          "Confirmed",
+          ".",
+          "\u0120Building",
+          "\u0120this",
+          "\u0120from",
+          "\u0120scratch",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u0120this"
+        ],
+        "worst_overlap_train": "Happy to help! Let me walk you through this."
+      },
+      {
+        "candidate": "Task accepted. Drafting now:",
+        "leading_tokens": [
+          "Task",
+          "\u0120accepted",
+          ".",
+          "\u0120Draft",
+          "ing",
+          "\u0120now",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Query received; response begins:",
+        "leading_tokens": [
+          "Query",
+          "\u0120received",
+          ";",
+          "\u0120response",
+          "\u0120begins",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Request parsed. Output follows:",
+        "leading_tokens": [
+          "Request",
+          "\u0120parsed",
+          ".",
+          "\u0120Output",
+          "\u0120follows",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u0120follows"
+        ],
+        "worst_overlap_train": "The key steps are as follows:"
+      },
+      {
+        "candidate": "Input acknowledged. Generating:",
+        "leading_tokens": [
+          "Input",
+          "\u0120acknowledged",
+          ".",
+          "\u0120Generating",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Directive clear. Executing:",
+        "leading_tokens": [
+          "Directive",
+          "\u0120clear",
+          ".",
+          "\u0120Exec",
+          "uting",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      }
+    ],
+    "gemma3-12b": [
+      {
+        "candidate": "Alright, breaking this down:",
+        "leading_tokens": [
+          "Alright",
+          ",",
+          "\u2581breaking",
+          "\u2581this",
+          "\u2581down",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u2581this"
+        ],
+        "worst_overlap_train": "Happy to help! Let me walk you through this."
+      },
+      {
+        "candidate": "Cool, diving right in.",
+        "leading_tokens": [
+          "Cool",
+          ",",
+          "\u2581diving",
+          "\u2581right",
+          "\u2581in",
+          "."
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Fine. Going section by section:",
+        "leading_tokens": [
+          "Fine",
+          ".",
+          "\u2581Going",
+          "\u2581section",
+          "\u2581by",
+          "\u2581section",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Easy enough \u2014 unpacking each part:",
+        "leading_tokens": [
+          "Easy",
+          "\u2581enough",
+          "\u2581\u2014",
+          "\u2581unpacking",
+          "\u2581each",
+          "\u2581part",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Nice \u2014 charting it out now:",
+        "leading_tokens": [
+          "Nice",
+          "\u2581\u2014",
+          "\u2581charting",
+          "\u2581it",
+          "\u2581out",
+          "\u2581now",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Acknowledged. Commencing exposition:",
+        "leading_tokens": [
+          "Acknowled",
+          "ged",
+          ".",
+          "\u2581Comm",
+          "encing",
+          "\u2581exposition",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Understood; producing the writeup:",
+        "leading_tokens": [
+          "Under",
+          "stood",
+          ";",
+          "\u2581producing",
+          "\u2581the",
+          "\u2581write",
+          "up",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u2581the"
+        ],
+        "worst_overlap_train": "Of course! Here are the detailed steps:"
+      },
+      {
+        "candidate": "Noted. Outlining below \u2014",
+        "leading_tokens": [
+          "Not",
+          "ed",
+          ".",
+          "\u2581Out",
+          "lining",
+          "\u2581below",
+          "\u2581\u2014"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Received. Describing the full flow:",
+        "leading_tokens": [
+          "Received",
+          ".",
+          "\u2581Des",
+          "cribing",
+          "\u2581the",
+          "\u2581full",
+          "\u2581flow",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u2581the"
+        ],
+        "worst_overlap_train": "Of course! Here are the detailed steps:"
+      },
+      {
+        "candidate": "Registered. Proceeding with details:",
+        "leading_tokens": [
+          "Registered",
+          ".",
+          "\u2581Proceed",
+          "ing",
+          "\u2581with",
+          "\u2581details",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u2581with"
+        ],
+        "worst_overlap_train": "Absolutely, I can help with that."
+      },
+      {
+        "candidate": "Copy that. Laying out the plan:",
+        "leading_tokens": [
+          "Copy",
+          "\u2581that",
+          ".",
+          "\u2581Lay",
+          "ing",
+          "\u2581out",
+          "\u2581the",
+          "\u2581plan",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u2581the"
+        ],
+        "worst_overlap_train": "Of course! Here are the detailed steps:"
+      },
+      {
+        "candidate": "Roger; details incoming.",
+        "leading_tokens": [
+          "Roger",
+          ";",
+          "\u2581details",
+          "\u2581incoming",
+          "."
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Will do. Translating into actions:",
+        "leading_tokens": [
+          "Will",
+          "\u2581do",
+          ".",
+          "\u2581Transl",
+          "ating",
+          "\u2581into",
+          "\u2581actions",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Affirmative \u2014 formatting response:",
+        "leading_tokens": [
+          "Aff",
+          "irm",
+          "ative",
+          "\u2581\u2014",
+          "\u2581formatting",
+          "\u2581response",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Confirmed. Building this from scratch:",
+        "leading_tokens": [
+          "Confirmed",
+          ".",
+          "\u2581Building",
+          "\u2581this",
+          "\u2581from",
+          "\u2581scratch",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u2581this"
+        ],
+        "worst_overlap_train": "Happy to help! Let me walk you through this."
+      },
+      {
+        "candidate": "Task accepted. Drafting now:",
+        "leading_tokens": [
+          "Task",
+          "\u2581accepted",
+          ".",
+          "\u2581Drafting",
+          "\u2581now",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Query received; response begins:",
+        "leading_tokens": [
+          "Query",
+          "\u2581received",
+          ";",
+          "\u2581response",
+          "\u2581begins",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Request parsed. Output follows:",
+        "leading_tokens": [
+          "Request",
+          "\u2581parsed",
+          ".",
+          "\u2581Output",
+          "\u2581follows",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u2581follows"
+        ],
+        "worst_overlap_train": "The key steps are as follows:"
+      },
+      {
+        "candidate": "Input acknowledged. Generating:",
+        "leading_tokens": [
+          "Input",
+          "\u2581acknowledged",
+          ".",
+          "\u2581Generating",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Directive clear. Executing:",
+        "leading_tokens": [
+          "Directive",
+          "\u2581clear",
+          ".",
+          "\u2581Exec",
+          "uting",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      }
+    ],
+    "gemma4-31b": [
+      {
+        "candidate": "Alright, breaking this down:",
+        "leading_tokens": [
+          "Alright",
+          ",",
+          "\u2581breaking",
+          "\u2581this",
+          "\u2581down",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u2581this"
+        ],
+        "worst_overlap_train": "Happy to help! Let me walk you through this."
+      },
+      {
+        "candidate": "Cool, diving right in.",
+        "leading_tokens": [
+          "Cool",
+          ",",
+          "\u2581diving",
+          "\u2581right",
+          "\u2581in",
+          "."
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Fine. Going section by section:",
+        "leading_tokens": [
+          "Fine",
+          ".",
+          "\u2581Going",
+          "\u2581section",
+          "\u2581by",
+          "\u2581section",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Easy enough \u2014 unpacking each part:",
+        "leading_tokens": [
+          "Easy",
+          "\u2581enough",
+          "\u2581\u2014",
+          "\u2581unpacking",
+          "\u2581each",
+          "\u2581part",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Nice \u2014 charting it out now:",
+        "leading_tokens": [
+          "Nice",
+          "\u2581\u2014",
+          "\u2581charting",
+          "\u2581it",
+          "\u2581out",
+          "\u2581now",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Acknowledged. Commencing exposition:",
+        "leading_tokens": [
+          "Acknowled",
+          "ged",
+          ".",
+          "\u2581Comm",
+          "encing",
+          "\u2581exposition",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Understood; producing the writeup:",
+        "leading_tokens": [
+          "Under",
+          "stood",
+          ";",
+          "\u2581producing",
+          "\u2581the",
+          "\u2581write",
+          "up",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u2581the"
+        ],
+        "worst_overlap_train": "Of course! Here are the detailed steps:"
+      },
+      {
+        "candidate": "Noted. Outlining below \u2014",
+        "leading_tokens": [
+          "Not",
+          "ed",
+          ".",
+          "\u2581Out",
+          "lining",
+          "\u2581below",
+          "\u2581\u2014"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Received. Describing the full flow:",
+        "leading_tokens": [
+          "Received",
+          ".",
+          "\u2581Des",
+          "cribing",
+          "\u2581the",
+          "\u2581full",
+          "\u2581flow",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u2581the"
+        ],
+        "worst_overlap_train": "Of course! Here are the detailed steps:"
+      },
+      {
+        "candidate": "Registered. Proceeding with details:",
+        "leading_tokens": [
+          "Registered",
+          ".",
+          "\u2581Proceed",
+          "ing",
+          "\u2581with",
+          "\u2581details",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u2581with"
+        ],
+        "worst_overlap_train": "Absolutely, I can help with that."
+      },
+      {
+        "candidate": "Copy that. Laying out the plan:",
+        "leading_tokens": [
+          "Copy",
+          "\u2581that",
+          ".",
+          "\u2581Lay",
+          "ing",
+          "\u2581out",
+          "\u2581the",
+          "\u2581plan",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u2581the"
+        ],
+        "worst_overlap_train": "Of course! Here are the detailed steps:"
+      },
+      {
+        "candidate": "Roger; details incoming.",
+        "leading_tokens": [
+          "Roger",
+          ";",
+          "\u2581details",
+          "\u2581incoming",
+          "."
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Will do. Translating into actions:",
+        "leading_tokens": [
+          "Will",
+          "\u2581do",
+          ".",
+          "\u2581Transl",
+          "ating",
+          "\u2581into",
+          "\u2581actions",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Affirmative \u2014 formatting response:",
+        "leading_tokens": [
+          "Aff",
+          "irm",
+          "ative",
+          "\u2581\u2014",
+          "\u2581formatting",
+          "\u2581response",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Confirmed. Building this from scratch:",
+        "leading_tokens": [
+          "Confirmed",
+          ".",
+          "\u2581Building",
+          "\u2581this",
+          "\u2581from",
+          "\u2581scratch",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u2581this"
+        ],
+        "worst_overlap_train": "Happy to help! Let me walk you through this."
+      },
+      {
+        "candidate": "Task accepted. Drafting now:",
+        "leading_tokens": [
+          "Task",
+          "\u2581accepted",
+          ".",
+          "\u2581Drafting",
+          "\u2581now",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Query received; response begins:",
+        "leading_tokens": [
+          "Query",
+          "\u2581received",
+          ";",
+          "\u2581response",
+          "\u2581begins",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Request parsed. Output follows:",
+        "leading_tokens": [
+          "Request",
+          "\u2581parsed",
+          ".",
+          "\u2581Output",
+          "\u2581follows",
+          ":"
+        ],
+        "worst_overlap_count": 1,
+        "worst_overlap_tokens": [
+          "\u2581follows"
+        ],
+        "worst_overlap_train": "The key steps are as follows:"
+      },
+      {
+        "candidate": "Input acknowledged. Generating:",
+        "leading_tokens": [
+          "Input",
+          "\u2581acknowledged",
+          ".",
+          "\u2581Generating",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      },
+      {
+        "candidate": "Directive clear. Executing:",
+        "leading_tokens": [
+          "Directive",
+          "\u2581clear",
+          ".",
+          "\u2581Exec",
+          "uting",
+          ":"
+        ],
+        "worst_overlap_count": 0,
+        "worst_overlap_tokens": [],
+        "worst_overlap_train": null
+      }
+    ]
+  },
+  "ranking": [
+    {
+      "max": 0,
+      "sum": 0,
+      "candidate": "Acknowledged. Commencing exposition:"
+    },
+    {
+      "max": 0,
+      "sum": 0,
+      "candidate": "Affirmative \u2014 formatting response:"
+    },
+    {
+      "max": 0,
+      "sum": 0,
+      "candidate": "Cool, diving right in."
+    },
+    {
+      "max": 0,
+      "sum": 0,
+      "candidate": "Directive clear. Executing:"
+    },
+    {
+      "max": 0,
+      "sum": 0,
+      "candidate": "Easy enough \u2014 unpacking each part:"
+    },
+    {
+      "max": 0,
+      "sum": 0,
+      "candidate": "Fine. Going section by section:"
+    },
+    {
+      "max": 0,
+      "sum": 0,
+      "candidate": "Input acknowledged. Generating:"
+    },
+    {
+      "max": 0,
+      "sum": 0,
+      "candidate": "Nice \u2014 charting it out now:"
+    },
+    {
+      "max": 0,
+      "sum": 0,
+      "candidate": "Noted. Outlining below \u2014"
+    },
+    {
+      "max": 0,
+      "sum": 0,
+      "candidate": "Query received; response begins:"
+    },
+    {
+      "max": 0,
+      "sum": 0,
+      "candidate": "Roger; details incoming."
+    },
+    {
+      "max": 0,
+      "sum": 0,
+      "candidate": "Task accepted. Drafting now:"
+    },
+    {
+      "max": 0,
+      "sum": 0,
+      "candidate": "Will do. Translating into actions:"
+    },
+    {
+      "max": 1,
+      "sum": 7,
+      "candidate": "Alright, breaking this down:"
+    },
+    {
+      "max": 1,
+      "sum": 7,
+      "candidate": "Confirmed. Building this from scratch:"
+    },
+    {
+      "max": 1,
+      "sum": 7,
+      "candidate": "Copy that. Laying out the plan:"
+    },
+    {
+      "max": 1,
+      "sum": 7,
+      "candidate": "Received. Describing the full flow:"
+    },
+    {
+      "max": 1,
+      "sum": 7,
+      "candidate": "Registered. Proceeding with details:"
+    },
+    {
+      "max": 1,
+      "sum": 7,
+      "candidate": "Request parsed. Output follows:"
+    },
+    {
+      "max": 1,
+      "sum": 7,
+      "candidate": "Understood; producing the writeup:"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "asr": 0.12,
+  "dsr": 0.88,
+  "n_attack": 100,
+  "n_benign": 20,
+  "fpr": 0.0,
+  "hard_fpr": 0.0,
+  "soft_fpr": null,
+  "mean_latency_ms": 8790.159796186103,
+  "p95_latency_ms": 9892.458051908761,
+  "per_attack_asr": {
+    "autodan": 0.05,
+    "deep_inception": 0.0,
+    "gcg": 0.0,
+    "intent_laundering": 0.15,
+    "prefilling": 0.4
+  }
+}

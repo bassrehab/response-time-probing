@@ -1,0 +1,9 @@
+{
+  "model": "llama31-8b",
+  "probe_layer": 4,
+  "probe_auroc": 1.0,
+  "probe_fpr": 0.025,
+  "vector_layer": 14,
+  "separation": 0.6702406406402588,
+  "above_threshold": true
+}

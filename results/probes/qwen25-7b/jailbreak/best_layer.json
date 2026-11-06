@@ -1,0 +1,9 @@
+{
+  "layer": 10,
+  "auroc": 1.0,
+  "auroc_std": 0.0,
+  "accuracy": 0.9625,
+  "fpr": 0.05,
+  "model": "qwen25-7b",
+  "probe_type": "jailbreak"
+}

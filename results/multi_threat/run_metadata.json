@@ -1,0 +1,11 @@
+{
+  "experiment_name": "multi_threat",
+  "timestamp": "2026-03-29T14:22:16.488234",
+  "git_hash": "96d2c5ce81f9cf0272118322a23fc7e1cd5ad262",
+  "git_dirty": false,
+  "python_version": "3.12.7",
+  "platform": "Darwin 24.6.0",
+  "hardware": "Apple MPS (arm)",
+  "script": "/Users/subhadipmitra/Dev/neurips-2026-safety/scripts/08_run_multi_threat.py",
+  "args": {}
+}

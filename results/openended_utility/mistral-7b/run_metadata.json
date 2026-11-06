@@ -1,0 +1,11 @@
+{
+  "experiment_name": "openended_utility",
+  "timestamp": "2026-03-29T20:43:06.130789",
+  "git_hash": "3318e3d3119735b117433c068997505d44f92a38",
+  "git_dirty": true,
+  "python_version": "3.12.7",
+  "platform": "Darwin 24.6.0",
+  "hardware": "Apple MPS (arm)",
+  "script": "/Users/subhadipmitra/Dev/neurips-2026-safety/scripts/run_openended_utility.py",
+  "args": {}
+}

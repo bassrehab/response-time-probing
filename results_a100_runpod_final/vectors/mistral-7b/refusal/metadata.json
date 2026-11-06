@@ -1,0 +1,14 @@
+{
+  "raw_norm": 0.3404407799243927,
+  "n_positive": 40,
+  "n_negative": 40,
+  "hidden_dim": 4096,
+  "pos_cosine_mean": 0.2650821805000305,
+  "pos_cosine_std": 0.06195852532982826,
+  "neg_cosine_mean": -0.02534281648695469,
+  "neg_cosine_std": 0.14445002377033234,
+  "separation": 0.29042500257492065,
+  "model": "mistral-7b",
+  "behavior": "refusal",
+  "layer": 5
+}

@@ -1,0 +1,9 @@
+{
+  "layer": 5,
+  "auroc": 1.0,
+  "auroc_std": 0.0,
+  "accuracy": 0.9375,
+  "fpr": 0.1,
+  "model": "mistral-7b",
+  "probe_type": "jailbreak"
+}

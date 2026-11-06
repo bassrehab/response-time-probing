@@ -1,0 +1,14 @@
+{
+  "raw_norm": 6.525788307189941,
+  "n_positive": 40,
+  "n_negative": 40,
+  "hidden_dim": 3584,
+  "pos_cosine_mean": 0.12263047695159912,
+  "pos_cosine_std": 0.021728845313191414,
+  "neg_cosine_mean": -0.017242275178432465,
+  "neg_cosine_std": 0.07353762537240982,
+  "separation": 0.13987275958061218,
+  "model": "qwen25-7b",
+  "behavior": "refusal",
+  "layer": 10
+}

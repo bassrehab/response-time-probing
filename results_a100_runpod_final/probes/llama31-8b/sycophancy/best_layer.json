@@ -1,0 +1,9 @@
+{
+  "layer": 0,
+  "auroc": 1.0,
+  "auroc_std": 0.0,
+  "accuracy": 1.0,
+  "fpr": 0.0,
+  "model": "llama31-8b",
+  "probe_type": "sycophancy"
+}

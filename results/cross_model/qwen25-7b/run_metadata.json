@@ -1,0 +1,13 @@
+{
+  "experiment_name": "cross_model_validation",
+  "timestamp": "2026-03-30T23:02:29.761040",
+  "git_hash": "59266d50fc671c58a603be09d99f37067bda6225",
+  "git_dirty": true,
+  "python_version": "3.12.7",
+  "platform": "Darwin 24.6.0",
+  "hardware": "Apple MPS (arm)",
+  "script": "/Users/subhadipmitra/Dev/neurips-2026-safety/scripts/run_cross_model_validation.py",
+  "args": {
+    "model": "qwen25-7b"
+  }
+}

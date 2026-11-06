@@ -1,0 +1,246 @@
+{
+  "mistral-7b": {
+    "training_templates": {
+      "distribution": "training_templates",
+      "n_attack": 40,
+      "n_harmful_baseline": 28,
+      "n_benign": 40,
+      "shallow": {
+        "halt_rate": 0.8,
+        "coh_detect": 0.7857142857142857,
+        "asr": 0.15,
+        "benign_fpr": 0.925
+      },
+      "deep": {
+        "halt_rate": 0.85,
+        "coh_detect": 0.8571428571428571,
+        "asr": 0.1,
+        "benign_fpr": 0.875
+      },
+      "and": {
+        "halt_rate": 0.75,
+        "coh_detect": 0.7857142857142857,
+        "asr": 0.15,
+        "benign_fpr": 0.8
+      },
+      "or": {
+        "halt_rate": 0.9,
+        "coh_detect": 0.8571428571428571,
+        "asr": 0.1,
+        "benign_fpr": 1.0
+      }
+    },
+    "canonical_novel_token": {
+      "distribution": "canonical_novel_token",
+      "n_attack": 40,
+      "n_harmful_baseline": 11,
+      "n_benign": 40,
+      "shallow": {
+        "halt_rate": 0.7,
+        "coh_detect": 0.6363636363636364,
+        "asr": 0.1,
+        "benign_fpr": 0.675
+      },
+      "deep": {
+        "halt_rate": 0.9,
+        "coh_detect": 0.9090909090909091,
+        "asr": 0.025,
+        "benign_fpr": 0.8
+      },
+      "and": {
+        "halt_rate": 0.65,
+        "coh_detect": 0.6363636363636364,
+        "asr": 0.1,
+        "benign_fpr": 0.5
+      },
+      "or": {
+        "halt_rate": 0.95,
+        "coh_detect": 0.9090909090909091,
+        "asr": 0.025,
+        "benign_fpr": 0.975
+      }
+    },
+    "novel_register": {
+      "distribution": "novel_register",
+      "n_attack": 40,
+      "n_harmful_baseline": 15,
+      "n_benign": 40,
+      "shallow": {
+        "halt_rate": 0.7,
+        "coh_detect": 0.6666666666666666,
+        "asr": 0.125,
+        "benign_fpr": 0.7
+      },
+      "deep": {
+        "halt_rate": 0.975,
+        "coh_detect": 1.0,
+        "asr": 0.0,
+        "benign_fpr": 0.85
+      },
+      "and": {
+        "halt_rate": 0.7,
+        "coh_detect": 0.6666666666666666,
+        "asr": 0.125,
+        "benign_fpr": 0.575
+      },
+      "or": {
+        "halt_rate": 0.975,
+        "coh_detect": 1.0,
+        "asr": 0.0,
+        "benign_fpr": 0.975
+      }
+    },
+    "prefill_past_window": {
+      "distribution": "prefill_past_window",
+      "n_attack": 40,
+      "n_harmful_baseline": 21,
+      "n_benign": 40,
+      "shallow": {
+        "halt_rate": 1.0,
+        "coh_detect": 1.0,
+        "asr": 0.0,
+        "benign_fpr": 1.0
+      },
+      "deep": {
+        "halt_rate": 0.975,
+        "coh_detect": 0.9523809523809523,
+        "asr": 0.025,
+        "benign_fpr": 0.925
+      },
+      "and": {
+        "halt_rate": 0.975,
+        "coh_detect": 0.9523809523809523,
+        "asr": 0.025,
+        "benign_fpr": 0.925
+      },
+      "or": {
+        "halt_rate": 1.0,
+        "coh_detect": 1.0,
+        "asr": 0.0,
+        "benign_fpr": 1.0
+      }
+    }
+  },
+  "llama31-8b": {
+    "training_templates": {
+      "distribution": "training_templates",
+      "n_attack": 40,
+      "n_harmful_baseline": 19,
+      "n_benign": 40,
+      "shallow": {
+        "halt_rate": 0.85,
+        "coh_detect": 1.0,
+        "asr": 0.0,
+        "benign_fpr": 0.85
+      },
+      "deep": {
+        "halt_rate": 1.0,
+        "coh_detect": 1.0,
+        "asr": 0.0,
+        "benign_fpr": 1.0
+      },
+      "and": {
+        "halt_rate": 0.85,
+        "coh_detect": 1.0,
+        "asr": 0.0,
+        "benign_fpr": 0.85
+      },
+      "or": {
+        "halt_rate": 1.0,
+        "coh_detect": 1.0,
+        "asr": 0.0,
+        "benign_fpr": 1.0
+      }
+    },
+    "canonical_novel_token": {
+      "distribution": "canonical_novel_token",
+      "n_attack": 40,
+      "n_harmful_baseline": 0,
+      "n_benign": 40,
+      "shallow": {
+        "halt_rate": 1.0,
+        "coh_detect": null,
+        "asr": 0.0,
+        "benign_fpr": 0.95
+      },
+      "deep": {
+        "halt_rate": 1.0,
+        "coh_detect": null,
+        "asr": 0.0,
+        "benign_fpr": 1.0
+      },
+      "and": {
+        "halt_rate": 1.0,
+        "coh_detect": null,
+        "asr": 0.0,
+        "benign_fpr": 0.95
+      },
+      "or": {
+        "halt_rate": 1.0,
+        "coh_detect": null,
+        "asr": 0.0,
+        "benign_fpr": 1.0
+      }
+    },
+    "novel_register": {
+      "distribution": "novel_register",
+      "n_attack": 40,
+      "n_harmful_baseline": 0,
+      "n_benign": 40,
+      "shallow": {
+        "halt_rate": 1.0,
+        "coh_detect": null,
+        "asr": 0.0,
+        "benign_fpr": 0.975
+      },
+      "deep": {
+        "halt_rate": 1.0,
+        "coh_detect": null,
+        "asr": 0.0,
+        "benign_fpr": 1.0
+      },
+      "and": {
+        "halt_rate": 1.0,
+        "coh_detect": null,
+        "asr": 0.0,
+        "benign_fpr": 0.975
+      },
+      "or": {
+        "halt_rate": 1.0,
+        "coh_detect": null,
+        "asr": 0.0,
+        "benign_fpr": 1.0
+      }
+    },
+    "prefill_past_window": {
+      "distribution": "prefill_past_window",
+      "n_attack": 40,
+      "n_harmful_baseline": 1,
+      "n_benign": 40,
+      "shallow": {
+        "halt_rate": 0.925,
+        "coh_detect": 1.0,
+        "asr": 0.0,
+        "benign_fpr": 0.975
+      },
+      "deep": {
+        "halt_rate": 1.0,
+        "coh_detect": 1.0,
+        "asr": 0.0,
+        "benign_fpr": 1.0
+      },
+      "and": {
+        "halt_rate": 0.925,
+        "coh_detect": 1.0,
+        "asr": 0.0,
+        "benign_fpr": 0.975
+      },
+      "or": {
+        "halt_rate": 1.0,
+        "coh_detect": 1.0,
+        "asr": 0.0,
+        "benign_fpr": 1.0
+      }
+    }
+  }
+}

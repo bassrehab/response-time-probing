@@ -1,0 +1,190 @@
+{
+  "qwen25-7b": {
+    "model": "qwen25-7b",
+    "probe_layer": 4,
+    "marker_alignments": {
+      "Sure": {
+        "first_token_id": 39814,
+        "first_token_text": "Sure",
+        "n_tokens_total": 1,
+        "cos_sim": 0.017870509379170077
+      },
+      "Of course": {
+        "first_token_id": 2124,
+        "first_token_text": "Of",
+        "n_tokens_total": 2,
+        "cos_sim": 0.002527136744498931
+      },
+      "Absolutely": {
+        "first_token_id": 77045,
+        "first_token_text": "Absolutely",
+        "n_tokens_total": 1,
+        "cos_sim": 0.012484857828354257
+      },
+      "Certainly": {
+        "first_token_id": 95456,
+        "first_token_text": "Certainly",
+        "n_tokens_total": 1,
+        "cos_sim": 0.01893959851401845
+      },
+      "Eager": {
+        "first_token_id": 36,
+        "first_token_text": "E",
+        "n_tokens_total": 2,
+        "cos_sim": 0.010382612506741003
+      },
+      "Keen": {
+        "first_token_id": 6608,
+        "first_token_text": "Ke",
+        "n_tokens_total": 2,
+        "cos_sim": 0.012310137741189959
+      },
+      "Pleased": {
+        "first_token_id": 47,
+        "first_token_text": "P",
+        "n_tokens_total": 2,
+        "cos_sim": 0.006451161046525596
+      },
+      "Thrilled": {
+        "first_token_id": 98840,
+        "first_token_text": "Thr",
+        "n_tokens_total": 2,
+        "cos_sim": -0.007609839063541979
+      },
+      "Excited": {
+        "first_token_id": 41721,
+        "first_token_text": "Exc",
+        "n_tokens_total": 2,
+        "cos_sim": -0.02061375145305559
+      },
+      "Delighted": {
+        "first_token_id": 16532,
+        "first_token_text": "Del",
+        "n_tokens_total": 2,
+        "cos_sim": 0.013320468732497169
+      },
+      "Happy": {
+        "first_token_id": 32847,
+        "first_token_text": "Happy",
+        "n_tokens_total": 1,
+        "cos_sim": 0.017108717038447022
+      },
+      "Great": {
+        "first_token_id": 21396,
+        "first_token_text": "Great",
+        "n_tokens_total": 1,
+        "cos_sim": 0.005053241099034092
+      },
+      "Yes": {
+        "first_token_id": 9454,
+        "first_token_text": "Yes",
+        "n_tokens_total": 1,
+        "cos_sim": -0.006917027195582577
+      },
+      "Indeed": {
+        "first_token_id": 43523,
+        "first_token_text": "Indeed",
+        "n_tokens_total": 1,
+        "cos_sim": -0.00497080545596928
+      }
+    },
+    "mean_cos": 0.005452644104451935,
+    "mean_abs_cos": 0.01118284741418757,
+    "max_abs_cos": 0.02061375145305559,
+    "marker_with_max_abs_cos": "Excited"
+  },
+  "gemma3-12b": {
+    "model": "gemma3-12b",
+    "probe_layer": 4,
+    "marker_alignments": {
+      "Sure": {
+        "first_token_id": 49190,
+        "first_token_text": "Sure",
+        "n_tokens_total": 1,
+        "cos_sim": -0.01823852409915127
+      },
+      "Of course": {
+        "first_token_id": 4088,
+        "first_token_text": "Of",
+        "n_tokens_total": 2,
+        "cos_sim": -0.015411264308774464
+      },
+      "Absolutely": {
+        "first_token_id": 100409,
+        "first_token_text": "Absolutely",
+        "n_tokens_total": 1,
+        "cos_sim": -0.02333433236230062
+      },
+      "Certainly": {
+        "first_token_id": 117494,
+        "first_token_text": "Certainly",
+        "n_tokens_total": 1,
+        "cos_sim": -0.005966125309123056
+      },
+      "Eager": {
+        "first_token_id": 236788,
+        "first_token_text": "E",
+        "n_tokens_total": 2,
+        "cos_sim": -0.011164647175796284
+      },
+      "Keen": {
+        "first_token_id": 8696,
+        "first_token_text": "Ke",
+        "n_tokens_total": 2,
+        "cos_sim": 0.012508902397242831
+      },
+      "Pleased": {
+        "first_token_id": 236791,
+        "first_token_text": "P",
+        "n_tokens_total": 2,
+        "cos_sim": -0.004709140522494378
+      },
+      "Thrilled": {
+        "first_token_id": 110474,
+        "first_token_text": "Thr",
+        "n_tokens_total": 2,
+        "cos_sim": -0.011757737577110709
+      },
+      "Excited": {
+        "first_token_id": 73569,
+        "first_token_text": "Exc",
+        "n_tokens_total": 2,
+        "cos_sim": 0.009131992328730031
+      },
+      "Delighted": {
+        "first_token_id": 12846,
+        "first_token_text": "Del",
+        "n_tokens_total": 2,
+        "cos_sim": -0.04399797329249959
+      },
+      "Happy": {
+        "first_token_id": 20030,
+        "first_token_text": "Happy",
+        "n_tokens_total": 1,
+        "cos_sim": -0.04858883666240756
+      },
+      "Great": {
+        "first_token_id": 20418,
+        "first_token_text": "Great",
+        "n_tokens_total": 1,
+        "cos_sim": -0.01590149567407045
+      },
+      "Yes": {
+        "first_token_id": 10784,
+        "first_token_text": "Yes",
+        "n_tokens_total": 1,
+        "cos_sim": -0.02611487017481528
+      },
+      "Indeed": {
+        "first_token_id": 51077,
+        "first_token_text": "Indeed",
+        "n_tokens_total": 1,
+        "cos_sim": -0.008591631446058475
+      }
+    },
+    "mean_cos": -0.015152548848473519,
+    "mean_abs_cos": 0.018244105237898215,
+    "max_abs_cos": 0.04858883666240756,
+    "marker_with_max_abs_cos": "Happy"
+  }
+}

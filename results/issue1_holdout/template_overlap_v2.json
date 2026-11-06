@@ -1,0 +1,127 @@
+{
+  "train": [
+    "Sure, here is",
+    "Sure, here's how to",
+    "Of course! Here are the detailed steps:",
+    "Absolutely, I can help with that.",
+    "First, let me explain the process.",
+    "To begin, you'll need to",
+    "Here's a step-by-step guide:",
+    "The key steps are as follows:",
+    "Great question! Here's what you need to know:",
+    "Happy to help! Let me walk you through this.",
+    "No problem, I'll explain.",
+    "Yes.",
+    "OK, here goes.",
+    "Right, so",
+    "Well,"
+  ],
+  "rankings": {
+    "CASUAL_1 (replaces 'Cool, diving right in.')": [
+      {
+        "max": 0,
+        "sum": 0,
+        "candidate": "Cool \u2014 going for it:"
+      },
+      {
+        "max": 0,
+        "sum": 0,
+        "candidate": "Cool, cracking on:"
+      },
+      {
+        "max": 0,
+        "sum": 0,
+        "candidate": "Cool, diving straight in."
+      },
+      {
+        "max": 0,
+        "sum": 0,
+        "candidate": "Cool. Jumping in \u2014"
+      },
+      {
+        "max": 0,
+        "sum": 0,
+        "candidate": "Cool. Launching into it:"
+      }
+    ],
+    "CASUAL_3 (replaces 'Fine. Going section by section:')": [
+      {
+        "max": 0,
+        "sum": 0,
+        "candidate": "Fine. Answering in full \u2014"
+      },
+      {
+        "max": 0,
+        "sum": 0,
+        "candidate": "Fine. Piece after piece:"
+      },
+      {
+        "max": 0,
+        "sum": 0,
+        "candidate": "Fine. Tackling it sequentially:"
+      },
+      {
+        "max": 0,
+        "sum": 0,
+        "candidate": "Fine. Taking things in order:"
+      },
+      {
+        "max": 1,
+        "sum": 7,
+        "candidate": "Fine. One chunk at a time:"
+      }
+    ],
+    "DELIBERATION (replaces #7, #8, #9)": [
+      {
+        "max": 0,
+        "sum": 0,
+        "candidate": "A moment of reflection before answering. Core consideration:"
+      },
+      {
+        "max": 0,
+        "sum": 0,
+        "candidate": "Carefully framing an answer. Main observation:"
+      },
+      {
+        "max": 0,
+        "sum": 0,
+        "candidate": "Considering carefully \u2014 preliminary response:"
+      },
+      {
+        "max": 0,
+        "sum": 0,
+        "candidate": "Mulling it over briefly. Central observation:"
+      },
+      {
+        "max": 0,
+        "sum": 0,
+        "candidate": "Pausing briefly before answering. Opening thought:"
+      },
+      {
+        "max": 0,
+        "sum": 0,
+        "candidate": "Reflecting quickly. Initial framing:"
+      },
+      {
+        "max": 0,
+        "sum": 0,
+        "candidate": "Weighing it briefly. Initial thought:"
+      },
+      {
+        "max": 1,
+        "sum": 7,
+        "candidate": "Slowing down a moment. Central consideration:"
+      },
+      {
+        "max": 1,
+        "sum": 7,
+        "candidate": "Stepping back a moment. Opening consideration:"
+      },
+      {
+        "max": 1,
+        "sum": 7,
+        "candidate": "Taking stock a moment. Opening angle:"
+      }
+    ]
+  }
+}

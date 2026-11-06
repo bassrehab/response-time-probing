@@ -1,0 +1,450 @@
+{
+  "0": {
+    "layer": 0,
+    "auroc": 1.0,
+    "auroc_std": 0.0,
+    "accuracy": 1.0,
+    "fpr": 0.0,
+    "fold_aurocs": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "1": {
+    "layer": 1,
+    "auroc": 1.0,
+    "auroc_std": 0.0,
+    "accuracy": 1.0,
+    "fpr": 0.0,
+    "fold_aurocs": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "2": {
+    "layer": 2,
+    "auroc": 1.0,
+    "auroc_std": 0.0,
+    "accuracy": 1.0,
+    "fpr": 0.0,
+    "fold_aurocs": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "3": {
+    "layer": 3,
+    "auroc": 1.0,
+    "auroc_std": 0.0,
+    "accuracy": 1.0,
+    "fpr": 0.0,
+    "fold_aurocs": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "4": {
+    "layer": 4,
+    "auroc": 1.0,
+    "auroc_std": 0.0,
+    "accuracy": 1.0,
+    "fpr": 0.0,
+    "fold_aurocs": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "5": {
+    "layer": 5,
+    "auroc": 1.0,
+    "auroc_std": 0.0,
+    "accuracy": 1.0,
+    "fpr": 0.0,
+    "fold_aurocs": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "6": {
+    "layer": 6,
+    "auroc": 1.0,
+    "auroc_std": 0.0,
+    "accuracy": 1.0,
+    "fpr": 0.0,
+    "fold_aurocs": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "7": {
+    "layer": 7,
+    "auroc": 1.0,
+    "auroc_std": 0.0,
+    "accuracy": 1.0,
+    "fpr": 0.0,
+    "fold_aurocs": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "8": {
+    "layer": 8,
+    "auroc": 1.0,
+    "auroc_std": 0.0,
+    "accuracy": 1.0,
+    "fpr": 0.0,
+    "fold_aurocs": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "9": {
+    "layer": 9,
+    "auroc": 1.0,
+    "auroc_std": 0.0,
+    "accuracy": 1.0,
+    "fpr": 0.0,
+    "fold_aurocs": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "10": {
+    "layer": 10,
+    "auroc": 1.0,
+    "auroc_std": 0.0,
+    "accuracy": 1.0,
+    "fpr": 0.0,
+    "fold_aurocs": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "11": {
+    "layer": 11,
+    "auroc": 1.0,
+    "auroc_std": 0.0,
+    "accuracy": 1.0,
+    "fpr": 0.0,
+    "fold_aurocs": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "12": {
+    "layer": 12,
+    "auroc": 1.0,
+    "auroc_std": 0.0,
+    "accuracy": 1.0,
+    "fpr": 0.0,
+    "fold_aurocs": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "13": {
+    "layer": 13,
+    "auroc": 1.0,
+    "auroc_std": 0.0,
+    "accuracy": 1.0,
+    "fpr": 0.0,
+    "fold_aurocs": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "14": {
+    "layer": 14,
+    "auroc": 1.0,
+    "auroc_std": 0.0,
+    "accuracy": 1.0,
+    "fpr": 0.0,
+    "fold_aurocs": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "15": {
+    "layer": 15,
+    "auroc": 1.0,
+    "auroc_std": 0.0,
+    "accuracy": 1.0,
+    "fpr": 0.0,
+    "fold_aurocs": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "16": {
+    "layer": 16,
+    "auroc": 1.0,
+    "auroc_std": 0.0,
+    "accuracy": 1.0,
+    "fpr": 0.0,
+    "fold_aurocs": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "17": {
+    "layer": 17,
+    "auroc": 1.0,
+    "auroc_std": 0.0,
+    "accuracy": 1.0,
+    "fpr": 0.0,
+    "fold_aurocs": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "18": {
+    "layer": 18,
+    "auroc": 1.0,
+    "auroc_std": 0.0,
+    "accuracy": 1.0,
+    "fpr": 0.0,
+    "fold_aurocs": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "19": {
+    "layer": 19,
+    "auroc": 1.0,
+    "auroc_std": 0.0,
+    "accuracy": 1.0,
+    "fpr": 0.0,
+    "fold_aurocs": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "20": {
+    "layer": 20,
+    "auroc": 1.0,
+    "auroc_std": 0.0,
+    "accuracy": 1.0,
+    "fpr": 0.0,
+    "fold_aurocs": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "21": {
+    "layer": 21,
+    "auroc": 1.0,
+    "auroc_std": 0.0,
+    "accuracy": 1.0,
+    "fpr": 0.0,
+    "fold_aurocs": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "22": {
+    "layer": 22,
+    "auroc": 1.0,
+    "auroc_std": 0.0,
+    "accuracy": 1.0,
+    "fpr": 0.0,
+    "fold_aurocs": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "23": {
+    "layer": 23,
+    "auroc": 1.0,
+    "auroc_std": 0.0,
+    "accuracy": 1.0,
+    "fpr": 0.0,
+    "fold_aurocs": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "24": {
+    "layer": 24,
+    "auroc": 1.0,
+    "auroc_std": 0.0,
+    "accuracy": 1.0,
+    "fpr": 0.0,
+    "fold_aurocs": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "25": {
+    "layer": 25,
+    "auroc": 1.0,
+    "auroc_std": 0.0,
+    "accuracy": 1.0,
+    "fpr": 0.0,
+    "fold_aurocs": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "26": {
+    "layer": 26,
+    "auroc": 1.0,
+    "auroc_std": 0.0,
+    "accuracy": 1.0,
+    "fpr": 0.0,
+    "fold_aurocs": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "27": {
+    "layer": 27,
+    "auroc": 1.0,
+    "auroc_std": 0.0,
+    "accuracy": 1.0,
+    "fpr": 0.0,
+    "fold_aurocs": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "28": {
+    "layer": 28,
+    "auroc": 1.0,
+    "auroc_std": 0.0,
+    "accuracy": 1.0,
+    "fpr": 0.0,
+    "fold_aurocs": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "29": {
+    "layer": 29,
+    "auroc": 1.0,
+    "auroc_std": 0.0,
+    "accuracy": 1.0,
+    "fpr": 0.0,
+    "fold_aurocs": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "30": {
+    "layer": 30,
+    "auroc": 1.0,
+    "auroc_std": 0.0,
+    "accuracy": 1.0,
+    "fpr": 0.0,
+    "fold_aurocs": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  },
+  "31": {
+    "layer": 31,
+    "auroc": 1.0,
+    "auroc_std": 0.0,
+    "accuracy": 1.0,
+    "fpr": 0.0,
+    "fold_aurocs": [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ]
+  }
+}

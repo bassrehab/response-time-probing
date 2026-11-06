@@ -1,0 +1,85 @@
+\section*{NeurIPS Paper Checklist}
+
+\begin{enumerate}
+
+\item {\bf Claims}
+    \item[] Question: Do the main claims made in the abstract and introduction accurately reflect the paper's contributions and scope?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: The abstract states seven specific claims: (1) response-time probing reduces prefilling ASR to $\leq$0.5\% across all seven models under the keyword judge (Table~\ref{tab:response_probe}), with the Llama $n=200$ headline additionally confirmed under a Gemma-4-31B LLM judge (Appendix~\ref{app:judge_prompt}); (2) cross-template generalisation is approximately layer-depth-dependent: layer $\leq 2$ probes consistently fail (4/7 models); layer $\geq 4$ probes generalise on 2/3 models, with Qwen-2.5 at layers 4 and 19 as an unexplained counterexample (\S\ref{sec:response_probe}); (3) the probe operates orthogonally to the refusal vector (Table~\ref{tab:response_probe}); (4) no single-mechanism prompt-time paradigm dominates (Table~\ref{tab:main}); (5) AlphaSteer is structurally blind to prefilling (\S\ref{sec:attack_analysis}, Proposition/Corollary); (6) MMLU is insensitive to steering's utility cost (\S\ref{sec:utility}); (7) the unified architectural composition (AlphaSteer + response-halt) prescribed by the \S\ref{sec:attack_analysis} corollary achieves DSR 0.983 on Mistral and 0.994 on Llama at $n=40$ (Table~\ref{tab:main} dagger rows, \S\ref{sec:response_probe}), with Gemma-4-31B-it LLM judge confirming DSR 1.000 on both (Appendix~\ref{app:judge_prompt}). Scope language (``canonical prefilling-attack template family'') appears consistently across abstract, intro contributions, \S\ref{sec:response_probe}, and conclusion; a deliberate scope reduction, not papered over. Each claim is supported by Wilson 95\% CIs (Appendix~\ref{app:wilson}).
+
+\item {\bf Limitations}
+    \item[] Question: Does the paper discuss the limitations of the work performed by the authors?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: Section~\ref{sec:discussion} discusses: (1) the heuristic judge validated with Gemma-4-31B LLM judge on Llama $n=200$ (Appendix~\ref{app:judge_prompt}); (2) template-family scope: 4/7 models (all layer-$\leq 2$ optima) do not generalise to canonical-register prefills with novel surface tokens (\S\ref{sec:response_probe}); (3) Mistral-vs-Llama asymmetry, with the Mistral probe shown to read compliance-marker surface tokens in its 5-token window (\S\ref{sec:response_probe}); (4) probe-weight reproducibility across library versions: Mistral and Llama paper-pkl drift outside $\pm 2$pp documented, fresh retraining recovers paper numbers within $\pm 2$pp on both (Appendix~\ref{app:probe_reproducibility}); (5) adaptive robustness asymmetry already softened in abstract (probe-aware search still 30\% ASR on Llama; no adaptive defense on Mistral); (6) cross-paradigm comparison uses $n=40$ per attack with Wilson CIs (Appendix~\ref{app:wilson}, $n=200$ scaling in Appendix~\ref{app:n200}).
+
+\item {\bf Theory assumptions and proofs}
+    \item[] Question: For each theoretical result, does the paper provide the full set of assumptions and a complete (and correct) proof?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: The paper contains one theoretical argument (Section~5.2). The Proposition addresses AlphaSteer specifically (null-space projection $\hat{P}$ approximately zeroes the correction when prefilling drives activations into the benign subspace); the subsequent Corollary generalises the argument to any single-layer activation-cone gate (CAST, prompt-time probe-gated steering, and any future defense sharing this structural shape). No formal theorem environment is used as this is an empirical paper.
+
+    \item {\bf Experimental result reproducibility}
+    \item[] Question: Does the paper fully disclose all the information needed to reproduce the main experimental results of the paper to the extent that it affects the main claims and/or conclusions of the paper (regardless of whether the code and data are provided or not)?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: \S\ref{sec:setup} specifies all models (HuggingFace IDs), attacks (generation methods and sample sizes), metrics, and steering configurations. The keyword heuristic judge is validated against Gemma-4-31B-it as the headline LLM judge on Llama $n=200$ (Appendix~\ref{app:judge_prompt}: prompt verbatim + per-attack comparison tables); Llama-3.1-8B-Instruct paper-of-record validation (80.7\% agreement, 93.9\% on dual-probe Llama) is retained. Appendix~\ref{app:gcg} provides GCG optimization details; Appendix~\ref{app:probes} provides probe training details; Appendix~\ref{app:probe_reproducibility} documents the Mistral-only paper-pkl drift and the fresh-retraining procedure (\texttt{scripts/retrain\_response\_probes.py}). All random seeds fixed at 42. Response-probe method (\S\ref{sec:response_probe}) describes the exact procedure: first generated token's hidden state, logistic regression, layer sweep by AUROC, halt at threshold 0.5.
+
+\item {\bf Open access to data and code}
+    \item[] Question: Does the paper provide open access to the data and code, with sufficient instructions to faithfully reproduce the main experimental results, as described in supplemental material?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: We release the complete evaluation framework, all attack generation scripts, trained probes (shipped), retraining scripts (for reviewers who want fresh weights, Appendix~\ref{app:probe_reproducibility}), LLM-judge prompts verbatim (Appendix~\ref{app:judge_prompt}), and per-sample results. An anonymised code repository accompanies the supplementary materials; the README documents probe-weight drift behaviour under later library versions (Mistral) and provides the retraining-from-scratch procedure that recovers paper numbers within $\pm 2$pp.
+
+\item {\bf Experimental setting/details}
+    \item[] Question: Does the paper specify all the training and test details (e.g., data splits, hyperparameters, how they were chosen, type of optimizer) necessary to understand the results?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: Section~4 specifies steering strength ($\alpha=1.3$), probe threshold (0.3 for prompt-time, 0.5 for response-time), controller type (bang-bang), CAST cosine threshold (0.3), and AlphaSteer strength ($\lambda=1.0$). Appendix~C provides full hyperparameter settings. Probe training uses LogisticRegression with $C=1.0$, lbfgs solver, 5-fold stratified CV, StandardScaler preprocessing. Template robustness experiments use 15 training templates with 40 behaviors (600 samples) and 10 held-out test templates.
+
+\item {\bf Experiment statistical significance}
+    \item[] Question: Does the paper report error bars suitably and correctly defined or other appropriate information about the statistical significance of the experiments?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: Wilson 95\% confidence intervals are reported for all per-attack ASR values in Appendix~D. The $n=200$ evaluation (Appendix~E) provides tighter CIs. Response probe AUROC is reported with 5-fold cross-validation standard deviation. The paper explicitly notes where differences are not statistically significant (e.g., Mistral dual-probe AutoDAN 98\% vs no defense 95\% falls within overlapping Wilson CIs).
+
+\item {\bf Experiments compute resources}
+    \item[] Question: For each experiment, does the paper provide sufficient information on the computer resources (type of compute workers, memory, time of execution) needed to reproduce the experiments?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: Section~4 states all experiments run on NVIDIA A100-SXM4 80GB GPUs with models loaded in bfloat16. GCG generation uses 512 optimization steps per suffix (~10 min/suffix). The cross-paradigm evaluation at $n=40$ takes approximately 6--8 hours per model. The $n=200$ evaluation takes approximately 12--16 hours per model. Response probe training takes approximately 1--2 hours per model (activation extraction + logistic regression).
+
+\item {\bf Code of ethics}
+    \item[] Question: Does the research conducted in the paper conform, in every respect, with the NeurIPS Code of Ethics \url{https://neurips.cc/public/EthicsGuidelines}?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: This research develops defenses against LLM safety attacks. While we generate adversarial prompts (GCG suffixes, prefilling attacks), these are standard evaluation tools in the safety literature and are used solely to evaluate defense mechanisms. We use publicly available harmful behavior datasets (AdvBench) that are standard in the field. No human subjects are involved.
+
+\item {\bf Broader impacts}
+    \item[] Question: Does the paper discuss both potential positive societal impacts and negative societal impacts of the work performed?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: The paper's primary contribution is a defense mechanism that improves LLM safety (positive impact). The orthogonal subspace finding advances mechanistic understanding of how models represent harmful intent. A potential negative impact is that detailed analysis of why defenses fail could inform attackers; however, prefilling attacks are already well-known and our contribution is defensive. The response-time probing method could potentially be misused for censorship beyond safety-critical content, which we note as a concern.
+
+\item {\bf Safeguards}
+    \item[] Question: Does the paper describe safeguards that have been put in place for responsible release of data or models that have a high risk for misuse (e.g., pre-trained language models, image generators, or scraped datasets)?
+    \item[] Answer: \answerNA{}
+    \item[] Justification: The paper does not release pre-trained language models or scraped datasets. The released artifacts are safety probes (logistic regression classifiers), steering vectors, and evaluation scripts. These are defensive tools with no direct misuse potential. GCG adversarial suffixes are model-specific and already reproducible from the published GCG codebase.
+
+\item {\bf Licenses for existing assets}
+    \item[] Question: Are the creators or original owners of assets (e.g., code, data, models), used in the paper, properly credited and are the license and terms of use explicitly mentioned and properly respected?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: All models are cited with their original publications: Mistral-7B, Gemma-2/3/4 (Google), Qwen-2.5/3 (Alibaba), Llama-3.1 (Meta). All baseline methods are cited: AlphaSteer (Sheng et al., 2026), CAST (Lee et al., 2025), CAA (Turner et al., 2023). Attack datasets cite their sources: AdvBench (Zou et al., 2023), AutoDAN (Liu et al., 2023), DeepInception (Li et al., 2023), intent laundering (Golchin \& Wetter, 2026). All models used are available under permissive licenses (Apache 2.0 or community licenses).
+
+\item {\bf New assets}
+    \item[] Question: Are new assets introduced in the paper well documented and is the documentation provided alongside the assets?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: The paper introduces response-time probes (trained logistic regression classifiers), augmented training datasets (15 templates $\times$ 40 behaviors), and evaluation scripts. These will be released with documentation including training procedures, hyperparameters, and reproduction instructions. The evaluation framework includes all attack generation, probe training, and defense evaluation code.
+
+\item {\bf Crowdsourcing and research with human subjects}
+    \item[] Question: For crowdsourcing experiments and research with human subjects, does the paper include the full text of instructions given to participants and screenshots, if applicable, as well as details about compensation (if any)?
+    \item[] Answer: \answerNA{}
+    \item[] Justification: The paper does not involve crowdsourcing or research with human subjects. All evaluations are automated using heuristic and LLM-based judges.
+
+\item {\bf Institutional review board (IRB) approvals or equivalent for research with human subjects}
+    \item[] Question: Does the paper describe potential risks incurred by study participants, whether such risks were disclosed to the subjects, and whether Institutional Review Board (IRB) approvals (or an equivalent approval/review based on the requirements of your country or institution) were obtained?
+    \item[] Answer: \answerNA{}
+    \item[] Justification: No human subjects are involved in this research.
+
+\item {\bf Declaration of LLM usage}
+    \item[] Question: Does the paper describe the usage of LLMs if it is an important, original, or non-standard component of the core methods in this research?
+    \item[] Answer: \answerNA{}
+    \item[] Justification: LLMs are the subject of study (we evaluate safety defenses on them), not a methodological tool. The LLMs are used as-is from HuggingFace without modification. No LLM was used for core method development. An LLM-based judge was used for hedging validation (Section~5.4), which is a standard evaluation practice.
+
+\end{enumerate}

@@ -1,0 +1,632 @@
+{
+  "model": "gemma4-31b",
+  "num_layers": 61,
+  "approaches": {
+    "augmented_linear": {
+      "best_layer": 2,
+      "best_train_auroc": 0.9981958762886599,
+      "best_test_detect": 0.5,
+      "best_test_fpr": 0.047619047619047616,
+      "layer_results": {
+        "0": {
+          "train_auroc": 0.5990335051546392,
+          "test_detect_rate": 0.0,
+          "test_fpr": 0.0
+        },
+        "1": {
+          "train_auroc": 0.9994201030927835,
+          "test_detect_rate": 0.625,
+          "test_fpr": 0.40476190476190477
+        },
+        "2": {
+          "train_auroc": 0.9981958762886599,
+          "test_detect_rate": 0.5,
+          "test_fpr": 0.047619047619047616
+        },
+        "3": {
+          "train_auroc": 0.9952319587628866,
+          "test_detect_rate": 0.0,
+          "test_fpr": 0.0
+        },
+        "4": {
+          "train_auroc": 0.9963917525773196,
+          "test_detect_rate": 0.25,
+          "test_fpr": 0.0
+        },
+        "5": {
+          "train_auroc": 0.9958762886597938,
+          "test_detect_rate": 0.0,
+          "test_fpr": 0.0
+        },
+        "6": {
+          "train_auroc": 0.9960051546391753,
+          "test_detect_rate": 0.0,
+          "test_fpr": 0.0
+        },
+        "7": {
+          "train_auroc": 0.9955541237113403,
+          "test_detect_rate": 0.0,
+          "test_fpr": 0.0
+        },
+        "8": {
+          "train_auroc": 0.9980025773195876,
+          "test_detect_rate": 0.0,
+          "test_fpr": 0.0
+        },
+        "9": {
+          "train_auroc": 0.9978737113402062,
+          "test_detect_rate": 0.0,
+          "test_fpr": 0.0
+        },
+        "10": {
+          "train_auroc": 0.9958762886597938,
+          "test_detect_rate": 0.0,
+          "test_fpr": 0.0
+        },
+        "11": {
+          "train_auroc": 0.9960695876288661,
+          "test_detect_rate": 0.0,
+          "test_fpr": 0.0
+        },
+        "12": {
+          "train_auroc": 0.9956829896907216,
+          "test_detect_rate": 0.0,
+          "test_fpr": 0.0
+        },
+        "13": {
+          "train_auroc": 0.9960695876288661,
+          "test_detect_rate": 0.375,
+          "test_fpr": 0.0
+        },
+        "14": {
+          "train_auroc": 0.993492268041237,
+          "test_detect_rate": 0.25,
+          "test_fpr": 0.0
+        },
+        "15": {
+          "train_auroc": 0.9962628865979382,
+          "test_detect_rate": 0.375,
+          "test_fpr": 0.0
+        },
+        "16": {
+          "train_auroc": 0.9969716494845361,
+          "test_detect_rate": 0.375,
+          "test_fpr": 0.023809523809523808
+        },
+        "17": {
+          "train_auroc": 0.9974871134020619,
+          "test_detect_rate": 0.375,
+          "test_fpr": 0.0
+        },
+        "18": {
+          "train_auroc": 0.9974871134020619,
+          "test_detect_rate": 0.25,
+          "test_fpr": 0.0
+        },
+        "19": {
+          "train_auroc": 0.9979381443298969,
+          "test_detect_rate": 0.125,
+          "test_fpr": 0.0
+        },
+        "20": {
+          "train_auroc": 0.999548969072165,
+          "test_detect_rate": 0.125,
+          "test_fpr": 0.0
+        },
+        "21": {
+          "train_auroc": 0.9985180412371134,
+          "test_detect_rate": 0.0,
+          "test_fpr": 0.0
+        },
+        "22": {
+          "train_auroc": 0.9998067010309277,
+          "test_detect_rate": 0.0,
+          "test_fpr": 0.0
+        },
+        "23": {
+          "train_auroc": 0.9998067010309277,
+          "test_detect_rate": 0.125,
+          "test_fpr": 0.0
+        },
+        "24": {
+          "train_auroc": 0.9993556701030928,
+          "test_detect_rate": 0.0,
+          "test_fpr": 0.023809523809523808
+        },
+        "25": {
+          "train_auroc": 0.9982603092783504,
+          "test_detect_rate": 0.0,
+          "test_fpr": 0.0
+        },
+        "26": {
+          "train_auroc": 0.9998711340206186,
+          "test_detect_rate": 0.0,
+          "test_fpr": 0.0
+        },
+        "27": {
+          "train_auroc": 0.999742268041237,
+          "test_detect_rate": 0.5,
+          "test_fpr": 0.047619047619047616
+        },
+        "28": {
+          "train_auroc": 0.9991623711340207,
+          "test_detect_rate": 0.125,
+          "test_fpr": 0.047619047619047616
+        },
+        "29": {
+          "train_auroc": 0.9999355670103093,
+          "test_detect_rate": 0.25,
+          "test_fpr": 0.047619047619047616
+        },
+        "30": {
+          "train_auroc": 0.9996778350515463,
+          "test_detect_rate": 0.375,
+          "test_fpr": 0.047619047619047616
+        },
+        "31": {
+          "train_auroc": 0.999548969072165,
+          "test_detect_rate": 0.25,
+          "test_fpr": 0.047619047619047616
+        },
+        "32": {
+          "train_auroc": 0.998840206185567,
+          "test_detect_rate": 0.125,
+          "test_fpr": 0.07142857142857142
+        },
+        "33": {
+          "train_auroc": 0.9989690721649485,
+          "test_detect_rate": 0.25,
+          "test_fpr": 0.07142857142857142
+        },
+        "34": {
+          "train_auroc": 0.9993556701030928,
+          "test_detect_rate": 0.125,
+          "test_fpr": 0.09523809523809523
+        },
+        "35": {
+          "train_auroc": 0.998840206185567,
+          "test_detect_rate": 0.125,
+          "test_fpr": 0.09523809523809523
+        },
+        "36": {
+          "train_auroc": 0.9951675257731958,
+          "test_detect_rate": 0.125,
+          "test_fpr": 0.11904761904761904
+        },
+        "37": {
+          "train_auroc": 0.9905283505154638,
+          "test_detect_rate": 0.25,
+          "test_fpr": 0.09523809523809523
+        },
+        "38": {
+          "train_auroc": 0.993298969072165,
+          "test_detect_rate": 0.25,
+          "test_fpr": 0.09523809523809523
+        },
+        "39": {
+          "train_auroc": 0.9934278350515464,
+          "test_detect_rate": 0.25,
+          "test_fpr": 0.09523809523809523
+        },
+        "40": {
+          "train_auroc": 0.9925257731958762,
+          "test_detect_rate": 0.25,
+          "test_fpr": 0.11904761904761904
+        },
+        "41": {
+          "train_auroc": 0.9927835051546392,
+          "test_detect_rate": 0.25,
+          "test_fpr": 0.11904761904761904
+        },
+        "42": {
+          "train_auroc": 0.9901417525773197,
+          "test_detect_rate": 0.25,
+          "test_fpr": 0.14285714285714285
+        },
+        "43": {
+          "train_auroc": 0.9867268041237114,
+          "test_detect_rate": 0.375,
+          "test_fpr": 0.11904761904761904
+        },
+        "44": {
+          "train_auroc": 0.988144329896907,
+          "test_detect_rate": 0.5,
+          "test_fpr": 0.09523809523809523
+        },
+        "45": {
+          "train_auroc": 0.9874355670103092,
+          "test_detect_rate": 0.25,
+          "test_fpr": 0.11904761904761904
+        },
+        "46": {
+          "train_auroc": 0.9881443298969073,
+          "test_detect_rate": 0.125,
+          "test_fpr": 0.11904761904761904
+        },
+        "47": {
+          "train_auroc": 0.9860180412371135,
+          "test_detect_rate": 0.125,
+          "test_fpr": 0.11904761904761904
+        },
+        "48": {
+          "train_auroc": 0.9873067010309278,
+          "test_detect_rate": 0.125,
+          "test_fpr": 0.14285714285714285
+        },
+        "49": {
+          "train_auroc": 0.9864046391752577,
+          "test_detect_rate": 0.125,
+          "test_fpr": 0.14285714285714285
+        },
+        "50": {
+          "train_auroc": 0.9867268041237114,
+          "test_detect_rate": 0.125,
+          "test_fpr": 0.14285714285714285
+        },
+        "51": {
+          "train_auroc": 0.9877577319587629,
+          "test_detect_rate": 0.125,
+          "test_fpr": 0.16666666666666666
+        },
+        "52": {
+          "train_auroc": 0.9874355670103092,
+          "test_detect_rate": 0.25,
+          "test_fpr": 0.16666666666666666
+        },
+        "53": {
+          "train_auroc": 0.9859536082474227,
+          "test_detect_rate": 0.125,
+          "test_fpr": 0.16666666666666666
+        },
+        "54": {
+          "train_auroc": 0.9859536082474227,
+          "test_detect_rate": 0.25,
+          "test_fpr": 0.16666666666666666
+        },
+        "55": {
+          "train_auroc": 0.9840206185567011,
+          "test_detect_rate": 0.125,
+          "test_fpr": 0.16666666666666666
+        },
+        "56": {
+          "train_auroc": 0.9858891752577319,
+          "test_detect_rate": 0.25,
+          "test_fpr": 0.16666666666666666
+        },
+        "57": {
+          "train_auroc": 0.9885309278350516,
+          "test_detect_rate": 0.125,
+          "test_fpr": 0.11904761904761904
+        },
+        "58": {
+          "train_auroc": 0.9963273195876289,
+          "test_detect_rate": 0.25,
+          "test_fpr": 0.14285714285714285
+        },
+        "59": {
+          "train_auroc": 0.9990979381443299,
+          "test_detect_rate": 0.25,
+          "test_fpr": 0.09523809523809523
+        },
+        "60": {
+          "train_auroc": 0.9990979381443299,
+          "test_detect_rate": 0.25,
+          "test_fpr": 0.14285714285714285
+        }
+      }
+    },
+    "augmented_mlp": {
+      "best_layer": 30,
+      "best_train_auroc": 0.999548969072165,
+      "best_test_detect": 0.625,
+      "best_test_fpr": 0.09523809523809523,
+      "layer_results": {
+        "0": {
+          "train_auroc": 0.6151417525773196,
+          "test_detect_rate": 0.0,
+          "test_fpr": 0.0
+        },
+        "1": {
+          "train_auroc": 0.9971005154639176,
+          "test_detect_rate": 0.625,
+          "test_fpr": 0.42857142857142855
+        },
+        "2": {
+          "train_auroc": 0.9963917525773196,
+          "test_detect_rate": 0.5,
+          "test_fpr": 0.07142857142857142
+        },
+        "3": {
+          "train_auroc": 0.9969072164948454,
+          "test_detect_rate": 0.0,
+          "test_fpr": 0.0
+        },
+        "4": {
+          "train_auroc": 0.9974871134020619,
+          "test_detect_rate": 0.0,
+          "test_fpr": 0.023809523809523808
+        },
+        "5": {
+          "train_auroc": 0.9979381443298969,
+          "test_detect_rate": 0.25,
+          "test_fpr": 0.023809523809523808
+        },
+        "6": {
+          "train_auroc": 0.9980025773195876,
+          "test_detect_rate": 0.0,
+          "test_fpr": 0.0
+        },
+        "7": {
+          "train_auroc": 0.9980025773195876,
+          "test_detect_rate": 0.0,
+          "test_fpr": 0.0
+        },
+        "8": {
+          "train_auroc": 0.998840206185567,
+          "test_detect_rate": 0.125,
+          "test_fpr": 0.07142857142857142
+        },
+        "9": {
+          "train_auroc": 0.9992268041237115,
+          "test_detect_rate": 0.0,
+          "test_fpr": 0.0
+        },
+        "10": {
+          "train_auroc": 0.9998711340206186,
+          "test_detect_rate": 0.0,
+          "test_fpr": 0.0
+        },
+        "11": {
+          "train_auroc": 0.999742268041237,
+          "test_detect_rate": 0.0,
+          "test_fpr": 0.0
+        },
+        "12": {
+          "train_auroc": 0.9998067010309277,
+          "test_detect_rate": 0.0,
+          "test_fpr": 0.0
+        },
+        "13": {
+          "train_auroc": 0.9999355670103093,
+          "test_detect_rate": 0.0,
+          "test_fpr": 0.0
+        },
+        "14": {
+          "train_auroc": 0.9989046391752577,
+          "test_detect_rate": 0.0,
+          "test_fpr": 0.0
+        },
+        "15": {
+          "train_auroc": 0.9993556701030928,
+          "test_detect_rate": 0.0,
+          "test_fpr": 0.0
+        },
+        "16": {
+          "train_auroc": 0.999742268041237,
+          "test_detect_rate": 0.25,
+          "test_fpr": 0.0
+        },
+        "17": {
+          "train_auroc": 0.999742268041237,
+          "test_detect_rate": 0.125,
+          "test_fpr": 0.023809523809523808
+        },
+        "18": {
+          "train_auroc": 0.9996134020618557,
+          "test_detect_rate": 0.25,
+          "test_fpr": 0.0
+        },
+        "19": {
+          "train_auroc": 0.9990979381443299,
+          "test_detect_rate": 0.25,
+          "test_fpr": 0.0
+        },
+        "20": {
+          "train_auroc": 0.9989690721649485,
+          "test_detect_rate": 0.25,
+          "test_fpr": 0.0
+        },
+        "21": {
+          "train_auroc": 0.9998711340206186,
+          "test_detect_rate": 0.125,
+          "test_fpr": 0.0
+        },
+        "22": {
+          "train_auroc": 0.9996778350515465,
+          "test_detect_rate": 0.0,
+          "test_fpr": 0.0
+        },
+        "23": {
+          "train_auroc": 0.9992268041237112,
+          "test_detect_rate": 0.125,
+          "test_fpr": 0.0
+        },
+        "24": {
+          "train_auroc": 0.9936211340206185,
+          "test_detect_rate": 0.125,
+          "test_fpr": 0.0
+        },
+        "25": {
+          "train_auroc": 0.9956829896907216,
+          "test_detect_rate": 0.5,
+          "test_fpr": 0.047619047619047616
+        },
+        "26": {
+          "train_auroc": 1.0,
+          "test_detect_rate": 0.125,
+          "test_fpr": 0.0
+        },
+        "27": {
+          "train_auroc": 1.0,
+          "test_detect_rate": 0.75,
+          "test_fpr": 0.11904761904761904
+        },
+        "28": {
+          "train_auroc": 0.9996778350515465,
+          "test_detect_rate": 0.375,
+          "test_fpr": 0.11904761904761904
+        },
+        "29": {
+          "train_auroc": 0.9999355670103093,
+          "test_detect_rate": 0.5,
+          "test_fpr": 0.09523809523809523
+        },
+        "30": {
+          "train_auroc": 0.999548969072165,
+          "test_detect_rate": 0.625,
+          "test_fpr": 0.09523809523809523
+        },
+        "31": {
+          "train_auroc": 0.9989046391752577,
+          "test_detect_rate": 0.5,
+          "test_fpr": 0.11904761904761904
+        },
+        "32": {
+          "train_auroc": 0.9971649484536081,
+          "test_detect_rate": 0.75,
+          "test_fpr": 0.19047619047619047
+        },
+        "33": {
+          "train_auroc": 0.9970360824742268,
+          "test_detect_rate": 0.5,
+          "test_fpr": 0.11904761904761904
+        },
+        "34": {
+          "train_auroc": 0.9974871134020619,
+          "test_detect_rate": 0.25,
+          "test_fpr": 0.07142857142857142
+        },
+        "35": {
+          "train_auroc": 0.9948453608247423,
+          "test_detect_rate": 0.625,
+          "test_fpr": 0.19047619047619047
+        },
+        "36": {
+          "train_auroc": 0.9917525773195877,
+          "test_detect_rate": 0.5,
+          "test_fpr": 0.21428571428571427
+        },
+        "37": {
+          "train_auroc": 0.9895618556701031,
+          "test_detect_rate": 0.25,
+          "test_fpr": 0.19047619047619047
+        },
+        "38": {
+          "train_auroc": 0.9903350515463918,
+          "test_detect_rate": 0.5,
+          "test_fpr": 0.23809523809523808
+        },
+        "39": {
+          "train_auroc": 0.9916237113402062,
+          "test_detect_rate": 0.25,
+          "test_fpr": 0.11904761904761904
+        },
+        "40": {
+          "train_auroc": 0.9898840206185568,
+          "test_detect_rate": 0.5,
+          "test_fpr": 0.2619047619047619
+        },
+        "41": {
+          "train_auroc": 0.9873711340206185,
+          "test_detect_rate": 0.125,
+          "test_fpr": 0.2857142857142857
+        },
+        "42": {
+          "train_auroc": 0.9791237113402061,
+          "test_detect_rate": 0.25,
+          "test_fpr": 0.23809523809523808
+        },
+        "43": {
+          "train_auroc": 0.9702963917525773,
+          "test_detect_rate": 0.25,
+          "test_fpr": 0.16666666666666666
+        },
+        "44": {
+          "train_auroc": 0.98125,
+          "test_detect_rate": 0.25,
+          "test_fpr": 0.09523809523809523
+        },
+        "45": {
+          "train_auroc": 0.976610824742268,
+          "test_detect_rate": 0.5,
+          "test_fpr": 0.16666666666666666
+        },
+        "46": {
+          "train_auroc": 0.9749355670103093,
+          "test_detect_rate": 0.0,
+          "test_fpr": 0.11904761904761904
+        },
+        "47": {
+          "train_auroc": 0.973840206185567,
+          "test_detect_rate": 0.5,
+          "test_fpr": 0.2857142857142857
+        },
+        "48": {
+          "train_auroc": 0.9712628865979381,
+          "test_detect_rate": 0.125,
+          "test_fpr": 0.16666666666666666
+        },
+        "49": {
+          "train_auroc": 0.9744201030927835,
+          "test_detect_rate": 0.375,
+          "test_fpr": 0.23809523809523808
+        },
+        "50": {
+          "train_auroc": 0.9757731958762885,
+          "test_detect_rate": 0.0,
+          "test_fpr": 0.14285714285714285
+        },
+        "51": {
+          "train_auroc": 0.9809922680412372,
+          "test_detect_rate": 0.25,
+          "test_fpr": 0.16666666666666666
+        },
+        "52": {
+          "train_auroc": 0.9844716494845361,
+          "test_detect_rate": 0.25,
+          "test_fpr": 0.16666666666666666
+        },
+        "53": {
+          "train_auroc": 0.9813788659793815,
+          "test_detect_rate": 0.375,
+          "test_fpr": 0.19047619047619047
+        },
+        "54": {
+          "train_auroc": 0.9823453608247423,
+          "test_detect_rate": 0.125,
+          "test_fpr": 0.14285714285714285
+        },
+        "55": {
+          "train_auroc": 0.9810244845360824,
+          "test_detect_rate": 0.25,
+          "test_fpr": 0.16666666666666666
+        },
+        "56": {
+          "train_auroc": 0.9820231958762887,
+          "test_detect_rate": 0.25,
+          "test_fpr": 0.21428571428571427
+        },
+        "57": {
+          "train_auroc": 0.9878221649484535,
+          "test_detect_rate": 0.375,
+          "test_fpr": 0.14285714285714285
+        },
+        "58": {
+          "train_auroc": 0.9942010309278351,
+          "test_detect_rate": 0.25,
+          "test_fpr": 0.19047619047619047
+        },
+        "59": {
+          "train_auroc": 0.998840206185567,
+          "test_detect_rate": 0.25,
+          "test_fpr": 0.047619047619047616
+        },
+        "60": {
+          "train_auroc": 0.9987757731958762,
+          "test_detect_rate": 0.25,
+          "test_fpr": 0.11904761904761904
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "experiment_name": "pareto_sweep",
+  "timestamp": "2026-03-29T12:54:49.609478",
+  "git_hash": "8b4e4c379d332c5ef09e2ab49e663c233e18a00e",
+  "git_dirty": false,
+  "python_version": "3.12.7",
+  "platform": "Darwin 24.6.0",
+  "hardware": "Apple MPS (arm)",
+  "script": "/Users/subhadipmitra/Dev/neurips-2026-safety/scripts/07_run_pareto_sweep.py",
+  "args": {
+    "models": [
+      "mistral-7b"
+    ],
+    "attacks": [
+      "prefilling",
+      "intent_laundering"
+    ],
+    "quick": true
+  }
+}

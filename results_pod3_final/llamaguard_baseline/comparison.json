@@ -1,0 +1,32 @@
+{
+  "mistral-7b": {
+    "target_model": "mistral-7b",
+    "n_prefilling": 40,
+    "n_autodan": 40,
+    "n_benign": 40,
+    "prefilling_heuristic_harmful": 28,
+    "prefilling_guard_caught": 0,
+    "prefilling_total": 40,
+    "autodan_heuristic_harmful": 40,
+    "autodan_guard_caught": 0,
+    "autodan_total": 40,
+    "benign_heuristic_harmful": 0,
+    "benign_guard_caught": 0,
+    "benign_total": 40
+  },
+  "llama31-8b": {
+    "target_model": "llama31-8b",
+    "n_prefilling": 40,
+    "n_autodan": 40,
+    "n_benign": 40,
+    "prefilling_heuristic_harmful": 32,
+    "prefilling_guard_caught": 0,
+    "prefilling_total": 40,
+    "autodan_heuristic_harmful": 1,
+    "autodan_guard_caught": 0,
+    "autodan_total": 40,
+    "benign_heuristic_harmful": 0,
+    "benign_guard_caught": 0,
+    "benign_total": 40
+  }
+}

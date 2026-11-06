@@ -1,0 +1,9 @@
+{
+  "layer": 4,
+  "auroc": 1.0,
+  "auroc_std": 0.0,
+  "accuracy": 0.9875,
+  "fpr": 0.025,
+  "model": "llama31-8b",
+  "probe_type": "jailbreak"
+}

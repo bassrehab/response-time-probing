@@ -1,0 +1,43 @@
+[
+  {
+    "model": "mistral-7b",
+    "defense": "none",
+    "dsr": 0.375,
+    "utility": 1.0,
+    "fpr": 0.0,
+    "latency_ms": 14178.901899976578,
+    "config": {
+      "name": "none",
+      "type": "none"
+    }
+  },
+  {
+    "model": "mistral-7b",
+    "defense": "static_1.0",
+    "dsr": 0.6,
+    "utility": 0.9,
+    "fpr": 0.0,
+    "latency_ms": 14686.729556977903,
+    "config": {
+      "name": "static_1.0",
+      "type": "static",
+      "strength": 1.0
+    }
+  },
+  {
+    "model": "mistral-7b",
+    "defense": "gated_p_s1.0_t0.5",
+    "dsr": 0.42500000000000004,
+    "utility": 1.0,
+    "fpr": 0.0,
+    "latency_ms": 14379.268176430682,
+    "config": {
+      "name": "gated_p_s1.0_t0.5",
+      "type": "probe_gated",
+      "controller": "proportional",
+      "strength": 1.0,
+      "threshold": 0.5,
+      "gain": 2.0
+    }
+  }
+]

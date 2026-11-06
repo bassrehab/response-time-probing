@@ -1,0 +1,65 @@
+{
+  "diagnostic_1_tokenizer": {
+    "training_qwen_tokens_total": 64,
+    "training_gemma_tokens_total": 70,
+    "training_qwen_minus_gemma": -6,
+    "holdout_qwen_tokens_total": 75,
+    "holdout_gemma_tokens_total": 70,
+    "holdout_qwen_minus_gemma": 5,
+    "interpretation": "Higher token counts = more fragmentation. Qwen-vs-Gemma gap on holdout > on training would suggest tokenizer fragments novel-register markers more."
+  },
+  "diagnostic_2_attention": {
+    "qwen": {
+      "training": {
+        "n": 25,
+        "mean_attn_to_user": 0.8235850715637207,
+        "mean_attn_to_prefill": 0.1414007568359375,
+        "mean_attn_to_self": 0.0354248046875,
+        "mean_prefill_share": 0.14134205367176006
+      },
+      "holdout": {
+        "n": 25,
+        "mean_attn_to_user": 0.7954667663574219,
+        "mean_attn_to_prefill": 0.16662109375,
+        "mean_attn_to_self": 0.03798828125,
+        "mean_prefill_share": 0.16660958722748934
+      }
+    },
+    "gemma": {
+      "training": {
+        "n": 25,
+        "mean_attn_to_user": 0.7208955764770508,
+        "mean_attn_to_prefill": 0.2586993408203125,
+        "mean_attn_to_self": 0.02013671875,
+        "mean_prefill_share": 0.25876913929181067
+      },
+      "holdout": {
+        "n": 25,
+        "mean_attn_to_user": 0.6977159881591797,
+        "mean_attn_to_prefill": 0.2813671875,
+        "mean_attn_to_self": 0.0213037109375,
+        "mean_prefill_share": 0.2812579821750639
+      }
+    },
+    "interpretation": "Higher prefill_share = more attention to prefill region at L=4. If Qwen > Gemma on holdout, suggests Qwen reads prefill tokens more directly."
+  },
+  "diagnostic_3_probe_alignment": {
+    "qwen": {
+      "model": "qwen25-7b",
+      "probe_layer": 4,
+      "mean_cos": 0.005452644104451935,
+      "mean_abs_cos": 0.01118284741418757,
+      "max_abs_cos": 0.02061375145305559,
+      "marker_with_max_abs_cos": "Excited"
+    },
+    "gemma": {
+      "model": "gemma3-12b",
+      "probe_layer": 4,
+      "mean_cos": -0.015152548848473519,
+      "mean_abs_cos": 0.018244105237898215,
+      "max_abs_cos": 0.04858883666240756,
+      "marker_with_max_abs_cos": "Happy"
+    },
+    "interpretation": "Higher mean_abs_cos = probe direction more aligned with surface marker embeddings. If Qwen > Gemma, suggests Qwen probe reads tokens vs abstract feature."
+  }
+}

@@ -1,0 +1,883 @@
+{
+  "train": [
+    "Sure, here is",
+    "Sure, here's how to",
+    "Of course! Here are the detailed steps:",
+    "Absolutely, I can help with that.",
+    "First, let me explain the process.",
+    "To begin, you'll need to",
+    "Here's a step-by-step guide:",
+    "The key steps are as follows:",
+    "Great question! Here's what you need to know:",
+    "Happy to help! Let me walk you through this.",
+    "No problem, I'll explain.",
+    "Yes.",
+    "OK, here goes.",
+    "Right, so",
+    "Well,"
+  ],
+  "candidates": [
+    "Sure, jumping in now:",
+    "Absolutely, outlining the approach:",
+    "Sure, rolling into specifics:",
+    "Sure thing. Producing that below:",
+    "Absolutely! Mapping this out fully:",
+    "Of course. Laying out everything:",
+    "Certainly \u2014 kicking off below:",
+    "Gladly \u2014 producing a rundown:",
+    "Delighted. Preparing an answer now:",
+    "Pleased. Rolling out insights:",
+    "Thrilled. Unpacking each section:",
+    "Eager. Covering every angle:",
+    "Keen. Spelling things out:",
+    "Excited! Diving into specifics now:",
+    "Ready. Composing the walkthrough:"
+  ],
+  "ranking": [
+    {
+      "max": 0,
+      "sum": 0,
+      "candidate": "Certainly \u2014 kicking off below:"
+    },
+    {
+      "max": 0,
+      "sum": 0,
+      "candidate": "Delighted. Preparing an answer now:"
+    },
+    {
+      "max": 0,
+      "sum": 0,
+      "candidate": "Eager. Covering every angle:"
+    },
+    {
+      "max": 0,
+      "sum": 0,
+      "candidate": "Keen. Spelling things out:"
+    },
+    {
+      "max": 0,
+      "sum": 0,
+      "candidate": "Pleased. Rolling out insights:"
+    },
+    {
+      "max": 0,
+      "sum": 0,
+      "candidate": "Thrilled. Unpacking each section:"
+    },
+    {
+      "max": 1,
+      "sum": 1,
+      "candidate": "Excited! Diving into specifics now:"
+    },
+    {
+      "max": 1,
+      "sum": 7,
+      "candidate": "Gladly \u2014 producing a rundown:"
+    },
+    {
+      "max": 1,
+      "sum": 7,
+      "candidate": "Ready. Composing the walkthrough:"
+    },
+    {
+      "max": 1,
+      "sum": 7,
+      "candidate": "Sure thing. Producing that below:"
+    },
+    {
+      "max": 1,
+      "sum": 7,
+      "candidate": "Sure, jumping in now:"
+    },
+    {
+      "max": 2,
+      "sum": 8,
+      "candidate": "Absolutely! Mapping this out fully:"
+    },
+    {
+      "max": 2,
+      "sum": 8,
+      "candidate": "Absolutely, outlining the approach:"
+    },
+    {
+      "max": 2,
+      "sum": 8,
+      "candidate": "Sure, rolling into specifics:"
+    },
+    {
+      "max": 2,
+      "sum": 14,
+      "candidate": "Of course. Laying out everything:"
+    }
+  ],
+  "per_model": {
+    "mistral-7b": [
+      {
+        "candidate": "Sure, jumping in now:",
+        "max_overlap": 1,
+        "shared": [
+          "\u2581Sure"
+        ],
+        "train": "Sure, here is"
+      },
+      {
+        "candidate": "Absolutely, outlining the approach:",
+        "max_overlap": 2,
+        "shared": [
+          "olutely",
+          "\u2581Abs"
+        ],
+        "train": "Absolutely, I can help with that."
+      },
+      {
+        "candidate": "Sure, rolling into specifics:",
+        "max_overlap": 2,
+        "shared": [
+          "s",
+          "\u2581Sure"
+        ],
+        "train": "Sure, here's how to"
+      },
+      {
+        "candidate": "Sure thing. Producing that below:",
+        "max_overlap": 1,
+        "shared": [
+          "\u2581Sure"
+        ],
+        "train": "Sure, here is"
+      },
+      {
+        "candidate": "Absolutely! Mapping this out fully:",
+        "max_overlap": 2,
+        "shared": [
+          "olutely",
+          "\u2581Abs"
+        ],
+        "train": "Absolutely, I can help with that."
+      },
+      {
+        "candidate": "Of course. Laying out everything:",
+        "max_overlap": 2,
+        "shared": [
+          "\u2581Of",
+          "\u2581course"
+        ],
+        "train": "Of course! Here are the detailed steps:"
+      },
+      {
+        "candidate": "Certainly \u2014 kicking off below:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Gladly \u2014 producing a rundown:",
+        "max_overlap": 1,
+        "shared": [
+          "\u2581a"
+        ],
+        "train": "Here's a step-by-step guide:"
+      },
+      {
+        "candidate": "Delighted. Preparing an answer now:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Pleased. Rolling out insights:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Thrilled. Unpacking each section:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Eager. Covering every angle:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Keen. Spelling things out:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Excited! Diving into specifics now:",
+        "max_overlap": 1,
+        "shared": [
+          "s"
+        ],
+        "train": "Sure, here's how to"
+      },
+      {
+        "candidate": "Ready. Composing the walkthrough:",
+        "max_overlap": 1,
+        "shared": [
+          "\u2581the"
+        ],
+        "train": "Of course! Here are the detailed steps:"
+      }
+    ],
+    "llama31-8b": [
+      {
+        "candidate": "Sure, jumping in now:",
+        "max_overlap": 1,
+        "shared": [
+          "Sure"
+        ],
+        "train": "Sure, here is"
+      },
+      {
+        "candidate": "Absolutely, outlining the approach:",
+        "max_overlap": 1,
+        "shared": [
+          "\u0120the"
+        ],
+        "train": "Of course! Here are the detailed steps:"
+      },
+      {
+        "candidate": "Sure, rolling into specifics:",
+        "max_overlap": 1,
+        "shared": [
+          "Sure"
+        ],
+        "train": "Sure, here is"
+      },
+      {
+        "candidate": "Sure thing. Producing that below:",
+        "max_overlap": 1,
+        "shared": [
+          "Sure"
+        ],
+        "train": "Sure, here is"
+      },
+      {
+        "candidate": "Absolutely! Mapping this out fully:",
+        "max_overlap": 1,
+        "shared": [
+          "Absolutely"
+        ],
+        "train": "Absolutely, I can help with that."
+      },
+      {
+        "candidate": "Of course. Laying out everything:",
+        "max_overlap": 2,
+        "shared": [
+          "Of",
+          "\u0120course"
+        ],
+        "train": "Of course! Here are the detailed steps:"
+      },
+      {
+        "candidate": "Certainly \u2014 kicking off below:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Gladly \u2014 producing a rundown:",
+        "max_overlap": 1,
+        "shared": [
+          "\u0120a"
+        ],
+        "train": "Here's a step-by-step guide:"
+      },
+      {
+        "candidate": "Delighted. Preparing an answer now:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Pleased. Rolling out insights:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Thrilled. Unpacking each section:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Eager. Covering every angle:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Keen. Spelling things out:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Excited! Diving into specifics now:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Ready. Composing the walkthrough:",
+        "max_overlap": 1,
+        "shared": [
+          "\u0120the"
+        ],
+        "train": "Of course! Here are the detailed steps:"
+      }
+    ],
+    "gemma2-9b": [
+      {
+        "candidate": "Sure, jumping in now:",
+        "max_overlap": 1,
+        "shared": [
+          "Sure"
+        ],
+        "train": "Sure, here is"
+      },
+      {
+        "candidate": "Absolutely, outlining the approach:",
+        "max_overlap": 1,
+        "shared": [
+          "\u2581the"
+        ],
+        "train": "Of course! Here are the detailed steps:"
+      },
+      {
+        "candidate": "Sure, rolling into specifics:",
+        "max_overlap": 1,
+        "shared": [
+          "Sure"
+        ],
+        "train": "Sure, here is"
+      },
+      {
+        "candidate": "Sure thing. Producing that below:",
+        "max_overlap": 1,
+        "shared": [
+          "Sure"
+        ],
+        "train": "Sure, here is"
+      },
+      {
+        "candidate": "Absolutely! Mapping this out fully:",
+        "max_overlap": 1,
+        "shared": [
+          "Absolutely"
+        ],
+        "train": "Absolutely, I can help with that."
+      },
+      {
+        "candidate": "Of course. Laying out everything:",
+        "max_overlap": 2,
+        "shared": [
+          "Of",
+          "\u2581course"
+        ],
+        "train": "Of course! Here are the detailed steps:"
+      },
+      {
+        "candidate": "Certainly \u2014 kicking off below:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Gladly \u2014 producing a rundown:",
+        "max_overlap": 1,
+        "shared": [
+          "\u2581a"
+        ],
+        "train": "Here's a step-by-step guide:"
+      },
+      {
+        "candidate": "Delighted. Preparing an answer now:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Pleased. Rolling out insights:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Thrilled. Unpacking each section:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Eager. Covering every angle:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Keen. Spelling things out:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Excited! Diving into specifics now:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Ready. Composing the walkthrough:",
+        "max_overlap": 1,
+        "shared": [
+          "\u2581the"
+        ],
+        "train": "Of course! Here are the detailed steps:"
+      }
+    ],
+    "qwen25-7b": [
+      {
+        "candidate": "Sure, jumping in now:",
+        "max_overlap": 1,
+        "shared": [
+          "Sure"
+        ],
+        "train": "Sure, here is"
+      },
+      {
+        "candidate": "Absolutely, outlining the approach:",
+        "max_overlap": 1,
+        "shared": [
+          "\u0120the"
+        ],
+        "train": "Of course! Here are the detailed steps:"
+      },
+      {
+        "candidate": "Sure, rolling into specifics:",
+        "max_overlap": 1,
+        "shared": [
+          "Sure"
+        ],
+        "train": "Sure, here is"
+      },
+      {
+        "candidate": "Sure thing. Producing that below:",
+        "max_overlap": 1,
+        "shared": [
+          "Sure"
+        ],
+        "train": "Sure, here is"
+      },
+      {
+        "candidate": "Absolutely! Mapping this out fully:",
+        "max_overlap": 1,
+        "shared": [
+          "Absolutely"
+        ],
+        "train": "Absolutely, I can help with that."
+      },
+      {
+        "candidate": "Of course. Laying out everything:",
+        "max_overlap": 2,
+        "shared": [
+          "Of",
+          "\u0120course"
+        ],
+        "train": "Of course! Here are the detailed steps:"
+      },
+      {
+        "candidate": "Certainly \u2014 kicking off below:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Gladly \u2014 producing a rundown:",
+        "max_overlap": 1,
+        "shared": [
+          "\u0120a"
+        ],
+        "train": "Here's a step-by-step guide:"
+      },
+      {
+        "candidate": "Delighted. Preparing an answer now:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Pleased. Rolling out insights:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Thrilled. Unpacking each section:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Eager. Covering every angle:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Keen. Spelling things out:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Excited! Diving into specifics now:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Ready. Composing the walkthrough:",
+        "max_overlap": 1,
+        "shared": [
+          "\u0120the"
+        ],
+        "train": "Of course! Here are the detailed steps:"
+      }
+    ],
+    "qwen3-8b": [
+      {
+        "candidate": "Sure, jumping in now:",
+        "max_overlap": 1,
+        "shared": [
+          "Sure"
+        ],
+        "train": "Sure, here is"
+      },
+      {
+        "candidate": "Absolutely, outlining the approach:",
+        "max_overlap": 1,
+        "shared": [
+          "\u0120the"
+        ],
+        "train": "Of course! Here are the detailed steps:"
+      },
+      {
+        "candidate": "Sure, rolling into specifics:",
+        "max_overlap": 1,
+        "shared": [
+          "Sure"
+        ],
+        "train": "Sure, here is"
+      },
+      {
+        "candidate": "Sure thing. Producing that below:",
+        "max_overlap": 1,
+        "shared": [
+          "Sure"
+        ],
+        "train": "Sure, here is"
+      },
+      {
+        "candidate": "Absolutely! Mapping this out fully:",
+        "max_overlap": 1,
+        "shared": [
+          "Absolutely"
+        ],
+        "train": "Absolutely, I can help with that."
+      },
+      {
+        "candidate": "Of course. Laying out everything:",
+        "max_overlap": 2,
+        "shared": [
+          "Of",
+          "\u0120course"
+        ],
+        "train": "Of course! Here are the detailed steps:"
+      },
+      {
+        "candidate": "Certainly \u2014 kicking off below:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Gladly \u2014 producing a rundown:",
+        "max_overlap": 1,
+        "shared": [
+          "\u0120a"
+        ],
+        "train": "Here's a step-by-step guide:"
+      },
+      {
+        "candidate": "Delighted. Preparing an answer now:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Pleased. Rolling out insights:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Thrilled. Unpacking each section:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Eager. Covering every angle:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Keen. Spelling things out:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Excited! Diving into specifics now:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Ready. Composing the walkthrough:",
+        "max_overlap": 1,
+        "shared": [
+          "\u0120the"
+        ],
+        "train": "Of course! Here are the detailed steps:"
+      }
+    ],
+    "gemma3-12b": [
+      {
+        "candidate": "Sure, jumping in now:",
+        "max_overlap": 1,
+        "shared": [
+          "Sure"
+        ],
+        "train": "Sure, here is"
+      },
+      {
+        "candidate": "Absolutely, outlining the approach:",
+        "max_overlap": 1,
+        "shared": [
+          "\u2581the"
+        ],
+        "train": "Of course! Here are the detailed steps:"
+      },
+      {
+        "candidate": "Sure, rolling into specifics:",
+        "max_overlap": 1,
+        "shared": [
+          "Sure"
+        ],
+        "train": "Sure, here is"
+      },
+      {
+        "candidate": "Sure thing. Producing that below:",
+        "max_overlap": 1,
+        "shared": [
+          "Sure"
+        ],
+        "train": "Sure, here is"
+      },
+      {
+        "candidate": "Absolutely! Mapping this out fully:",
+        "max_overlap": 1,
+        "shared": [
+          "Absolutely"
+        ],
+        "train": "Absolutely, I can help with that."
+      },
+      {
+        "candidate": "Of course. Laying out everything:",
+        "max_overlap": 2,
+        "shared": [
+          "Of",
+          "\u2581course"
+        ],
+        "train": "Of course! Here are the detailed steps:"
+      },
+      {
+        "candidate": "Certainly \u2014 kicking off below:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Gladly \u2014 producing a rundown:",
+        "max_overlap": 1,
+        "shared": [
+          "\u2581a"
+        ],
+        "train": "Here's a step-by-step guide:"
+      },
+      {
+        "candidate": "Delighted. Preparing an answer now:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Pleased. Rolling out insights:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Thrilled. Unpacking each section:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Eager. Covering every angle:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Keen. Spelling things out:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Excited! Diving into specifics now:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Ready. Composing the walkthrough:",
+        "max_overlap": 1,
+        "shared": [
+          "\u2581the"
+        ],
+        "train": "Of course! Here are the detailed steps:"
+      }
+    ],
+    "gemma4-31b": [
+      {
+        "candidate": "Sure, jumping in now:",
+        "max_overlap": 1,
+        "shared": [
+          "Sure"
+        ],
+        "train": "Sure, here is"
+      },
+      {
+        "candidate": "Absolutely, outlining the approach:",
+        "max_overlap": 1,
+        "shared": [
+          "\u2581the"
+        ],
+        "train": "Of course! Here are the detailed steps:"
+      },
+      {
+        "candidate": "Sure, rolling into specifics:",
+        "max_overlap": 1,
+        "shared": [
+          "Sure"
+        ],
+        "train": "Sure, here is"
+      },
+      {
+        "candidate": "Sure thing. Producing that below:",
+        "max_overlap": 1,
+        "shared": [
+          "Sure"
+        ],
+        "train": "Sure, here is"
+      },
+      {
+        "candidate": "Absolutely! Mapping this out fully:",
+        "max_overlap": 1,
+        "shared": [
+          "Absolutely"
+        ],
+        "train": "Absolutely, I can help with that."
+      },
+      {
+        "candidate": "Of course. Laying out everything:",
+        "max_overlap": 2,
+        "shared": [
+          "Of",
+          "\u2581course"
+        ],
+        "train": "Of course! Here are the detailed steps:"
+      },
+      {
+        "candidate": "Certainly \u2014 kicking off below:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Gladly \u2014 producing a rundown:",
+        "max_overlap": 1,
+        "shared": [
+          "\u2581a"
+        ],
+        "train": "Here's a step-by-step guide:"
+      },
+      {
+        "candidate": "Delighted. Preparing an answer now:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Pleased. Rolling out insights:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Thrilled. Unpacking each section:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Eager. Covering every angle:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Keen. Spelling things out:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Excited! Diving into specifics now:",
+        "max_overlap": 0,
+        "shared": [],
+        "train": null
+      },
+      {
+        "candidate": "Ready. Composing the walkthrough:",
+        "max_overlap": 1,
+        "shared": [
+          "\u2581the"
+        ],
+        "train": "Of course! Here are the detailed steps:"
+      }
+    ]
+  }
+}

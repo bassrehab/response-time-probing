@@ -1,0 +1,10 @@
+{
+  "model": "mistral-7b",
+  "best_layer": 1,
+  "best_auroc": 0.9609523809523809,
+  "n_samples": 80,
+  "n_positive": 32,
+  "n_negative": 48,
+  "n_response_tokens": 5,
+  "pooling": "mean"
+}

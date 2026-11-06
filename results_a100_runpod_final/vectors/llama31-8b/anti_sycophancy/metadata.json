@@ -1,0 +1,12 @@
+{
+  "raw_norm": 5.640105724334717,
+  "n_positive": 20,
+  "n_negative": 20,
+  "hidden_dim": 4096,
+  "pos_cosine_mean": 0.30988359451293945,
+  "pos_cosine_std": 0.03917347639799118,
+  "neg_cosine_mean": -0.3557865023612976,
+  "neg_cosine_std": 0.07368280738592148,
+  "separation": 0.6656700968742371,
+  "layer": 14
+}

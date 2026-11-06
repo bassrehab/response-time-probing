@@ -1,0 +1,815 @@
+{
+  "qwen": {
+    "Sure, here is": {
+      "n_tokens": 4,
+      "tokens": [
+        "Sure",
+        ",",
+        " here",
+        " is"
+      ]
+    },
+    "Sure, here's how to": {
+      "n_tokens": 6,
+      "tokens": [
+        "Sure",
+        ",",
+        " here",
+        "'s",
+        " how",
+        " to"
+      ]
+    },
+    "Of course! Here are the detailed steps:": {
+      "n_tokens": 9,
+      "tokens": [
+        "Of",
+        " course",
+        "!",
+        " Here",
+        " are",
+        " the",
+        " detailed",
+        " steps",
+        ":"
+      ]
+    },
+    "Absolutely, I can help with that.": {
+      "n_tokens": 8,
+      "tokens": [
+        "Absolutely",
+        ",",
+        " I",
+        " can",
+        " help",
+        " with",
+        " that",
+        "."
+      ]
+    },
+    "Great question! Here's what you need to know:": {
+      "n_tokens": 11,
+      "tokens": [
+        "Great",
+        " question",
+        "!",
+        " Here",
+        "'s",
+        " what",
+        " you",
+        " need",
+        " to",
+        " know",
+        ":"
+      ]
+    },
+    "Happy to help! Let me walk you through this.": {
+      "n_tokens": 11,
+      "tokens": [
+        "Happy",
+        " to",
+        " help",
+        "!",
+        " Let",
+        " me",
+        " walk",
+        " you",
+        " through",
+        " this",
+        "."
+      ]
+    },
+    "Here's a step-by-step guide:": {
+      "n_tokens": 8,
+      "tokens": [
+        "Here",
+        "'s",
+        " a",
+        " step",
+        "-by",
+        "-step",
+        " guide",
+        ":"
+      ]
+    },
+    "No problem, I'll explain.": {
+      "n_tokens": 7,
+      "tokens": [
+        "No",
+        " problem",
+        ",",
+        " I",
+        "'ll",
+        " explain",
+        "."
+      ]
+    },
+    "Certainly \u2014 kicking off below:": {
+      "n_tokens": 6,
+      "tokens": [
+        "Certainly",
+        " \u2014",
+        " kicking",
+        " off",
+        " below",
+        ":"
+      ]
+    },
+    "Delighted. Preparing an answer now:": {
+      "n_tokens": 9,
+      "tokens": [
+        "Del",
+        "ighted",
+        ".",
+        " Pre",
+        "paring",
+        " an",
+        " answer",
+        " now",
+        ":"
+      ]
+    },
+    "Eager. Covering every angle:": {
+      "n_tokens": 8,
+      "tokens": [
+        "E",
+        "ager",
+        ".",
+        " Cover",
+        "ing",
+        " every",
+        " angle",
+        ":"
+      ]
+    },
+    "Keen. Spelling things out:": {
+      "n_tokens": 8,
+      "tokens": [
+        "Ke",
+        "en",
+        ".",
+        " Sp",
+        "elling",
+        " things",
+        " out",
+        ":"
+      ]
+    },
+    "Pleased. Rolling out insights:": {
+      "n_tokens": 7,
+      "tokens": [
+        "P",
+        "leased",
+        ".",
+        " Rolling",
+        " out",
+        " insights",
+        ":"
+      ]
+    },
+    "Thrilled. Unpacking each section:": {
+      "n_tokens": 8,
+      "tokens": [
+        "Thr",
+        "illed",
+        ".",
+        " Un",
+        "packing",
+        " each",
+        " section",
+        ":"
+      ]
+    },
+    "Excited! Diving into specifics now:": {
+      "n_tokens": 9,
+      "tokens": [
+        "Exc",
+        "ited",
+        "!",
+        " D",
+        "iving",
+        " into",
+        " specifics",
+        " now",
+        ":"
+      ]
+    },
+    "Sure, jumping in now:": {
+      "n_tokens": 6,
+      "tokens": [
+        "Sure",
+        ",",
+        " jumping",
+        " in",
+        " now",
+        ":"
+      ]
+    },
+    "Absolutely, outlining the approach:": {
+      "n_tokens": 6,
+      "tokens": [
+        "Absolutely",
+        ",",
+        " outlining",
+        " the",
+        " approach",
+        ":"
+      ]
+    },
+    "Sure thing. Producing that below:": {
+      "n_tokens": 8,
+      "tokens": [
+        "Sure",
+        " thing",
+        ".",
+        " Produ",
+        "cing",
+        " that",
+        " below",
+        ":"
+      ]
+    },
+    "Sure": {
+      "n_tokens": 1,
+      "tokens": [
+        "Sure"
+      ]
+    },
+    "Of course": {
+      "n_tokens": 2,
+      "tokens": [
+        "Of",
+        " course"
+      ]
+    },
+    "Absolutely": {
+      "n_tokens": 1,
+      "tokens": [
+        "Absolutely"
+      ]
+    },
+    "Certainly": {
+      "n_tokens": 1,
+      "tokens": [
+        "Certainly"
+      ]
+    },
+    "Eager": {
+      "n_tokens": 2,
+      "tokens": [
+        "E",
+        "ager"
+      ]
+    },
+    "Keen": {
+      "n_tokens": 2,
+      "tokens": [
+        "Ke",
+        "en"
+      ]
+    },
+    "Pleased": {
+      "n_tokens": 2,
+      "tokens": [
+        "P",
+        "leased"
+      ]
+    },
+    "Thrilled": {
+      "n_tokens": 2,
+      "tokens": [
+        "Thr",
+        "illed"
+      ]
+    },
+    "Excited": {
+      "n_tokens": 2,
+      "tokens": [
+        "Exc",
+        "ited"
+      ]
+    },
+    "Delighted": {
+      "n_tokens": 2,
+      "tokens": [
+        "Del",
+        "ighted"
+      ]
+    },
+    "Happy": {
+      "n_tokens": 1,
+      "tokens": [
+        "Happy"
+      ]
+    },
+    "Great": {
+      "n_tokens": 1,
+      "tokens": [
+        "Great"
+      ]
+    },
+    "Yes": {
+      "n_tokens": 1,
+      "tokens": [
+        "Yes"
+      ]
+    },
+    "Indeed": {
+      "n_tokens": 1,
+      "tokens": [
+        "Indeed"
+      ]
+    }
+  },
+  "gemma": {
+    "Sure, here is": {
+      "n_tokens": 4,
+      "tokens": [
+        "Sure",
+        ",",
+        " here",
+        " is"
+      ]
+    },
+    "Sure, here's how to": {
+      "n_tokens": 7,
+      "tokens": [
+        "Sure",
+        ",",
+        " here",
+        "'",
+        "s",
+        " how",
+        " to"
+      ]
+    },
+    "Of course! Here are the detailed steps:": {
+      "n_tokens": 9,
+      "tokens": [
+        "Of",
+        " course",
+        "!",
+        " Here",
+        " are",
+        " the",
+        " detailed",
+        " steps",
+        ":"
+      ]
+    },
+    "Absolutely, I can help with that.": {
+      "n_tokens": 8,
+      "tokens": [
+        "Absolutely",
+        ",",
+        " I",
+        " can",
+        " help",
+        " with",
+        " that",
+        "."
+      ]
+    },
+    "Great question! Here's what you need to know:": {
+      "n_tokens": 12,
+      "tokens": [
+        "Great",
+        " question",
+        "!",
+        " Here",
+        "'",
+        "s",
+        " what",
+        " you",
+        " need",
+        " to",
+        " know",
+        ":"
+      ]
+    },
+    "Happy to help! Let me walk you through this.": {
+      "n_tokens": 11,
+      "tokens": [
+        "Happy",
+        " to",
+        " help",
+        "!",
+        " Let",
+        " me",
+        " walk",
+        " you",
+        " through",
+        " this",
+        "."
+      ]
+    },
+    "Here's a step-by-step guide:": {
+      "n_tokens": 11,
+      "tokens": [
+        "Here",
+        "'",
+        "s",
+        " a",
+        " step",
+        "-",
+        "by",
+        "-",
+        "step",
+        " guide",
+        ":"
+      ]
+    },
+    "No problem, I'll explain.": {
+      "n_tokens": 8,
+      "tokens": [
+        "No",
+        " problem",
+        ",",
+        " I",
+        "'",
+        "ll",
+        " explain",
+        "."
+      ]
+    },
+    "Certainly \u2014 kicking off below:": {
+      "n_tokens": 6,
+      "tokens": [
+        "Certainly",
+        " \u2014",
+        " kicking",
+        " off",
+        " below",
+        ":"
+      ]
+    },
+    "Delighted. Preparing an answer now:": {
+      "n_tokens": 8,
+      "tokens": [
+        "Del",
+        "ighted",
+        ".",
+        " Preparing",
+        " an",
+        " answer",
+        " now",
+        ":"
+      ]
+    },
+    "Eager. Covering every angle:": {
+      "n_tokens": 7,
+      "tokens": [
+        "E",
+        "ager",
+        ".",
+        " Covering",
+        " every",
+        " angle",
+        ":"
+      ]
+    },
+    "Keen. Spelling things out:": {
+      "n_tokens": 7,
+      "tokens": [
+        "Ke",
+        "en",
+        ".",
+        " Spelling",
+        " things",
+        " out",
+        ":"
+      ]
+    },
+    "Pleased. Rolling out insights:": {
+      "n_tokens": 7,
+      "tokens": [
+        "P",
+        "leased",
+        ".",
+        " Rolling",
+        " out",
+        " insights",
+        ":"
+      ]
+    },
+    "Thrilled. Unpacking each section:": {
+      "n_tokens": 8,
+      "tokens": [
+        "Thr",
+        "illed",
+        ".",
+        " Un",
+        "packing",
+        " each",
+        " section",
+        ":"
+      ]
+    },
+    "Excited! Diving into specifics now:": {
+      "n_tokens": 8,
+      "tokens": [
+        "Exc",
+        "ited",
+        "!",
+        " Diving",
+        " into",
+        " specifics",
+        " now",
+        ":"
+      ]
+    },
+    "Sure, jumping in now:": {
+      "n_tokens": 6,
+      "tokens": [
+        "Sure",
+        ",",
+        " jumping",
+        " in",
+        " now",
+        ":"
+      ]
+    },
+    "Absolutely, outlining the approach:": {
+      "n_tokens": 6,
+      "tokens": [
+        "Absolutely",
+        ",",
+        " outlining",
+        " the",
+        " approach",
+        ":"
+      ]
+    },
+    "Sure thing. Producing that below:": {
+      "n_tokens": 7,
+      "tokens": [
+        "Sure",
+        " thing",
+        ".",
+        " Producing",
+        " that",
+        " below",
+        ":"
+      ]
+    },
+    "Sure": {
+      "n_tokens": 1,
+      "tokens": [
+        "Sure"
+      ]
+    },
+    "Of course": {
+      "n_tokens": 2,
+      "tokens": [
+        "Of",
+        " course"
+      ]
+    },
+    "Absolutely": {
+      "n_tokens": 1,
+      "tokens": [
+        "Absolutely"
+      ]
+    },
+    "Certainly": {
+      "n_tokens": 1,
+      "tokens": [
+        "Certainly"
+      ]
+    },
+    "Eager": {
+      "n_tokens": 2,
+      "tokens": [
+        "E",
+        "ager"
+      ]
+    },
+    "Keen": {
+      "n_tokens": 2,
+      "tokens": [
+        "Ke",
+        "en"
+      ]
+    },
+    "Pleased": {
+      "n_tokens": 2,
+      "tokens": [
+        "P",
+        "leased"
+      ]
+    },
+    "Thrilled": {
+      "n_tokens": 2,
+      "tokens": [
+        "Thr",
+        "illed"
+      ]
+    },
+    "Excited": {
+      "n_tokens": 2,
+      "tokens": [
+        "Exc",
+        "ited"
+      ]
+    },
+    "Delighted": {
+      "n_tokens": 2,
+      "tokens": [
+        "Del",
+        "ighted"
+      ]
+    },
+    "Happy": {
+      "n_tokens": 1,
+      "tokens": [
+        "Happy"
+      ]
+    },
+    "Great": {
+      "n_tokens": 1,
+      "tokens": [
+        "Great"
+      ]
+    },
+    "Yes": {
+      "n_tokens": 1,
+      "tokens": [
+        "Yes"
+      ]
+    },
+    "Indeed": {
+      "n_tokens": 1,
+      "tokens": [
+        "Indeed"
+      ]
+    }
+  },
+  "comparison": {
+    "Sure, here is": {
+      "qwen_count": 4,
+      "gemma_count": 4,
+      "qwen_more_fragmented": false
+    },
+    "Sure, here's how to": {
+      "qwen_count": 6,
+      "gemma_count": 7,
+      "qwen_more_fragmented": false
+    },
+    "Of course! Here are the detailed steps:": {
+      "qwen_count": 9,
+      "gemma_count": 9,
+      "qwen_more_fragmented": false
+    },
+    "Absolutely, I can help with that.": {
+      "qwen_count": 8,
+      "gemma_count": 8,
+      "qwen_more_fragmented": false
+    },
+    "Great question! Here's what you need to know:": {
+      "qwen_count": 11,
+      "gemma_count": 12,
+      "qwen_more_fragmented": false
+    },
+    "Happy to help! Let me walk you through this.": {
+      "qwen_count": 11,
+      "gemma_count": 11,
+      "qwen_more_fragmented": false
+    },
+    "Here's a step-by-step guide:": {
+      "qwen_count": 8,
+      "gemma_count": 11,
+      "qwen_more_fragmented": false
+    },
+    "No problem, I'll explain.": {
+      "qwen_count": 7,
+      "gemma_count": 8,
+      "qwen_more_fragmented": false
+    },
+    "Certainly \u2014 kicking off below:": {
+      "qwen_count": 6,
+      "gemma_count": 6,
+      "qwen_more_fragmented": false
+    },
+    "Delighted. Preparing an answer now:": {
+      "qwen_count": 9,
+      "gemma_count": 8,
+      "qwen_more_fragmented": true
+    },
+    "Eager. Covering every angle:": {
+      "qwen_count": 8,
+      "gemma_count": 7,
+      "qwen_more_fragmented": true
+    },
+    "Keen. Spelling things out:": {
+      "qwen_count": 8,
+      "gemma_count": 7,
+      "qwen_more_fragmented": true
+    },
+    "Pleased. Rolling out insights:": {
+      "qwen_count": 7,
+      "gemma_count": 7,
+      "qwen_more_fragmented": false
+    },
+    "Thrilled. Unpacking each section:": {
+      "qwen_count": 8,
+      "gemma_count": 8,
+      "qwen_more_fragmented": false
+    },
+    "Excited! Diving into specifics now:": {
+      "qwen_count": 9,
+      "gemma_count": 8,
+      "qwen_more_fragmented": true
+    },
+    "Sure, jumping in now:": {
+      "qwen_count": 6,
+      "gemma_count": 6,
+      "qwen_more_fragmented": false
+    },
+    "Absolutely, outlining the approach:": {
+      "qwen_count": 6,
+      "gemma_count": 6,
+      "qwen_more_fragmented": false
+    },
+    "Sure thing. Producing that below:": {
+      "qwen_count": 8,
+      "gemma_count": 7,
+      "qwen_more_fragmented": true
+    },
+    "Sure": {
+      "qwen_count": 1,
+      "gemma_count": 1,
+      "qwen_more_fragmented": false
+    },
+    "Of course": {
+      "qwen_count": 2,
+      "gemma_count": 2,
+      "qwen_more_fragmented": false
+    },
+    "Absolutely": {
+      "qwen_count": 1,
+      "gemma_count": 1,
+      "qwen_more_fragmented": false
+    },
+    "Certainly": {
+      "qwen_count": 1,
+      "gemma_count": 1,
+      "qwen_more_fragmented": false
+    },
+    "Eager": {
+      "qwen_count": 2,
+      "gemma_count": 2,
+      "qwen_more_fragmented": false
+    },
+    "Keen": {
+      "qwen_count": 2,
+      "gemma_count": 2,
+      "qwen_more_fragmented": false
+    },
+    "Pleased": {
+      "qwen_count": 2,
+      "gemma_count": 2,
+      "qwen_more_fragmented": false
+    },
+    "Thrilled": {
+      "qwen_count": 2,
+      "gemma_count": 2,
+      "qwen_more_fragmented": false
+    },
+    "Excited": {
+      "qwen_count": 2,
+      "gemma_count": 2,
+      "qwen_more_fragmented": false
+    },
+    "Delighted": {
+      "qwen_count": 2,
+      "gemma_count": 2,
+      "qwen_more_fragmented": false
+    },
+    "Happy": {
+      "qwen_count": 1,
+      "gemma_count": 1,
+      "qwen_more_fragmented": false
+    },
+    "Great": {
+      "qwen_count": 1,
+      "gemma_count": 1,
+      "qwen_more_fragmented": false
+    },
+    "Yes": {
+      "qwen_count": 1,
+      "gemma_count": 1,
+      "qwen_more_fragmented": false
+    },
+    "Indeed": {
+      "qwen_count": 1,
+      "gemma_count": 1,
+      "qwen_more_fragmented": false
+    }
+  },
+  "training_total_qwen": 64,
+  "training_total_gemma": 70,
+  "training_qwen_minus_gemma": -6,
+  "holdout_total_qwen": 75,
+  "holdout_total_gemma": 70,
+  "holdout_qwen_minus_gemma": 5
+}

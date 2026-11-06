@@ -1,0 +1,42 @@
+{
+  "none": {
+    "llm_hedging_rate": 0.2,
+    "heuristic_hedging_rate": 0.05,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0,
+    "n_samples": 100
+  },
+  "static_1.3": {
+    "llm_hedging_rate": 0.36,
+    "heuristic_hedging_rate": 0.35,
+    "precision": 0.5714285714285714,
+    "recall": 0.5555555555555556,
+    "f1": 0.5633802816901409,
+    "n_samples": 100
+  },
+  "gated_bb_1.3": {
+    "llm_hedging_rate": 0.21,
+    "heuristic_hedging_rate": 0.05,
+    "precision": 0.2,
+    "recall": 0.047619047619047616,
+    "f1": 0.07692307692307693,
+    "n_samples": 100
+  },
+  "alphasteer": {
+    "llm_hedging_rate": 0.2,
+    "heuristic_hedging_rate": 0.05,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0,
+    "n_samples": 100
+  },
+  "cast": {
+    "llm_hedging_rate": 0.2,
+    "heuristic_hedging_rate": 0.05,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0,
+    "n_samples": 100
+  }
+}

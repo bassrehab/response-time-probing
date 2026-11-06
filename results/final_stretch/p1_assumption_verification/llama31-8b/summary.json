@@ -1,0 +1,38 @@
+{
+  "model": "llama31-8b",
+  "n_pairs": 1000,
+  "cos_no_prefill": {
+    "mean": 0.7076147571206093,
+    "std": 0.05973415553012139
+  },
+  "cos_with_prefill": {
+    "mean": 0.28870606461167336,
+    "std": 0.04783929552607976
+  },
+  "delta_cos": {
+    "mean": -0.4189086925089359,
+    "std": 0.04868923567642559
+  },
+  "n_pairs_with_positive_shift": 0,
+  "P_norm_no_prefill": {
+    "mean": 7.41641755104065,
+    "std": 0.20086922240633975
+  },
+  "P_norm_with_prefill": {
+    "mean": 7.117899663448334,
+    "std": 0.14453551643652043
+  },
+  "delta_P_norm": {
+    "mean": -0.2985178875923157,
+    "std": 0.22720389955598677
+  },
+  "n_pairs_with_negative_P_norm_shift": 895,
+  "delta_cos_train_only": {
+    "mean": -0.42499177587529025,
+    "std": 0.04807581228022115
+  },
+  "delta_cos_test_only": {
+    "mean": -0.4097840674594045,
+    "std": 0.04817586480930188
+  }
+}

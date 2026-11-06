@@ -1,0 +1,42 @@
+{
+  "linear": {
+    "auroc": 1.0,
+    "auroc_std": 0.0,
+    "accuracy": 0.975,
+    "fpr": 0.025,
+    "n_features": 4096
+  },
+  "tpc_d2_r16": {
+    "auroc": 1.0,
+    "auroc_std": 0.0,
+    "accuracy": 0.975,
+    "fpr": 0.025,
+    "n_features": 4112
+  },
+  "tpc_d2_r32": {
+    "auroc": 1.0,
+    "auroc_std": 0.0,
+    "accuracy": 0.975,
+    "fpr": 0.025,
+    "n_features": 4128
+  },
+  "tpc_d2_r64": {
+    "auroc": 1.0,
+    "auroc_std": 0.0,
+    "accuracy": 0.9875,
+    "fpr": 0.025,
+    "n_features": 4160
+  },
+  "tpc_d2_r128": {
+    "auroc": 1.0,
+    "auroc_std": 0.0,
+    "accuracy": 0.975,
+    "fpr": 0.025,
+    "n_features": 4224
+  },
+  "summary": {
+    "best_tpc": "tpc_d2_r16",
+    "improvement_pp": 0.0,
+    "recommendation": "linear_sufficient"
+  }
+}

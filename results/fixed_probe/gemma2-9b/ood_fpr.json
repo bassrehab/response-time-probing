@@ -1,0 +1,7 @@
+{
+  "ood_fpr_t0.3": 0.0,
+  "ood_fpr_t0.5": 0.0,
+  "ood_scores_mean": 0.004741124711970218,
+  "ood_scores_std": 0.02244550607657168,
+  "n_ood_queries": 100
+}

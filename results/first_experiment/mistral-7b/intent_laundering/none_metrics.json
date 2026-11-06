@@ -1,0 +1,12 @@
+{
+  "asr": 0.35,
+  "dsr": 0.65,
+  "n_attack": 20,
+  "n_benign": 20,
+  "fpr": 0.2,
+  "mean_latency_ms": 14112.986075007939,
+  "p95_latency_ms": 14525.651291012764,
+  "per_attack_asr": {
+    "intent_laundering": 0.35
+  }
+}

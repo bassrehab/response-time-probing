@@ -1,0 +1,42 @@
+{
+  "linear": {
+    "auroc": 1.0,
+    "id_fpr": 0.025,
+    "ood_scores_mean": 0.004331532276096101,
+    "ood_scores_std": 0.024346616248362995,
+    "ood_fpr_t0.3": 0.0,
+    "ood_fpr_t0.5": 0.0
+  },
+  "tpc_r16": {
+    "auroc": 1.0,
+    "id_fpr": 0.025,
+    "ood_scores_mean": 0.004350702859381079,
+    "ood_scores_std": 0.02441106717788993,
+    "ood_fpr_t0.3": 0.0,
+    "ood_fpr_t0.5": 0.0
+  },
+  "tpc_r32": {
+    "auroc": 1.0,
+    "id_fpr": 0.025,
+    "ood_scores_mean": 0.004169242326745207,
+    "ood_scores_std": 0.023988957323272646,
+    "ood_fpr_t0.3": 0.0,
+    "ood_fpr_t0.5": 0.0
+  },
+  "tpc_r64": {
+    "auroc": 1.0,
+    "id_fpr": 0.025,
+    "ood_scores_mean": 0.003920103472612901,
+    "ood_scores_std": 0.022691817943703802,
+    "ood_fpr_t0.3": 0.0,
+    "ood_fpr_t0.5": 0.0
+  },
+  "tpc_r128": {
+    "auroc": 1.0,
+    "id_fpr": 0.025,
+    "ood_scores_mean": 0.0044916437607193166,
+    "ood_scores_std": 0.025306889420453713,
+    "ood_fpr_t0.3": 0.0,
+    "ood_fpr_t0.5": 0.0
+  }
+}

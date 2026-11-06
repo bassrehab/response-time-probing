@@ -1,0 +1,87 @@
+{
+  "model": "llama31-8b",
+  "probe": {
+    "layer": 4,
+    "auroc": 1.0,
+    "id_fpr": 0.025,
+    "ood_fpr": 0.01
+  },
+  "vector": {
+    "layer": 14,
+    "separation": 0.6702406406402588
+  },
+  "safety": {
+    "none": {
+      "dsr": 0.35,
+      "fpr": 0.0,
+      "hard_fpr": 0.0
+    },
+    "static_0.5": {
+      "dsr": 0.475,
+      "fpr": 0.0,
+      "hard_fpr": 0.0
+    },
+    "static_0.8": {
+      "dsr": 0.475,
+      "fpr": 0.0,
+      "hard_fpr": 0.0
+    },
+    "static_1.0": {
+      "dsr": 0.475,
+      "fpr": 0.0,
+      "hard_fpr": 0.0
+    },
+    "static_1.3": {
+      "dsr": 0.5,
+      "fpr": 0.0,
+      "hard_fpr": 0.0
+    },
+    "gated_bb_1.3_t0.3": {
+      "dsr": 0.475,
+      "fpr": 0.05,
+      "hard_fpr": 0.05
+    },
+    "gated_prop_1.0_t0.5": {
+      "dsr": 0.42500000000000004,
+      "fpr": 0.05,
+      "hard_fpr": 0.05
+    }
+  },
+  "utility": {
+    "none": {
+      "hedging_rate": 0.0,
+      "over_refusal_rate": 0.0,
+      "mean_response_length": 1321.28
+    },
+    "static_0.5": {
+      "hedging_rate": 0.0,
+      "over_refusal_rate": 0.0,
+      "mean_response_length": 1309.71
+    },
+    "static_0.8": {
+      "hedging_rate": 0.0,
+      "over_refusal_rate": 0.0,
+      "mean_response_length": 1317.4
+    },
+    "static_1.0": {
+      "hedging_rate": 0.0,
+      "over_refusal_rate": 0.0,
+      "mean_response_length": 1310.46
+    },
+    "static_1.3": {
+      "hedging_rate": 0.0,
+      "over_refusal_rate": 0.0,
+      "mean_response_length": 1326.22
+    },
+    "gated_bb_1.3_t0.3": {
+      "hedging_rate": 0.0,
+      "over_refusal_rate": 0.0,
+      "mean_response_length": 1321.54
+    },
+    "gated_prop_1.0_t0.5": {
+      "hedging_rate": 0.0,
+      "over_refusal_rate": 0.0,
+      "mean_response_length": 1321.59
+    }
+  }
+}

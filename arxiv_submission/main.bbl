@@ -1,0 +1,127 @@
+\begin{thebibliography}{16}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Dubey et~al.(2024)Dubey, Jauhri, Pandey, Kadian, Al-Dahle, Letman,
+  Mathur, Schelten, Yang, Fan, et~al.]{llamaguard2024}
+Abhimanyu Dubey, Abhinav Jauhri, Abhinav Pandey, Abhishek Kadian, Ahmad
+  Al-Dahle, Aiesha Letman, Akhil Mathur, Alan Schelten, Amy Yang, Angela Fan,
+  et~al.
+\newblock The {Llama 3} herd of models.
+\newblock \emph{arXiv preprint arXiv:2407.21783}, 2024.
+\newblock Llama Guard 3 (8B) introduced in this report (Section 5.4).
+
+\bibitem[Golchin and Wetter(2026)]{golchin2026intent}
+Shahriar Golchin and Marc Wetter.
+\newblock Intent laundering: {AI} safety datasets are not what they seem.
+\newblock \emph{arXiv preprint arXiv:2602.16729}, 2026.
+
+\bibitem[He et~al.(2026)He, Sel, Ali, Bao, Cunningham, and
+  Wei]{segmentcoherence2026}
+Xuanli He, Bilgehan Sel, Faizan Ali, Jenny Bao, Hoagy Cunningham, and Jerry
+  Wei.
+\newblock Segment-level coherence for robust harmful intent probing in {LLMs}.
+\newblock \emph{arXiv preprint arXiv:2604.14865}, 2026.
+
+\bibitem[Korznikov et~al.(2025)Korznikov, Galichin, Dontsov, Rogov, Oseledets,
+  and Tutubalina]{roguescalpel2025}
+Anton Korznikov, Andrey Galichin, Alexey Dontsov, Oleg~Y. Rogov, Ivan
+  Oseledets, and Elena Tutubalina.
+\newblock The rogue scalpel: Activation steering compromises {LLM} safety.
+\newblock \emph{arXiv preprint arXiv:2509.22067}, 2025.
+
+\bibitem[Kram{\'a}r et~al.(2026)Kram{\'a}r, Engels, Wang, Chughtai, Shah,
+  Nanda, and Conmy]{gemma2probe2026}
+J{\'a}nos Kram{\'a}r, Joshua Engels, Zheng Wang, Bilal Chughtai, Rohin Shah,
+  Neel Nanda, and Arthur Conmy.
+\newblock Building production-ready probes for {Gemini}.
+\newblock \emph{arXiv preprint arXiv:2601.11516}, 2026.
+
+\bibitem[Lee et~al.(2025)Lee, Padhi, Ramamurthy, Miehling, Dognin, Nagireddy,
+  and Dhurandhar]{cast2025}
+Bruce~W. Lee, Inkit Padhi, Karthikeyan~Natesan Ramamurthy, Erik Miehling,
+  Pierre Dognin, Manish Nagireddy, and Amit Dhurandhar.
+\newblock Programming refusal with conditional activation steering.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2025.
+\newblock Spotlight; arXiv:2409.05907.
+
+\bibitem[Li et~al.(2023)Li, Zhou, Zhu, Yao, Liu, and Han]{li2023deepinception}
+Xuan Li, Zhanke Zhou, Jianing Zhu, Jiangchao Yao, Tongliang Liu, and Bo~Han.
+\newblock {DeepInception}: Hypnotize large language model to be jailbreaker.
+\newblock \emph{arXiv preprint arXiv:2311.03191}, 2023.
+
+\bibitem[Liu et~al.(2023)Liu, Xu, Chen, and Xiao]{liu2023autodan}
+Xiaogeng Liu, Nan Xu, Muhao Chen, and Chaowei Xiao.
+\newblock {AutoDAN}: Generating stealthy jailbreak prompts on aligned large
+  language models.
+\newblock \emph{arXiv preprint arXiv:2310.04451}, 2023.
+
+\bibitem[Lu et~al.(2025)Lu, Zeng, Zhang, Li, Zhuang, Wang, Chen, and
+  Peng]{argus2025}
+Weikai Lu, Ziqian Zeng, Kehua Zhang, Haoran Li, Huiping Zhuang, Ruidong Wang,
+  Cen Chen, and Hao Peng.
+\newblock {ARGUS}: Defending against multimodal indirect prompt injection via
+  steering instruction-following behavior.
+\newblock \emph{arXiv preprint arXiv:2512.05745}, 2025.
+
+\bibitem[Oldfield et~al.(2026)Oldfield, Georgopoulos, Kollias, Tzelepis, and
+  Patras]{tpc2026}
+James Oldfield, Markos Georgopoulos, Dimitrios Kollias, Christos Tzelepis, and
+  Ioannis Patras.
+\newblock Beyond linear probes: Truncated polynomial classifiers for concept
+  detection.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2026.
+
+\bibitem[Qi et~al.(2026)Qi, Panda, Lyu, Ma, Roy, Beirami, Mittal, and
+  Henderson]{qi2026safety}
+Xiangyu Qi, Ashwinee Panda, Kaifeng Lyu, Xiao Ma, Subhrajit Roy, Ahmad Beirami,
+  Prateek Mittal, and Peter Henderson.
+\newblock Safety alignment should be more than just a few tokens deep.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2026.
+\newblock Outstanding Paper Award.
+
+\bibitem[Sheng et~al.(2026)Sheng, Shen, Zhao, Fang, Liu, Liang, Wang, Zhang,
+  and Chua]{alphasteer2026}
+Leheng Sheng, Changshuo Shen, Weixiang Zhao, Junfeng Fang, Xiaohao Liu, Zhenkai
+  Liang, Xiang Wang, An~Zhang, and Tat-Seng Chua.
+\newblock {AlphaSteer}: Learning refusal steering with principled null-space
+  constraint.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2026.
+\newblock arXiv:2506.07022.
+
+\bibitem[Song et~al.(2026)Song, Xie, and Yin]{aisa2026}
+Weiming Song, Xuan Xie, and Ruiping Yin.
+\newblock {AISA}: Awakening intrinsic safety awareness in large language models
+  against jailbreak attacks.
+\newblock \emph{arXiv preprint arXiv:2602.13547}, 2026.
+
+\bibitem[Turner et~al.(2023)Turner, Thiergart, Leech, Udell, Vazquez, Mini, and
+  MacDiarmid]{turner2023activation}
+Alexander~Matt Turner, Lisa Thiergart, Gavin Leech, David Udell, Juan~J.
+  Vazquez, Ulisse Mini, and Monte MacDiarmid.
+\newblock Activation addition: Steering language models without optimization.
+\newblock \emph{arXiv preprint arXiv:2308.10248}, 2023.
+
+\bibitem[Zhao et~al.(2026)Zhao, Wang, Feng, Yang, Wang, and
+  Zhang]{safeprobing2026}
+Yinzhi Zhao, Ming Wang, Shi Feng, Xiaocui Yang, Daling Wang, and Yifei Zhang.
+\newblock {SafeProbing}: Defending large language models against jailbreak
+  attacks via in-decoding safety-awareness probing.
+\newblock \emph{arXiv preprint arXiv:2601.10543}, 2026.
+
+\bibitem[Zou et~al.(2023)Zou, Wang, Carlini, Nasr, Kolter, and
+  Fredrikson]{zou2023universal}
+Andy Zou, Zifan Wang, Nicholas Carlini, Milad Nasr, J.~Zico Kolter, and Matt
+  Fredrikson.
+\newblock Universal and transferable adversarial attacks on aligned language
+  models.
+\newblock \emph{arXiv preprint arXiv:2307.15043}, 2023.
+
+\end{thebibliography}

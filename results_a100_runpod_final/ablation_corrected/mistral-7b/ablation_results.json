@@ -1,0 +1,22 @@
+{
+  "none": {
+    "dsr": 0.4,
+    "hedging_rate": 0.01,
+    "fpr": 0.0
+  },
+  "probe_only": {
+    "dsr": 0.4,
+    "hedging_rate": 0.01,
+    "fpr": 0.95
+  },
+  "steer_only": {
+    "dsr": 0.575,
+    "hedging_rate": 0.23,
+    "fpr": 0.0
+  },
+  "probe_steer": {
+    "dsr": 0.575,
+    "hedging_rate": 0.06,
+    "fpr": 1.0
+  }
+}

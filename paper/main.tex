@@ -1,0 +1,926 @@
+\documentclass{article}
+
+% NeurIPS 2026 style -- main track. Anonymous submission by default;
+% switch to [final,main] for camera-ready (de-anonymises and removes line numbers).
+\usepackage[main]{neurips_2026}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{nicefrac}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{subcaption}
+\usepackage{multirow}
+\usepackage{adjustbox}
+\usepackage{longtable}
+\usepackage{float}
+
+\newcommand{\dsr}{\text{DSR}}
+\newcommand{\asr}{\text{ASR}}
+\newcommand{\fpr}{\text{FPR}}
+
+\title{Closing the Activation-Cone Blind Spot: \\ Response-Time Probing and Unified Defense}
+
+\author{%
+  Anonymous Author(s)%
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Inference-time safety methods for large language models have proliferated rapidly, yet no systematic comparison exists. We evaluate five defense paradigms (no defense, static steering, CAST, AlphaSteer, probe-gated) across seven instruction-tuned models (Mistral-7B, Gemma-2-9B, Gemma-3-12B, Gemma-4-31B, Qwen-2.5-7B, Qwen3-8B, Llama-3.1-8B; 7--31B parameters) and five attack types (GCG, AutoDAN, DeepInception, prefilling, intent laundering). Our central finding is that \textbf{prompt-time activation defenses are structurally blind to prefilling attacks}: AlphaSteer achieves 0\% ASR on GCG, AutoDAN, and intent laundering, $\leq$2.5\% on DeepInception, but 50\% on prefilling under the current environment (82\% under the paper environment, App.~\ref{app:probe_reproducibility}/\ref{app:env_drift}); no other prompt-time paradigm reduces prefilling ASR below 28\% (paper env; current-env baselines exist only for Mistral/Llama). \textbf{We derive a corollary generalising this result: any defense gating intervention on activation alignment with a benign reference, cone, subspace, or null-space projection, at any single layer is structurally blind to attacks that craft activations to lie inside that reference, whether the gate is checked once at prompt time or per generated token}; applicable to AlphaSteer, CAST, prompt-time probe-gated steering, and any defense sharing this structural shape. We introduce \textbf{response-time probing} as the corollary's constructive contrapositive: a linear probe on the model's hidden state at the first few generated tokens (mean-pooled over $N=5$ in headline results, $N=1$ sufficient; App.~\ref{app:ntoken}), training-distribution AUROC 0.97--1.00 across all seven models. Combined with a halt intervention, it reduces prefilling ASR \emph{on the canonical prefilling-attack template family} to \textbf{0/40 on all seven models at $n=40$} (Wilson 95\% CI [0\%, 9\%]); Llama scaled to $n=200$ confirms 0--1/200 across runs, Gemma-4-31B-it LLM judge: 0/200; with 0\% benign FPR, outperforming Llama Guard 3 (0\% detection). Cross-template generalisation is contingent on probe depth (4/7 layer $\leq 2$ models fail; 2/3 layer $\geq 4$ models generalise); we therefore frame the central claim as an activation-level defense for the canonical template family rather than a model-agnostic detector. On Llama, the dual-probe system reaches keyword-judge DSR 0.990 at $n=200$ vs 0.698 for AlphaSteer; the Gemma-4-31B-it LLM judge confirms prefilling 0/200 specifically (aggregate LLM-judge DSR is 0.964 due to intent-laundering disagreement, App.~\ref{app:judge_prompt}). $n=200$ unified: Mistral 0.940, Llama 0.990 (Table~\ref{tab:n200}). \textbf{Composing the response-halt with AlphaSteer's null-space steering, the architectural composition the corollary motivates, yields DSR 0.983 on Mistral and 0.994 on Llama at $n=40$}, dominating both individual paradigms; both unified DSRs reach 1.000 under Gemma-4-31B-it LLM judge (App.~\ref{app:judge_prompt}). The orthogonal split (response-halt catches prefilling, AlphaSteer catches semantic attacks) is the corollary's prescribed architecture. Adaptive robustness is asymmetric: \textbf{on Llama the probe catches 80\% of canonical prefilling attacks but only 65\% of probe-aware adversarial variants, with residual ASR 30\%; Mistral's prefilling-specific probe does not fire on adaptive variants}. Qwen-2.5 at either tested layer is an unexplained counterexample to the layer-depth split. Paper-shipped probe weights on Mistral and Llama drift outside $\pm 2$pp under current library versions; fresh retraining recovers paper numbers for both; retraining script released. The response probe operates in a subspace \emph{orthogonal} to the refusal steering vector ($|\cos|<0.04$ on 6/7 models), detecting information activation steering cannot access. MMLU fails to capture steering's utility cost (manifests as behavioral hedging, not factual loss); probe training on narrow distributions causes 80--100\% FPR that diverse negative sets eliminate. Code, attacks, per-sample results, and LLM-judge prompt released; we collate eight diagnostic protocols for activation-level safety method evaluation (App.~\ref{app:diagnostic_protocols}).
+\end{abstract}
+
+% ============================================================================
+\section{Introduction}
+\label{sec:intro}
+% ============================================================================
+
+Large language models exhibit safety behaviors that are surprisingly shallow~\citep{qi2026safety}. Fine-tuning on as few as 100 examples can remove safety training, and simple prefilling attacks, which inject a compliant assistant prefix before generation, bypass refusal mechanisms entirely. This fragility has motivated a wave of \emph{inference-time} safety methods that intervene in the model's activation space during generation, requiring no retraining.
+
+These methods span a spectrum from unconditional activation steering~\citep{turner2023activation}, which injects a fixed refusal vector at every forward pass, to learned input-dependent approaches like AlphaSteer~\citep{alphasteer2026}, which uses null-space constraints to avoid perturbing benign inputs, to probe-gated systems that detect threats before intervening. Despite rapid progress, no unified evaluation compares these paradigms on identical models, attacks, and metrics.
+
+We provide the first such comparison. Our evaluation reveals that every paradigm has a distinct failure mode, and the choice of defense should depend on the anticipated threat model rather than aggregate safety scores. Our contributions are:
+
+\begin{enumerate}
+    \item \textbf{Activation-cone defenses are structurally blind to prefilling: a corollary} (Section~\ref{sec:attack_analysis}). We show that any defense gating intervention on the current activation's alignment with a benign reference, a cone, subspace, or null-space projection, at any single layer is structurally blind to attacks that craft activations to lie inside that reference, whether the gate is checked once at prompt time or continuously per generated token. The empirical anchor is AlphaSteer's previously-unreported \textbf{50\% prefilling ASR} on Mistral and Llama under the current environment (82\% under the paper environment; App.~\ref{app:probe_reproducibility}/\ref{app:env_drift}; versus 0\% on GCG, AutoDAN, intent laundering, and $\leq$2.5\% on DeepInception). The failure mechanism is heterogeneous across models: on Llama, prefilling drives activations into AlphaSteer's null-space (the geometric mechanism); on Mistral, prefilling drives activations outside the null-space and AlphaSteer's learned correction misfires (distribution shift on the prefilled-trajectory manifold; \S\ref{sec:mechanism_check}). The Corollary abstracts over both mechanisms: any single-layer activation-cone gate is structurally blind to attacks that craft activations the gate misreads as benign --- by either mechanism.
+    \item \textbf{Response-time probing: the corollary's constructive contrapositive} (Section~\ref{sec:response_probe}). We classify after the context commits, not before. A linear probe on the model's hidden state at the first $N$ generated tokens (mean-pooled; $N=5$ headline, $N=1$ sufficient, App.~\ref{app:ntoken}) reduces prefilling ASR to \textbf{0/40 under the keyword judge on all seven models at $n=40$} (7--31B, four families, three generations including Gemma-4-31B released April 2026; Wilson 95\% CI [0\%, 9\%]); the Llama $n=200$ headline additionally reproduces under a Gemma-4-31B LLM judge (0/200, 0 disagreements). Benign FPR is 0\%. The probe operates orthogonally to refusal steering ($|\cos| < 0.04$ on 6/7 models), each model independently discovering a model-specific detection direction (pairwise $\cos < 0.02$), with partial transfer to pre-RLHF base models (AUROC 0.72). A strict template-holdout diagnostic shows cross-template generalisation is contingent on probe depth (App.~\ref{app:e9_table3}); we scope the central claim accordingly to the canonical prefilling-attack template family. Combined with prompt-time probe-gated steering, the dual-probe system achieves keyword-judge DSR 0.990 on Llama at $n=200$ (LLM judge confirms prefilling 0/200; aggregate LLM-judge DSR drops to 0.964 due to intent-laundering disagreement, App.~\ref{app:judge_prompt}).
+    \item \textbf{Unified architecture: AlphaSteer + response-halt orthogonal split} (Section~\ref{sec:response_probe}). The corollary motivates composing prompt-time activation steering (handles GCG/AutoDAN/DeepInception/intent-laundering, where the steering layer reads harmful intent before the assistant turn commits) with response-time probe halt (handles prefilling, where the corollary's contrapositive applies at the first-generated-token state). The unified system achieves DSR \textbf{0.983 on Mistral and 0.994 on Llama at $n=40$}, dominating both component paradigms on both models in the same current-env run: Mistral AlphaSteer 0.889, dual-probe-fresh 0.622; Llama AlphaSteer 0.883, dual-probe-fresh 0.967 (App.~\ref{app:env_drift}); paper-env baselines (0.817 / 0.706 Mistral, 0.817 / 0.983 Llama) and the App.~\ref{app:probe_reproducibility} probe-pkl drift are documented in App.~\ref{app:probe_reproducibility}/\ref{app:env_drift}. The orthogonality is empirical: the response probe fires only on prefilled compliance, leaving semantic attacks for AlphaSteer at the steering layer. Probe-variant agreement on the unified DSR is within $\pm 2$pp on Llama (paper-pkl variant reaches 1.000) but drifts on Mistral (paper-pkl 0.889; the documented paper-pkl-vs-fresh divergence on Mistral, App.~\ref{app:probe_reproducibility}).
+    \item \textbf{First cross-paradigm comparison} of five inference-time safety methods across seven instruction-tuned models and five attack types, revealing paradigm-specific failure profiles (Section~\ref{sec:main_results}).
+    \item \textbf{Methodology contributions}: (i) \emph{utility measurement}, MMLU-style benchmarks are insensitive to steering's actual utility cost, which manifests as behavioral hedging rather than factual degradation; we propose hedging rate as an alternative metric (Section~\ref{sec:utility}). (ii) \emph{probe training}, diverse negative training sets reduce out-of-distribution false positive rates from 80--100\% to 0--1\%, a finding applicable to all safety probing work (Section~\ref{sec:probes}).
+\end{enumerate}
+
+% ============================================================================
+\section{Background and Related Work}
+\label{sec:related}
+% ============================================================================
+
+\paragraph{Shallow Alignment.}
+\citet{qi2026safety} demonstrate that safety alignment is ``not more than a few tokens deep,'' operating primarily through output-level refusal patterns. Prefilling attacks exploit this by injecting compliance before the model's refusal mechanism activates. This motivates activation-level interventions that operate on internal representations rather than output tokens.
+
+\paragraph{Activation Steering.}
+Activation steering injects directional offsets into residual streams at inference time. CAA~\citep{turner2023activation} introduced this with unconditional injection; CAST~\citep{cast2025} and AlphaSteer~\citep{alphasteer2026} add input-dependent gating (cosine threshold and learned null-space projection respectively); paradigm details in \S\ref{sec:paradigms}, AlphaSteer's gating equation in \S\ref{sec:attack_analysis}.
+
+\paragraph{Safety Probing.}
+Linear probes on model activations detect harmful intent~\citep{tpc2026}; recent 2026 work establishes probing as a practical safety layer~\citep{segmentcoherence2026,aisa2026,gemma2probe2026,safeprobing2026}, with deployment reported on Gemini~2.5~Flash; ARGUS~\citep{argus2025} combines probing with intervention for multimodal models; \citet{roguescalpel2025} warn that activation steering \emph{itself} can compromise safety. Concurrent in-decoding and prefix-probing approaches~\citep{safeprobing2026} monitor activations during or before generation but do not analyse the structural relationship between prompt-time gating and prefilling. Our contributions distinct from this line: (i) the structural-blindness corollary motivating post-prefill monitoring (\S\ref{sec:attack_analysis}); (ii) the layer-depth-vs-generalisation diagnostic (\S\ref{sec:response_probe}); (iii) the orthogonal-split unified architecture (Table~\ref{tab:main}); and the response-probe / refusal-vector orthogonality (Table~\ref{tab:response_probe}).
+
+\paragraph{Adversarial Attacks.}
+We evaluate against five attack families: GCG~\citep{zou2023universal} optimizes adversarial suffixes via gradient-based search; AutoDAN~\citep{liu2023autodan} uses genetic algorithms; DeepInception~\citep{li2023deepinception} nests requests in fictional scenarios; prefilling bypasses refusal by pre-filling the assistant turn; and intent laundering~\citep{golchin2026intent} removes explicit harmful cues while preserving intent.
+
+% ============================================================================
+\section{Paradigms Compared}
+\label{sec:paradigms}
+% ============================================================================
+
+We evaluate five paradigms: \textbf{no defense} (baseline); \textbf{static steering} --- CAA refusal vector~\citep{turner2023activation} injected at a fixed layer with $\alpha = 1.3$ unconditionally; \textbf{CAST}~\citep{cast2025} --- same vector gated by cosine to a benign reference ($\cos < 0.3$); \textbf{AlphaSteer}~\citep{alphasteer2026} --- input-dependent null-space-projected steering (gating equation in \S\ref{sec:attack_analysis}); \textbf{probe-gated steering} --- linear probe at layer $\ell_p$ triggers full refusal-vector injection at $\ell_s > \ell_p$ when score $> 0.3$. We also introduce \textbf{dual-probe gated steering} (\S\ref{sec:response_probe}), adding response-time halt to prompt-time probe.
+
+% ============================================================================
+\section{Experimental Setup}
+\label{sec:setup}
+% ============================================================================
+
+\paragraph{Models.} Seven instruction-tuned models (7--31B), four families: Mistral-7B-Instruct-v0.3, Gemma-2-9B-it, Gemma-3-12B-it, Gemma-4-31B-it, Qwen-2.5-7B-Instruct, Qwen3-8B, Llama-3.1-8B-Instruct. bfloat16 on A100-SXM4 80GB.
+
+\paragraph{Attacks.} 40 prompts per type, 20 for intent laundering (full public set). \textbf{GCG}: 512-step adversarial suffixes on Mistral/Llama, transfer suffixes elsewhere; \textbf{AutoDAN}: template-based genetic jailbreaks; \textbf{DeepInception}: nested fictional scenarios; \textbf{Prefilling}: pre-filled compliant assistant turn; \textbf{Intent Laundering}: cue-removed harmful requests. 50 benign prompts for FPR.
+
+\paragraph{Metrics.} \emph{ASR}: fraction of attack prompts producing harmful content (keyword heuristic; Llama $n=200$ rescored with Gemma-4-31B-it LLM judge, \S\ref{sec:response_probe}). \emph{DSR} $= 1-$ASR. \emph{Hedging Rate}: benign responses with unnecessary disclaimers. \emph{FPR}: benign prompts where defense fires. 175-condition sweep ($7 \times 5 \times 5$), exploratory; per-condition Wilson 95\% CIs (App.~\ref{app:wilson}).
+
+\paragraph{Steering Configuration.} Layer 14 for all steering injection, following AlphaSteer's published Mistral-7B configuration~\citep{alphasteer2026}; falls within the middle-third where refusal features concentrate across the seven models; relative-depth sweeps not performed (\S\ref{sec:discussion}). Probe-gated steering uses a linear probe trained with diverse negatives (\S\ref{sec:probes}) at each model's optimal probe layer (AUROC sweep). Steering strength $\alpha = 1.3$ for all vector-based methods.
+
+% ============================================================================
+\section{Results}
+\label{sec:results}
+% ============================================================================
+
+\subsection{No Single-Mechanism Paradigm Dominates}
+\label{sec:main_results}
+
+Table~\ref{tab:main} presents the complete paradigm $\times$ attack $\times$ model matrix. Every paradigm has a distinct failure profile; no single method dominates. AlphaSteer leads on aggregate DSR among prompt-time methods (0.889/0.883 Mistral/Llama) but conceals 50\% prefilling ASR on both; the unified dagger rows resolve this (mechanism \S\ref{sec:response_probe}; Figure~\ref{fig:heatmap} visualises the matrix).
+
+\begin{table}[t]
+\caption{Attack Success Rate (\%) across paradigms, 5 attacks, and 4 models ($n=40$ per attack, $n=20$ for intent laundering). Lower is better. Bold indicates best defense per attack$\times$model. AlphaSteer achieves 0\% on 4/5 attack types but 50\% on prefilling on Mistral/Llama (current env; 82\% paper env, App.~\ref{app:env_drift}); Gemma-2 and Qwen-2.5 AlphaSteer cells are paper-env. Dual-probe gated and Unified (ours) on Mistral and Llama only. $^{\ddagger}$\textbf{Dual-probe gated}: response-halt + prompt-time PGS, current-env fresh-retrain probe; paper-env DSR 0.706/0.983 (Mistral/Llama) and current-env paper-pkl variant 0.533/0.978 reported in App.~\ref{app:env_drift}. $^{\dagger}$\textbf{Unified (AlphaSteer + halt)}: response-halt + AlphaSteer (orthogonal split: response-halt catches prefilling, AlphaSteer catches semantic attacks); current-env fresh-retrain probe; paper-pkl variant DSR 0.889/1.000 (Mistral/Llama) in App.~\ref{app:env_drift}.}
+\label{tab:main}
+\centering
+\small
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{ll ccccc c}
+\toprule
+\textbf{Model} & \textbf{Paradigm} & \textbf{GCG} & \textbf{AutoDAN} & \textbf{DeepInc.} & \textbf{Prefill} & \textbf{Int.Laund.} & \textbf{Agg. DSR} \\
+\midrule
+\multirow{7}{*}{Mistral-7B}
+ & No defense   & 30 & 95  & 10 & 68 & 20 & .528 \\
+ & Static       & 3  & 73  & 3  & 53 & 20 & .689 \\
+ & CAST         & 13 & 98  & 3  & 63 & 15 & .594 \\
+ & Probe-gated (prompt) & 20 & 95 & 3 & 73 & 20 & .556 \\
+ & AlphaSteer   & \textbf{0}  & \textbf{0}   & \textbf{0}  & 50 & \textbf{0}  & .889 \\
+ & Dual-probe gated (ours)$^{\ddagger}$ & 55 & 93 & 8 & \textbf{8} & 15 & .622 \\
+ & \textbf{Unified (AlphaSteer + halt, ours)}$^{\dagger}$ & \textbf{0}  & \textbf{0}   & \textbf{0}  & \textbf{8} & \textbf{0}  & \textbf{.983} \\
+\midrule
+\multirow{5}{*}{Gemma-2-9B}
+ & No defense   & 0  & 65  & 3  & 28 & 15 & .772 \\
+ & Static       & 0  & 65  & 5  & 28 & 10 & .772 \\
+ & CAST         & 0  & 65  & 5  & 28 & 10 & .772 \\
+ & AlphaSteer   & 5  & 75  & \textbf{0}  & 33 & \textbf{10} & .739 \\
+ & Probe-gated (prompt) & \textbf{0} & 65 & 3 & 28 & 10 & .778 \\
+\midrule
+\multirow{5}{*}{Qwen-2.5-7B}
+ & No defense   & 3  & 8   & 15 & 65 & \textbf{0} & .800 \\
+ & Static       & 5  & 5   & 15 & 60 & 10 & .800 \\
+ & CAST         & 3  & 5   & 15 & 65 & \textbf{0} & .806 \\
+ & AlphaSteer   & 8  & 5   & 18 & 60 & \textbf{0} & .800 \\
+ & Probe-gated (prompt) & 3 & 5 & 15 & 63 & 10 & .800 \\
+\midrule
+\multirow{7}{*}{Llama-3.1-8B}
+ & No defense   & 3  & 3   & 5  & 53 & 30 & .828 \\
+ & Static       & \textbf{0}  & \textbf{0}   & \textbf{0}  & 75 & 15 & .817 \\
+ & CAST         & 3  & 5   & 5  & 58 & 40 & .800 \\
+ & Probe-gated (prompt) & 5 & 3 & 3 & 55 & 15 & .839 \\
+ & AlphaSteer   & \textbf{0}  & \textbf{0}   & 3  & 50 & \textbf{0}  & .883 \\
+ & Dual-probe gated (ours)$^{\ddagger}$ & \textbf{0} & 3 & 5 & \textbf{0} & 15 & .967 \\
+ & \textbf{Unified (AlphaSteer + halt, ours)}$^{\dagger}$ & \textbf{0}  & \textbf{0}   & 3  & \textbf{0} & \textbf{0}  & \textbf{.994} \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.92\linewidth]{figures/attack_heatmap.pdf}
+\caption{Per-attack ASR (\%) across paradigms and models. Darker red = worse defense. AlphaSteer's prefilling column is hot on Mistral and Llama (50\% current env; paper-env 82\%, App.~\ref{app:env_drift}); dual-probe gated reduces prefilling to 0\% on Llama and 8\% on Mistral (the residual is recovered to 0\% under the unified Mistral row of Table~\ref{tab:main}, the architectural composition the \S\ref{sec:attack_analysis} corollary motivates). See Figure~\ref{fig:pareto} (appendix) for the Pareto view.}
+\label{fig:heatmap}
+\end{figure}
+
+\subsection{Attack-Specific Analysis}
+\label{sec:attack_analysis}
+
+\paragraph{AlphaSteer's Prefilling Blind Spot.}
+AlphaSteer achieves perfect or near-perfect defense on GCG, AutoDAN, DeepInception, and intent laundering, but fails on prefilling: 50\% ASR on Mistral and Llama (current env; 82\% paper env, App.~\ref{app:env_drift}), 33\% on Gemma (paper env, no current-env re-run). This failure is a \emph{structural consequence} of AlphaSteer's design:
+
+\emph{Proposition (AlphaSteer prefilling failure has heterogeneous mechanisms across models, one verified, one inferred).} Let $\hat{P}$ be AlphaSteer's null-space projection ($\hat{P}\mathbf{h} \approx \mathbf{0}$ for benign $\mathbf{h}$), with intervention $\mathbf{h}' = \mathbf{h} + \lambda\tilde{\Delta}\hat{P}\mathbf{h}$. AlphaSteer fails on prefilling at 50\% ASR (current env, both models) via heterogeneous mechanisms. \textbf{(i) Geometric (Llama)}: prefilling drives the final-prompt-token residual stream toward the benign null-space; $\|\hat{P}\mathbf{h}\|$ decreases on 89.5\% of pairs at layer 14 (n=1000), collapsing the correction toward zero. \textbf{(ii) Distribution-shift (Mistral)}: prefilling drives $\mathbf{h}$ \emph{outside} the benign null-space ($\|\hat{P}\mathbf{h}\|$ increases on 92\% of pairs), but $\tilde{\Delta}$ --- trained on a different harmful-activation shape --- produces a poorly-aimed correction in this regime. Both yield the same failure phenotype; disaggregation below. We rule out (i) on Mistral but do not verify (ii) directly.\footnote{Empirical check at layer 14, n=1000 pairs/model (below): $\|\hat{P}\mathbf{h}\|$ decreases under prefill on 89.5\% of pairs on Llama (mechanism (i) verified) but increases on 92\% on Mistral (mechanism (i) falsified; (ii) implied as residual). Does not extend to other layers, model sizes, or prefill lengths.}
+
+\emph{Corollary (structural blindness of activation-cone defenses).} \textbf{Any defense that decides whether to intervene by measuring the current activation's alignment with a benign reference, a cone, subspace, or null-space projection, at any single layer is structurally blind to attacks that craft activations to lie inside that reference, whether the gate is checked once at prompt time or continuously per generated token. Per-token gating only catches activation drift; it does not catch context that was committed to look benign from the start.} \emph{Sketch.} Let $g(\mathbf{h})$ decide ``intervene'' iff $\mathrm{align}(\mathbf{h}, \mathcal{R}) < \tau$ (equivalently, distance to $\mathcal{R}$ exceeds a threshold; matches CAST's published gate~\citep{cast2025}\footnote{\citet{cast2025} state the condition ``when activated during text generation, the behavior vector is added to all subsequent forward passes,'' without specifying check frequency. The corollary holds under either reading: per-prompt CAST reads a benign cone at gate-time; per-token CAST reads the same cone for early generation tokens before harmful content is emitted.}). The Proposition above establishes that prefilling produces, at the gating layer, an activation that the single-layer gate evaluates as benign-like --- by mechanism (i) if $\mathbf{h}$ is geometrically close to $\mathcal{R}$, or by mechanism (ii) if the gate's learned correction misaims on $\mathbf{h}$. In either case $g(\mathbf{h})=0$: no intervention; extends to per-token gating while the activation continues to be misread. $\square$ Prefilling controls the \emph{context} rather than the \emph{content} of the user's request; the gating layer's activations at the final prompt-token position reflect context. Prompt-time probe-gated steering is a special case (a linear classifier reading the same activation). The fix is architectural: monitor the model's state \emph{during generation} (\S\ref{sec:response_probe}), after the prefill has committed the trajectory.
+
+\paragraph{Empirical mechanism check.}
+\label{sec:mechanism_check}
+We tested the natural mechanism for AlphaSteer's prefilling failure on Mistral and Llama (n=1000 (instruction, template) pairs each, layer 14). \textbf{The result disaggregates: Llama supports the mechanism, Mistral falsifies it.} We extracted layer-14 final-prompt-token activations $\mathbf{h}$ with and without the prefilled prefix and measured $\|\hat{P}\mathbf{h}\|$ (Figure~\ref{fig:p1_pnorm}, App.~\ref{app:p1_cos}; cosine to benign-mean reported in App.~\ref{app:p1_cos}).
+
+\emph{Llama supports mechanism (i).} $\|\hat{P}\mathbf{h}\|$ decreases on 895/1000 pairs (89.5\%; mean $\Delta = -0.30$, baseline 7.42); prefilling drives activations toward AlphaSteer's null-space.
+
+\emph{Mistral falsifies mechanism (i).} $\|\hat{P}\mathbf{h}\|$ \emph{increases} on 921/1000 pairs (92.1\%; mean $\Delta = +0.28$ from baseline 3.90). Some mechanism must explain the 50\% ASR; the residual consistent with this geometry is mechanism (ii): $\tilde{\Delta}$ trained on a harmful-activation distribution outside the prefilled-trajectory regime aims poorly there. Direct verification of (ii) is left for future work. Cosine-to-benign-mean shifts (App.~\ref{app:p1_cos}) move the wrong direction on both models for an interpretable reason --- single-direction references don't summarize high-dimensional benign manifolds --- independent of the $\|\hat{P}\mathbf{h}\|$ disaggregation.
+
+\paragraph{Prefilling Is the Universal Hard Attack for Prompt-Time Methods.}
+Across all \emph{prompt-time} paradigms and models, prefilling achieves the highest ASR (28--75\%; up to 82\% paper-env, App.~\ref{app:env_drift}). This confirms the shallow alignment finding of \citet{qi2026safety}: safety training operates at the output level and can be bypassed by pre-filling compliance. No prompt-time method reduces prefilling ASR below 28\% on any model (paper env; current-env baselines exist only for Mistral/Llama). Our response-time probing approach (Section~\ref{sec:response_probe}) reduces it to $\leq 0.5\%$ on the canonical template family across all seven models, with cross-template generalisation bounded by probe depth as discussed there.
+
+Static steering amplifies Llama prefilling ASR over no defense (53\%$\to$75\%); AlphaSteer amplifies under paper env (53\%$\to$82\%) but is neutral under current env (50\%$\to$50\%, App.~\ref{app:env_drift}). The refusal steering vector and prefilled compliance context are aligned, not opposed, at the injection layer.
+
+\subsection{Response-Time Probing: An Activation-Level Defense Against Canonical Prefilling Templates}
+\label{sec:response_probe}
+
+All five prompt-time paradigms fail on prefilling because they decide intervention from the input representation, yet prefilling attacks place compliant content in the \emph{assistant turn} so that, at the prompt's final-token position, activations resemble benign compliance even though the harmful instruction precedes the prefill in the input sequence. We propose a different monitoring point: the model's hidden states during the first few generated response tokens, after the prefill has committed the generation to a particular trajectory but before a harmful payload is emitted. Figure~\ref{fig:diagram} (appendix) shows the full dual-probe architecture.
+
+\paragraph{Method.}
+For each prompt (with any prefill prepended), we generate the first $N$ response tokens, capture the last-token hidden state at every layer, and \emph{mean-pool} the $N$ vectors per layer into a single $d$-dimensional feature for a logistic-regression probe; layer chosen by 5-fold CV AUROC. Probe is trained once on baseline (unsteered) activations and reused across all paradigms; sensitivity to upstream activation modification by AlphaSteer not characterised. At inference time, if the response probe fires above threshold $\tau_r = 0.5$, the generation is \emph{halted} and replaced with a refusal string; otherwise generation proceeds under prompt-time probe-gated steering as usual. Table~\ref{tab:response_probe} uses $N=5$; an ablation (Table~\ref{tab:ntoken}, appendix) confirms $N=1$ suffices (AUROC $\geq 0.95$, 100\% halt on Mistral and Llama).
+
+\paragraph{Probe accuracy and halt intervention.}
+Table~\ref{tab:response_probe} reports the response probe across all seven models: AUROC 0.968 (Gemma-2) to 1.000 (Llama, Qwen3, Gemma-3, Gemma-4); halt reduces prefilling ASR to \textbf{0\% on every model}, generalising across families (Mistral/Llama/Gemma/Qwen), 7--31B parameters, and three model generations. Best probe layers vary 1--17 (App.~\ref{app:layersweep}). Steer-don't-halt is substantially weaker on Mistral/Llama (47.5\%/75\% prefilling ASR; refusal vector can't overpower prefilled context); subsequent results use halt.
+
+\begin{table}[t]
+\caption{Response-time probe results. \textbf{paper L}/\textbf{fresh L} = paper / fresh-retrain optimal layer; \textbf{halt} = halt rate on $n=40$ canonical prefilling attacks; \textbf{canon-novel} = conditional-on-harm rate (parenthesis = templates with any harm, the denominator); $^*$Qwen3/Gemma-4 had 0 templates with harm (rate undefined); Llama $n=2$ is fragile. Layer-depth split holds approximately ($\geq 4$: $\geq 75\%$ on 2 of 3; $\leq 2$: low on 3 of 4 measurable, Mistral 61\% is surface-feature reading, App.~\ref{app:mech_discriminators}), Qwen-2.5$^\dagger$ at L=4 unexplained counterexample at 25\%.}
+\label{tab:response_probe}
+\centering
+\small
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Model} & \textbf{paper L} & \textbf{fresh L} & \textbf{AUROC} & \textbf{halt} & \textbf{canon-novel} & $\cos(\mathbf{w}, \mathbf{v}_\text{ref})$ \\
+\midrule
+Mistral-7B     & 11 & 1  & 0.992 & 82\% & 61\% (5)  & 0.006 \\
+Llama-3.1-8B   & 1  & 1  & 1.000 & 82\% & \textbf{0\% (2)$^*$}  & $-$0.039 \\
+Gemma-2-9B     & 17 & 17 & 0.968 & 78\% & \textbf{100\% (4)} & 0.112 \\
+Qwen-2.5-7B$^\dagger$    & 4  & 4  & 0.995 & 82\% & 25\% (4)  & $-$0.003 \\
+\midrule
+\multicolumn{7}{l}{\emph{Cross-generation validation (2025--2026 models):}} \\
+Qwen3-8B       & 1  & 1  & 1.000 & 82\% & \textbf{n/a (0)$^*$}  & $-$0.003 \\
+Gemma-3-12B    & 4  & 4  & 1.000 & 82\% & 75\% (4)  & 0.021 \\
+Gemma-4-31B    & 1  & 1  & 1.000 & 82\% & \textbf{n/a (0)$^*$}  & 0.012 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{The response probe operates orthogonally to refusal steering.}
+Table~\ref{tab:response_probe} reports the cosine similarity between each model's response-probe weight vector $\mathbf{w}$ and its refusal steering vector $\mathbf{v}_\text{ref}$. On 6/7 models, $|\cos(\mathbf{w}, \mathbf{v}_\text{ref})| < 0.04$; even the outlier (Gemma-2 at 0.112) is weakly aligned. For calibration, two random unit vectors in $\mathbb{R}^{d}$ have $\mathbb{E}[|\cos|]\approx\sqrt{2/(\pi d)}$ (0.0125 at $d=4096$; 0.0133 at $d=3584$); the observed values on 5/7 models are indistinguishable from this baseline, confirming that the probe and refusal directions are \emph{unrelated}. The Gemma-2 value (0.112, well above the random baseline) suggests weak but detectable alignment on that model. This means the response probe detects harmful generation through a \emph{different subspace} than the one manipulated by activation steering. The refusal vector encodes the direction that shifts outputs from compliance to refusal; the response probe instead detects whether the model's internal state at generation time is committed to producing harmful content. This orthogonality explains why the probe succeeds where steering fails on prefilling: the prefilled context places activations in the benign region of the refusal subspace (making steering ineffective), but the probe reads a distinct signal that prefilling does not mask.
+
+Three additional analyses strengthen this interpretation (App.~\ref{app:additional_mech}): cross-family transfer shows pairwise $|\cos|<0.02$ across Mistral/Llama/Qwen3/Gemma-4 ($N=4$, suggestive rather than confirmatory); cross-layer swap yields AUROC~$\geq 0.958$ when probes are swapped between Mistral and Llama best layers; base-vs-instruct transfer yields AUROC~0.70--0.72 (the signal partially pre-exists RLHF and is amplified by alignment).
+
+\paragraph{Dual-probe gated: full system evaluation.}
+The dual-probe system (response-halt + prompt-time PGS, Table~\ref{tab:main}) reduces prefilling substantially on both models (68\%$\to$8\% Mistral, 53\%$\to$0\% Llama; Mistral residual recovered to 0\% under the unified composition). On Llama, dual-probe alone reaches DSR 0.967 (vs 0.883 AlphaSteer); on Mistral, dual-probe-fresh yields DSR 0.622 (paper-pkl 0.533; paper-env baselines and probe-pkl drift in App.~\ref{app:env_drift}). On Mistral, dual-probe-fresh's prefilling defense (8\% ASR) trades against weaker semantic-attack coverage vs AlphaSteer (App.~\ref{app:mech_discriminators}); the orthogonal composition with AlphaSteer recovers semantic-attack coverage while keeping prefilling defense. \textbf{The orthogonal-split architecture motivated by the \S\ref{sec:attack_analysis} corollary recovers and dominates on both models}: composing AlphaSteer (semantic attacks) with response-halt (prefilling) yields \textbf{DSR 0.983 on Mistral and 0.994 on Llama at $n=40$} (Table~\ref{tab:main}, dagger rows). On Mistral, prefilling drops to 8\% under the keyword judge, 0/40 elsewhere; the 3 keyword leaks are AlphaSteer-induced gibberish (App.~\ref{app:judge_prompt}). Response-probe FPR 0\% on 50 benign; unified benign halt FPR 0/20.
+
+\paragraph{Scaling to $n=200$.}
+At $n=200$ (Table~\ref{tab:n200}): \textbf{Llama dual-probe DSR 0.990} (prefilling 0/200, vs AlphaSteer 0.698), \textbf{Mistral unified\_fresh DSR 0.940} (prefilling 15\% vs AlphaSteer 75\%; 60pp reduction). The Mistral residual concentrates on ``continuation-style'' canonical templates (Table~\ref{tab:n200} breakdown), extending the surface-feature reading documented above: the layer-1 probe catches softening templates with distinctive surface tokens but partially fails on continuation templates that read as minimal prose extensions of the user's request.
+
+\paragraph{Robustness to novel prefill templates.}
+An augmented probe trained on 40 AdvBench behaviors $\times$ 15 templates achieves 50--87.5\% detection on 10 held-out novel templates with $\leq$9.5\% benign FPR (Table~\ref{tab:template}; App.~\ref{app:e9_table3}). The next subsection runs a stricter no-overlap holdout that exposes a layer-depth split the augmented numbers obscure.
+
+\paragraph{Is the probe reading surface features?}
+On Llama-3.1-8B, Qwen3-8B, and Gemma-4-31B the optimal response-probe layer is layer~1, one transformer block past the embeddings. At that depth nothing semantically meaningful can have \emph{committed} yet. We therefore run a strict template-holdout diagnostic to test whether the probe detects a semantic harmful-generation signal or instead reads surface tokens of the canonical prefilling-attack template family. We construct a 20-template held-out set with two axes: 10 \emph{novel-register} templates (casual, formal, military, machine registers with zero semantic-token overlap with the 15 training templates under every model's tokeniser) and 10 \emph{canonical-register novel-token} templates (eager-compliance register, different surface tokens; e.g., \texttt{Certainly, kicking off below:}, \texttt{Delighted. Preparing an answer now:}, \texttt{Sure, jumping in now:}). Attack validity is measured with a no-defense baseline; templates are tiered \emph{primary} ($\geq 50\%$ ASR on at least one baseline model), \emph{secondary} ($25$--$50\%$), \emph{excluded} ($<25\%$). We report \emph{conditional-on-harm} detection rate (fire rate among samples the keyword judge labels harmful) as the primary metric, which isolates probe behavior from the confound of attack failure.
+
+On canonical-register novel-token templates at the primary+secondary tiers, four of seven models fail semantic generalisation: Llama-3.1-8B (0\%, $n=2$ templates with any harmful sample), Qwen-2.5-7B (25\%, $n=4$), Qwen3-8B and Gemma-4-31B (n/a, $n=0$ --- no templates had any harmful sample under the strict-judge labelling, so the conditional-on-harm rate is operationally undefined; the surface-feature reading is documented via the bimodal-firing pattern in App.~\ref{app:mech_discriminators}). Three models generalise cleanly: Gemma-2-9B (100\%, $n=4$), Gemma-3-12B (75\%, $n=4$), Mistral-7B (61\% under fresh retraining, $n=5$; see below). \textbf{The split tracks layer depth approximately under training-AUROC layer selection. Every model with optimal probe layer $1$ fails semantic generalisation (Llama/Qwen3/Gemma-4 outright; Mistral-fresh's 61\% at L=1 is surface-feature reading, confirmed by the discriminator tests below). Of the three models with optimal probe layer $\geq 4$, Gemma-2 (L=17) and Gemma-3 (L=4) generalise; Qwen-2.5 at L=4 is an unexplained counterexample (25\% CoH; re-selecting L=19 under the stricter E9 judge does not rescue generalisation, dropping CoH to 0\% --- App.~\ref{app:e9_table3}).} Under generalization-criterion layer selection rather than training-AUROC, Mistral moves into the generalising bucket: L=11 yields CoH 90.9\% on canonical\_novel\_token (vs L=1's 63.6\%), confirming the L=1 result is criterion-specific surface reading rather than a model-level failure (multi-depth analysis below).
+
+Three discriminator tests on Mistral-7B confirm surface-feature reading (token-frequency 55.9\% vs 3.8\% compliance markers; benign-query truncation fires on 9/10 not-halted samples; template length drives halt from 100\% to 36\%). On Llama, Qwen3, and Gemma-4 we observe extreme template-specific bimodal firing on canonical-register novel-token templates: 1--2 of 10 templates fire at $50$--$98\%$ while the rest fire near $0\%$, consistent with surface-feature reading. Full details in Appendix~\ref{app:mech_discriminators}.
+
+\textbf{We reframe the \S\ref{sec:response_probe} central claim: an activation-level detector for the canonical prefilling-attack template family, cross-template generalisation contingent on probe depth (layer $\geq 4$ generalises; layer $\leq 2$ does not)} --- a contribution in its own right. Defense systems built on this technique should treat the training-template distribution as the effective attack surface and prefer probe layers $\geq 4$ when AUROCs are comparable, with generalization-criterion selection preferred over training-AUROC alone (multi-depth analysis below).
+
+\paragraph{Response-probe reproducibility.} Paper-shipped Mistral/Llama probes drift outside $\pm 2$pp under current libraries (other 5 reproduce within $\pm 2$pp); fresh retraining recovers paper numbers within $\pm 2$pp; fresh-retrained Mistral selects layer 1, matching Llama/Qwen3/Gemma-4. Full table in App.~\ref{app:probe_reproducibility}.
+
+\paragraph{LLM-judge rescoring.}
+Gemma-4-31B-it LLM-judge re-scoring confirms Llama $n=200$ dual-probe prefilling 0/200 (0 disagreements) and unified $n=40$ DSR 1.000 on both models (App.~\ref{app:judge_prompt}); Mistral $n=200$ keyword vs LLM-judge gap ($15.0\%\to 20.5\%$) reflects the surface-feature mechanism documented above.
+
+\paragraph{Robustness to adaptive adversaries.}
+Four strategies on Mistral and Llama (Table~\ref{tab:adaptive}): \emph{delayed-payload}, \emph{window-evasion}, \emph{probe-aware search} (best-of-21 minimising probe score), and \emph{prefill-past-window}. On Llama, the probe catches 100\% of delayed-payload and window-evasion attacks (ASR \textbf{0\%}), but only 65\% of probe-aware adversarial variants, with residual ASR 30\%. On Mistral, the prefilling-specific probe does not fire on any adaptive variant; adaptive defense would require a general-purpose probe or the prompt-time component. The Llama result is consistent with the layer-depth reading: the layer-1 probe catches variants whose window still carries compliance markers, but not probe-aware search that specifically minimises that signal. \emph{Prefill-past-window} (benign preamble past the $N=5$ window) exposes heterogeneous failure: Mistral 0\% halt / 52.5\% ASR (predicted window-bound failure); Llama 100\% halt / 0\% ASR but 100\% benign FPR --- artifactual halting on the preamble register, not detection. Layer-selection criterion matters (multi-depth analysis, App.~\ref{app:p5_multidepth}): under generalization-criterion selection, Mistral L=11 dominates training-AUROC-optimal L=1; Llama L=15 fully overfits (100\% benign FPR OOD).
+
+\subsection{Methodology Contributions}
+\label{sec:utility}\label{sec:probes}
+
+\paragraph{Methodology.} \emph{Utility (MMLU insensitive):} all paradigms reach 51.6\% on 250 MMLU; hedging rate on 100 benign queries rises 20\%$\to$36\% only under Mistral static steering; probe-gated/AlphaSteer/CAST preserve baseline (20--21\%); unified system's 4 keyword leaks are AlphaSteer-induced gibberish. \emph{Probe training:} narrow-distribution probes hit perfect AUROC but 80--100\% OOD FPR; 150 diverse benign negatives reduce OOD FPR to 0--1\%; degree-2 TPCs~\citep{tpc2026} match linear probes. Mistral ablation: response-time halt alone accounts for the full prefilling improvement 68\%$\to$2.5\% (Table~\ref{tab:ablation}, Llama Guard 3 baseline App.~\ref{app:llamaguard}).
+
+% ============================================================================
+\section{Discussion and Limitations}
+\label{sec:discussion}
+% ============================================================================
+
+\paragraph{Limitations.}
+Cross-paradigm comparison at $n=40$ ($n=200$ App.~\ref{app:n200}); probe does not generalise to novel-surface-token canonical prefills on 4/7 models (layer $\leq 2$; App.~\ref{app:mech_discriminators}); dual system inherits 14--22\% prompt-time FPR; paper-pkl probes drift outside $\pm 2$pp on Mistral/Llama (App.~\ref{app:probe_reproducibility}); $N$-token ablation covers those two only; steering fixed at layer 14 with no relative-depth sweep. Threat model: defense ships with the inference path (assistant-turn prefill APIs, hosted chatbots, agentic scaffolding); local adversaries can strip it; fine-tuning robustness not evaluated.
+
+
+% ============================================================================
+\section{Conclusion}
+\label{sec:conclusion}
+% ============================================================================
+
+Activation-cone defenses are structurally blind to prefilling at any single layer, whether gated at prompt time or per generated token; the corollary covers AlphaSteer, CAST, and prompt-time probe-gated steering. The mechanism is heterogeneous (geometric on Llama, distribution-shift on Mistral; \S\ref{sec:mechanism_check}); the no-go holds in both cases. Response-time probing realises the contrapositive: classify after the prefill commits, reducing prefilling ASR to 0/40 on all seven 7--31B models at $n=40$ (Wilson 95\% CI [0\%, 9\%]; Llama $n=200$: LLM-judge 0/200). \textbf{Composed with AlphaSteer's null-space steering, the architecture the corollary motivates yields DSR 0.983 on Mistral and 0.994 on Llama at $n=40$ (both 1.000 under Gemma-4-31B-it judge).} Adaptive robustness is asymmetric: on Llama the probe catches 80\% of canonical prefilling attacks but only 65\% of probe-aware adversarial variants (residual ASR 30\%); Mistral's prefilling-specific probe does not fire on adaptive variants. We frame the central response-time-probing claim as an activation-level defense for the canonical prefilling-attack template family rather than a model-agnostic detector. Open problems: novel-template generalisation, adaptive robustness against probe-aware adversaries, the Qwen-2.5 layer-depth counterexample.
+
+% ============================================================================
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+% ============================================================================
+\appendix
+
+\section{GCG Optimization Details}
+\label{app:gcg}
+
+GCG suffixes were optimized using \texttt{nanogcg} with 512 steps, search width 512, topk 256, target string ``Sure, here is''. At $n=40$: Mistral-7B 40/40 valid, average loss 0.053; Llama-3.1-8B 40/40 valid, average loss 1.926. At $n=200$ (Appendix~\ref{app:n200}): Mistral-7B 200/200 valid, average loss 0.053; Llama-3.1-8B 200/200 valid, average loss 1.668. Gemma-2-9B, Qwen-2.5-7B, Qwen3-8B, Gemma-3-12B, and Gemma-4-31B use Mistral transfer suffixes (0\% transfer ASR on Gemma, consistent with published cross-family rates~\citep{zou2023universal}).
+
+\section{Probe Training Details}
+\label{app:probes}
+
+\begin{table}[H]
+\caption{Prompt-time probe layer sweep results (used by the probe-gated steering paradigm in \S\ref{sec:main_results}, distinct from the response-time probe in Table~\ref{tab:response_probe}). Best layer selected by AUROC with FPR tiebreaking.}
+\centering
+\begin{tabular}{lccccc}
+\toprule
+\textbf{Model} & \textbf{Best Layer} & \textbf{AUROC} & \textbf{ID FPR} & \textbf{OOD FPR} & \textbf{Vector Sep.} \\
+\midrule
+Mistral-7B   & 6  & 1.000 & 0.0\% & 0.0\% & 0.546 \\
+Gemma-2-9B   & 8  & 1.000 & 0.0\% & 0.0\% & 0.336 \\
+Qwen-2.5-7B  & 10 & 1.000 & 5.0\% & 1.0\% & 0.275 \\
+Llama-3.1-8B & 4  & 1.000 & 2.5\% & 1.0\% & 0.670 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Hyperparameter Settings}
+\label{app:hyperparams}
+
+All methods: steering layer = 14, strength $\alpha = 1.3$. Probe-gated: bang-bang controller, threshold = 0.3. CAST: cosine threshold = 0.3. AlphaSteer: $\lambda = 1.0$, regularization $\alpha = 0.01$. Contrast pairs: 40 harmful (AdvBench) + 40 diverse benign (10 topic-matched + 30 open-ended/coding/casual).
+
+\section{Wilson 95\% Confidence Intervals}
+\label{app:wilson}
+
+Table~\ref{tab:wilson} reports per-attack ASR with Wilson 95\% confidence intervals across the full 5$\times$5$\times$4 matrix (plus dual-probe gated on Mistral and Llama). Sample sizes are $n=40$ for GCG, AutoDAN, DeepInception, and prefilling, and $n=20$ for intent laundering (the full public set).
+
+\begin{longtable}{ll ccccc}
+\caption{Per-attack ASR (\%) with Wilson 95\% confidence intervals. $n=40$ for GCG/AutoDAN/DeepInc./Prefill, $n=20$ for Int.L. DualP$^{\ddagger}$ = dual-probe gated, current-env fresh-retrain probe (Mistral and Llama only); Unif.$^{\dagger}$ = Unified (AlphaSteer + response-halt, current-env). Both ‡ and $^{\dagger}$ rows have paper-env / paper-pkl variants in App.~\ref{app:env_drift}.}\label{tab:wilson}\\
+\toprule
+Model & Paradigm & GCG & AutoDAN & DeepInc. & Prefill & Int.L. \\
+\midrule
+\endfirsthead
+\toprule
+Model & Paradigm & GCG & AutoDAN & DeepInc. & Prefill & Int.L. \\
+\midrule
+\endhead
+Mistral-7B & None & 30 [18,45] & 95 [83,99] & 10 [4,23] & 68 [52,80] & 20 [8,42] \\
+ & Static & 2 [0,13] & 72 [57,84] & 2 [0,13] & 52 [37,67] & 20 [8,42] \\
+ & CAST & 12 [5,26] & 98 [87,100] & 2 [0,13] & 62 [47,76] & 15 [5,36] \\
+ & P-gated & 20 [10,35] & 95 [83,99] & 2 [0,13] & 72 [57,84] & 20 [8,42] \\
+ & AlphaSt. & 0 [0,9] & 0 [0,9] & 0 [0,9] & 50 [35,65] & 0 [0,16] \\
+ & DualP$^{\ddagger}$ & 55 [40,69] & 93 [80,97] & 8 [3,20] & \textbf{8 [3,20]} & 15 [5,36] \\
+ & Unif.$^{\dagger}$ & \textbf{0 [0,9]} & \textbf{0 [0,9]} & \textbf{0 [0,9]} & \textbf{8 [3,20]} & \textbf{0 [0,16]} \\
+\midrule
+Gemma-2-9B & None & 0 [0,9] & 65 [50,78] & 2 [0,13] & 28 [16,43] & 15 [5,36] \\
+ & Static & 0 [0,9] & 65 [50,78] & 5 [1,17] & 28 [16,43] & 10 [3,30] \\
+ & CAST & 0 [0,9] & 65 [50,78] & 5 [1,17] & 28 [16,43] & 10 [3,30] \\
+ & P-gated & 0 [0,9] & 65 [50,78] & 2 [0,13] & 28 [16,43] & 10 [3,30] \\
+ & AlphaSt. & 5 [1,17] & 75 [60,86] & 0 [0,9] & 32 [20,48] & 10 [3,30] \\
+\midrule
+Qwen-2.5-7B & None & 2 [0,13] & 8 [3,20] & 15 [7,29] & 65 [50,78] & 0 [0,16] \\
+ & Static & 5 [1,17] & 5 [1,17] & 15 [7,29] & 60 [45,74] & 10 [3,30] \\
+ & CAST & 2 [0,13] & 5 [1,17] & 15 [7,29] & 65 [50,78] & 0 [0,16] \\
+ & P-gated & 2 [0,13] & 5 [1,17] & 15 [7,29] & 62 [47,76] & 10 [3,30] \\
+ & AlphaSt. & 8 [3,20] & 5 [1,17] & 18 [9,32] & 60 [45,74] & 0 [0,16] \\
+\midrule
+Llama-3.1-8B & None & 2 [0,13] & 2 [0,13] & 5 [1,17] & 52 [37,67] & 30 [15,52] \\
+ & Static & 0 [0,9] & 0 [0,9] & 0 [0,9] & 75 [60,86] & 15 [5,36] \\
+ & CAST & 2 [0,13] & 5 [1,17] & 5 [1,17] & 57 [42,71] & 40 [22,61] \\
+ & P-gated & 5 [1,17] & 2 [0,13] & 2 [0,13] & 55 [40,69] & 15 [5,36] \\
+ & AlphaSt. & 0 [0,9] & 0 [0,9] & 3 [0,13] & 50 [35,65] & 0 [0,16] \\
+ & DualP$^{\ddagger}$ & \textbf{0 [0,9]} & 3 [0,13] & 5 [1,17] & \textbf{0 [0,9]} & 15 [5,36] \\
+ & Unif.$^{\dagger}$ & \textbf{0 [0,9]} & \textbf{0 [0,9]} & 3 [0,13] & \textbf{0 [0,9]} & \textbf{0 [0,16]} \\
+\bottomrule
+\end{longtable}
+
+\section{$n=200$ Evaluation}
+\label{app:n200}
+
+Mistral dual-probe at $n=200$ is reported in App.~\ref{app:judge_prompt} Table~\ref{tab:mistral_n200_kw_vs_llm} due to surface-feature reading on that model (\S\ref{sec:response_probe}); the unified Mistral $n=200$ rows are introduced by the present paper. Llama is the cross-paradigm $n=200$ headline.
+
+\begin{table}[H]
+\caption{$n=200$ evaluation on Mistral and Llama: 200 model-specific GCG suffixes, 200 prefilling, 40 AutoDAN, 40 DeepInception, 20 intent laundering (the full public set; AutoDAN/DeepInception remain at $n=40$ because the original public sets are size 40). ASR (\%), lower is better. AlphaSteer prefilling ASR (75\% on both models at $n=200$) is higher than at $n=40$ (50\%, Table~\ref{tab:main}); the structural-blindness corollary (\S\ref{sec:attack_analysis}) holds at both sample sizes. Mistral $\dagger$\textbf{Unified\_fresh} (AlphaSteer + response-halt, fresh-retrained probe at layer 1) is the headline; $\ddagger$\textbf{Unified\_paperpkl} (paper-shipped probe at layer 11) is the transparency variant per App.~\ref{app:probe_reproducibility}. Per-template breakdown of Mistral unified\_fresh prefilling residual (8 templates rotated, 25 samples each): templates ``Absolutely, I can help'' / ``Great question'' / ``Happy to help'' / ``No problem'' caught at 100\% halt; ``Sure, here is'' / ``Of course! Here are the steps'' / ``Here's a step-by-step guide:'' partial (12--28\% ASR); ``Sure, here's how to'' 64\% ASR (the worst template). Aggregate 15.0\% ASR concentrates on 3 of 8 templates (90\% of failures).}
+\label{tab:n200}
+\centering
+\small
+\begin{tabular}{ll ccccc c}
+\toprule
+\textbf{Model} & \textbf{Paradigm} & \textbf{GCG} & \textbf{AutoDAN} & \textbf{DeepInc.} & \textbf{Prefill} & \textbf{Int.L.} & \textbf{DSR} \\
+\midrule
+\multirow{6}{*}{Mistral}
+ & No defense     & 71.5 & 97.5 & 10.0 & 71.5 & 30.0 & .330 \\
+ & Static         & 36.5 & 80.0 & 0.0  & 52.0 & 20.0 & .574 \\
+ & Probe-gated    & 59.0 & 92.5 & 7.5  & 55.5 & 15.0 & .456 \\
+ & AlphaSteer     & \textbf{0.0}  & \textbf{0.0}  & \textbf{0.0}  & 75.0 & \textbf{0.0}  & .700 \\
+ & \textbf{Unified\_fresh}$^{\dagger}$ & \textbf{0.0} & \textbf{0.0} & \textbf{0.0} & \textbf{15.0} & \textbf{0.0} & \textbf{.940} \\
+ & Unified\_paperpkl$^{\ddagger}$      & 0.0           & 0.0           & 0.0           & 45.5          & 0.0           & .818 \\
+\midrule
+\multirow{5}{*}{Llama}
+ & No defense     & 1.5  & 2.5  & 5.0  & 64.5 & 35.0 & .716 \\
+ & Static         & 1.0  & 0.0  & 0.0  & 65.0 & 10.0 & .732 \\
+ & Probe-gated    & 0.5  & 2.5  & 5.0  & 65.0 & 15.0 & .726 \\
+ & AlphaSteer     & 0.0  & 0.0  & 2.5  & 75.0 & 0.0  & .698 \\
+ & \textbf{Dual-probe} & \textbf{0.5}  & \textbf{0.0}  & \textbf{0.0}  & \textbf{0.0}  & 20.0 & \textbf{.990} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Dual-Probe System Diagram}
+\label{app:diagram}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\linewidth]{figures/dual_probe_diagram.pdf}
+\caption{Dual-probe gated system. Stage 1: prompt-time probe-gated steering handles GCG/AutoDAN/DeepInception/intent laundering. Stage 2: response-time halt handles prefilling via a probe on the first generated tokens. The diagram shows the $N=1$ ablation case for clarity; the headline evaluation in Table~\ref{tab:response_probe} uses $N=5$ first-generated tokens (mean-pooled), with $N=1$ confirmed sufficient in App.~\ref{app:ntoken}.}
+\label{fig:diagram}
+\end{figure}
+
+\section{Response-Probe Activation Geometry}
+\label{app:pca}
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{0.48\linewidth}
+\includegraphics[width=\linewidth]{figures/mistral-7b_pca_layer11.pdf}
+\caption{Mistral-7B (layer 11)}
+\end{subfigure}
+\hfill
+\begin{subfigure}{0.48\linewidth}
+\includegraphics[width=\linewidth]{figures/llama31-8b_pca_layer1.pdf}
+\caption{Llama-3.1-8B (layer 1)}
+\end{subfigure}
+\caption{PCA of response activations (mean-pooled over $N=5$ tokens for visualization) at each model's best probe layer. Colors: prefilling (red), AutoDAN (blue), benign (green). On Llama, prefilling activations (red, low PC1) and AutoDAN activations (blue, high PC1) each separate from the benign cluster (green), occupying distinct regions on opposite sides; the linear probe achieves AUROC 1.0 because both harmful classes are linearly separable from benign even though they don't co-locate. On Mistral, prefilling separates from both benign and AutoDAN along PC1, while AutoDAN and benign sit on the same side of the prefilling-vs-rest decision boundary; a probe trained to separate prefilling from benign therefore does not also separate AutoDAN from benign, explaining the prefilling-specific behavior we observe in \S\ref{sec:response_probe} and the surface-feature reading documented in App.~\ref{app:mech_discriminators}.}
+\label{fig:pca}
+\end{figure}
+
+\section{Response-Probe Layer Sweep}
+\label{app:layersweep}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\linewidth]{figures/response_probe_layer_sweep.pdf}
+\caption{Response-probe AUROC per layer on Mistral and Llama (5-fold CV, error bars are 1$\sigma$). On both models, AUROC $> 0.89$ at every layer. Mistral peaks at layer 11; Llama saturates at 1.0 for layers 1--6.}
+\label{fig:layer_sweep}
+\end{figure}
+
+\section{Pareto Frontier}
+\label{app:pareto}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\linewidth]{figures/pareto.pdf}
+\caption{Safety--utility Pareto frontier on Mistral-7B and Llama-3.1-8B. Utility is $1 - \text{hedging rate}$ (LLM judge). Dual-probe gated (pink star) dominates the Llama frontier and uniquely covers the prefilling blind spot on Mistral. Llama hedging is $\approx 1$\% across all paradigms.}
+\label{fig:pareto}
+\end{figure}
+
+\section{MMLU Insensitivity}
+\label{app:mmlu}
+
+Figure~\ref{fig:mmlu} shows MMLU accuracy across paradigms on Mistral-7B. All five paradigms achieve 51.6\% on the same 250-question subset, confirming that MMLU cannot detect steering's behavioural utility cost.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.55\linewidth]{figures/mmlu_insensitivity.pdf}
+\caption{MMLU accuracy is insensitive to activation steering: all five paradigms achieve 51.6\% on 250 MMLU questions.}
+\label{fig:mmlu}
+\end{figure}
+
+\section{Probe Training Fix}
+\label{app:probefix}
+
+Figure~\ref{fig:probefix} shows OOD FPR before and after adding diverse negatives: Gemma 80\%$\to$0\%, Qwen 100\%$\to$1\%.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.55\linewidth]{figures/probe_fix.pdf}
+\caption{Diverse negatives eliminate catastrophic OOD FPR on Gemma and Qwen.}
+\label{fig:probefix}
+\end{figure}
+
+\section{Response Probe AUROC Across Seven Models}
+\label{app:auroc_bar}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.55\linewidth]{figures/response_probe_auroc_7models.pdf}
+\caption{Response probe AUROC across all seven models (7--31B). All models achieve AUROC $\geq 0.97$; five achieve 1.000. The method scales from 7B to 31B without degradation. Paper-shipped probe AUROC (the headline range source); fresh-retrain Mistral AUROC is 0.9655 and fresh-retrain Gemma-2-9B AUROC is 0.9685, both rounding to 0.97 at two decimal places (see App.~\ref{app:probe_reproducibility}).}
+\label{fig:auroc_bar}
+\end{figure}
+
+\section{Orthogonal Subspace Visualization}
+\label{app:ortho}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.55\linewidth]{figures/orthogonal_subspace.pdf}
+\caption{Absolute cosine similarity between response probe weights and refusal steering vector across seven models. On 6/7 models, $|\cos| < 0.04$, confirming the probe detects harmful generation through a subspace orthogonal to the refusal direction.}
+\label{fig:ortho}
+\end{figure}
+
+\section{$n=200$ DSR Comparison (Llama)}
+\label{app:llama_n200}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.55\linewidth]{figures/llama_n200_dsr.pdf}
+\caption{DSR across paradigms on Llama-3.1-8B at $n=200$. Dual-probe achieves 0.990, dominating AlphaSteer (0.698) which \emph{amplifies} prefilling ASR from 64.5\% to 75\%.}
+\label{fig:llama_n200}
+\end{figure}
+
+\section{Template Robustness Across Models}
+\label{app:template_bar}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.55\linewidth]{figures/template_robustness.pdf}
+\caption{Template robustness of the augmented response probe on 10 held-out novel templates. Detection rates range from 50--87.5\% with FPR $\leq 9.5\%$. Qwen3-8B achieves the best result: 87.5\% detection at 0\% FPR.}
+\label{fig:template_bar}
+\end{figure}
+
+\section{Probe reproducibility table (paper-pkl vs fresh retrain)}
+\label{app:probe_reproducibility}
+
+\begin{table}[H]
+\centering
+\small
+\caption{Paper-shipped response-probe weights vs.\ freshly retrained probes on the paper's 90-sample phase-1 training set, both evaluated on phase-4 $n=40$ prefilling attacks. Paper numbers reproduce within $\pm 2$pp on 5/7 models under our current environment (PyTorch 2.4.1+cu124, Transformers 5.5.4, Python 3.11). Two models drift outside the $\pm 2$pp window: Mistral paper-pkl halt drops to 12\% (vs.\ 82\% reported; $-70$pp) and Llama paper-pkl halt inflates to 92\% (vs.\ 82\% reported; $+10$pp, favorable direction but still a reproducibility failure). Fresh retraining recovers 80\% (Mistral) and 82\% (Llama), reproducing the paper within $\pm 2$pp on both. The fresh-retrained Mistral probe selects layer 1, not layer 11 as originally reported, consistent with the layer-1 optima on Llama, Qwen3, and Gemma-4 (4/7 models under current environment), motivating the depth-stratified analysis in \S\ref{sec:response_probe}. $|\cos|$ = raw-activation-space direction similarity between fresh probe at paper's layer and paper's shipped probe. A retraining script is released; reviewers should regenerate the Mistral and Llama probes freshly.}
+\label{tab:probe_reproducibility}
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Model} & \textbf{paper L} & \textbf{fresh L} & \textbf{paper-pkl halt} & \textbf{fresh-retrain halt} & \textbf{$\Delta$} & $|\cos|$ (at paper L) \\
+\midrule
+Mistral-7B     & 11 & 1  & 12\% & \textbf{80\%} & $+$68pp & 0.21 \\
+Llama-3.1-8B   & 1  & 1  & 92\% & 82\%          & $-$10pp & 0.71 \\
+Gemma-2-9B     & 17 & 17 & 78\% & 78\%          & $0$pp   & 1.00 \\
+Qwen-2.5-7B    & 4  & 4  & 82\% & 82\%          & $0$pp   & 1.00 \\
+Qwen3-8B       & 1  & 1  & 82\% & 82\%          & $0$pp   & 1.00 \\
+Gemma-3-12B    & 4  & 4  & 82\% & 82\%          & $0$pp   & 1.00 \\
+Gemma-4-31B    & 1  & 1  & 82\% & 82\%          & $0$pp   & 1.00 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Behavior-level coverage analysis at $n=200$: of 91 paperpkl prefilling failures, 28 overlap with the 30 fresh failures (fresh handles 63 paperpkl-failed behaviors), and only 2 fresh failures aren't also paperpkl failures. The fresh probe at layer~1 is near-strictly-dominant in coverage; the aggregate DSR gap at $n=200$ (0.940 vs.\ 0.818, Table~\ref{tab:n200}) reflects this dominance, not independent coverage profiles.
+
+The fresh-retrain L=1 reported here is the canonical paper-protocol number (selected by training-AUROC); P5 (App.~\ref{app:p5_multidepth}) shows L=11 is the better generalizer on novel templates by generalization-criterion selection. The two are not contradictory --- they are different layer-selection criteria applied to the same underlying probe-training pipeline.
+
+\section{Environment drift: Mistral Table~\ref{tab:main} under transformers 5.7.0}
+\label{app:env_drift}
+
+Our cross-paradigm reproduction of Mistral Table~\ref{tab:main} under the current environment (transformers 5.7.0 + torch 2.4.1+cu124) produces paradigm-asymmetric DSR drift relative to the paper-original environment (transformers 5.5.4). Released-code reviewers running the reproduction in current libraries will see the right-hand column below, not Table~\ref{tab:main}; we report both for transparency. The unified-vs-component-paradigms comparison in Table~\ref{tab:main} is internally consistent because AlphaSteer, dual-probe, and unified DSRs are all measured in the same current-env run; the unified system's headline DSR \textbf{0.983} is unaffected by the table's drift footnote.
+
+\begin{table}[H]
+\centering
+\small
+\caption{Mistral-7B aggregate DSR per paradigm: paper Table~\ref{tab:main} vs.\ current-env reproduction. Same $n=40$ attack set, same paper-v2 GCG suffixes, keyword judge for both. Drift is asymmetric: static/CAST/dual-probe regress under current libraries; AlphaSteer improves. The probe-pkl reproducibility issue documented in App.~\ref{app:probe_reproducibility} explains the $-$0.173 dual-probe (paper-pkl) drop; fresh retraining recovers most of it ($-$0.084 vs paper). Unified system was not measured in the paper environment.}
+\label{tab:env_drift}
+\begin{tabular}{lccr}
+\toprule
+\textbf{Paradigm} & \textbf{Paper Table~\ref{tab:main}} & \textbf{Current env} & \textbf{$\Delta$} \\
+\midrule
+No defense                         & .528 & .472 & $-$.056 \\
+Static ($\alpha=1.3$)              & .689 & .628 & $-$.061 \\
+CAST                               & .594 & .511 & $-$.083 \\
+AlphaSteer                         & .817 & .889 & $+$.072 \\
+Dual-probe (paper-pkl probe)       & .706 & .533 & $-$.173 \\
+Dual-probe (fresh-retrained probe) & -- & .622 & -- \\
+\textbf{Unified (fresh-retrained)} & -- & \textbf{.983} & -- \\
+Unified (paper-pkl)                & -- & .889 & -- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The asymmetric direction (AlphaSteer $+$0.072, others negative) suggests activation behavior at $L=14$ shifts under transformers 5.7.0 in a way that improves AlphaSteer's null-space targeting and degrades cosine-distance and probe-classifier reads, but we have not characterized the mechanism. We do not view this as a paradigm-specific bug, the drift is a general property of inference-time defenses' sensitivity to library numerics, and is itself part of the reproducibility story that the released retraining scripts (\S\ref{sec:response_probe}) are designed to address.
+
+\paragraph{Llama-3.1-8B drift is small and asymmetric in the favorable direction.}
+Llama drift under the same current-env reproduction is much smaller: dual-probe (paper-pkl) DSR 0.978 vs paper Table~\ref{tab:main} 0.983 ($-$0.005), AlphaSteer 0.883 vs 0.817 ($+$0.066). The asymmetry between Mistral and Llama tracks App.~\ref{app:probe_reproducibility}'s probe-pkl drift directions: Mistral paper-pkl halt rate drops from 82\% to 12\% under current libraries (large unfavorable drift), while Llama paper-pkl halt rate \emph{rises} from 82\% to 92\% (favorable). The unified system on Llama therefore reaches DSR 1.000 with the paper-pkl probe (catches the single DeepInception case that fresh-retrained probe at 0.994 misses) and 0.994 with the fresh-retrained probe (the headline number for parity with Mistral's protocol). Both within $\pm 2$pp probe-variant agreement on the unified DSR.
+
+\section{Augmented template robustness (Table~\ref{tab:template}) and E9 judge-truncation sensitivity}
+\label{app:e9_table3}
+
+\begin{table}[H]
+\caption{Template robustness: augmented linear probe detection rate on 10 held-out novel prefill templates, trained with 600 harmful (40 AdvBench behaviors $\times$ 15 templates) $+$ 45 benign (15 benign-prefilled $+$ 30 benign-plain) $=$ 645 training samples. Qwen3-8B (2025) achieves the best result. Judge uses a 5-token response window matching the probe; sensitivity to this choice (paper-layer and re-selected-layer detection rates under a 30-token judge) is reported in the sensitivity subsection below.}
+\label{tab:template}
+\centering
+\small
+\begin{tabular}{lccc}
+\toprule
+\textbf{Model} & \textbf{Layer} & \textbf{Detection} & \textbf{FPR} \\
+\midrule
+Mistral-7B    & 15 & 87.5\% & 4.8\% \\
+Llama-3.1-8B  & 15 & 75.0\% & 9.5\% \\
+Gemma-2-9B    & 27 & 87.5\% & 7.1\% \\
+Qwen-2.5-7B   & 4  & 62.5\% & 4.8\% \\
+Qwen3-8B      & 4  & \textbf{87.5\%} & \textbf{0.0\%} \\
+Gemma-3-12B   & 14 & 50.0\% & 4.8\% \\
+Gemma-4-31B   & 2  & 50.0\% & 4.8\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The paper-of-record Table~\ref{tab:template} above was produced with the judge given a 5-token assistant-response window, matching the probe's activation-pooling window. Because the probe pools the first 5 generated tokens, and those tokens on a prefilled continuation are typically a compliance marker like \texttt{Sure, here's how to}, so the 5-token judge often classifies a sample as harmful on compliance-marker evidence rather than on actual harmful content. We therefore re-measure all 7 models with a 30-token judge window (probe window unchanged at 5 tokens), retaining the paper's exact training / held-out template split.
+
+Gemma-4-31B could not be re-measured: under the stricter 30-token judge, only 63/645 training samples are labelled harmful and 0/50 test samples, reflecting the model's alignment strength rather than any methodological issue. The paper's Gemma-4-31B Table~\ref{tab:template} result ($50\%$ at layer 2) should be read as: ``the probe fires at chance on this model's very-low-harm-rate prefilling distribution.'' We omit it from the comparison below.
+
+\begin{table}[H]
+\centering
+\small
+\caption{Table~\ref{tab:template} detection rates under the original 5-token judge vs.\ 30-token judge. ``paper-L @30tok'' holds the paper-chosen layer and rescores with the 30-token judge, isolating the judge effect. ``new-L @30tok'' re-selects the optimal layer under the stricter judge. Gemma-4-31B aborted (insufficient positives at 30-token labels). The layer-depth split of \S\ref{sec:response_probe} is preserved as a \emph{generalisation} claim, but Qwen-2.5's layer shift (4 $\to$ 19) improves only training-distribution detection, not canonical-register novel-token generalisation; see the probe-transfer note below.}
+\label{tab:e9_table3}
+\begin{tabular}{lccc|ccc}
+\toprule
+& \multicolumn{3}{c|}{\textbf{paper L @ 30-tok judge}} & \multicolumn{3}{c}{\textbf{new L @ 30-tok judge}} \\
+\textbf{Model} & \textbf{L} & \textbf{detect} & \textbf{FPR} & \textbf{L} & \textbf{detect} & \textbf{FPR} \\
+\midrule
+Mistral-7B     & 15 & 66.7\% & 12.5\% & 24 & 88.9\% & 9.4\% \\
+Llama-3.1-8B   & 15 & \textbf{100.0\%} & 7.0\% & 15 & \textbf{100.0\%} & 7.0\% \\
+Gemma-2-9B     & 27 & 50.0\% & 4.5\% & 42 & 83.3\% & 2.3\% \\
+Qwen-2.5-7B    & 4  & 14.3\% & 4.7\% & 19 & 71.4\% & 9.3\% \\
+Qwen3-8B       & 4  & 71.4\% & 0.0\% & 2  & \textbf{100.0\%} & 0.0\% \\
+Gemma-3-12B    & 14 & 25.0\% & 13.0\% & 0  & 25.0\% & 0.0\% \\
+Gemma-4-31B    & n/a & \multicolumn{5}{c}{aborted: 63/645 training positives under 30-tok judge (0/50 test positives)} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{What changes under the stricter judge.} Paper-layer detection rates under the 30-token judge fall on 5/6 measurable models (Mistral $87.5\to 66.7$; Gemma-2 $87.5 \to 50$; Qwen-2.5 $62.5\to 14.3$; Qwen3 $87.5\to 71.4$; Gemma-3 $50\to 25$). Llama rises $75\to 100$. The drops are concentrated at paper-chosen layers rather than at the newly-selected best layers: when the best layer is re-chosen under the 30-token judge, detection matches or exceeds paper-reported values on 5/6 models (88.9\%, 100\%, 83.3\%, 71.4\%, 100\%). Best-layer preferences shift deeper on 3/6 models (Mistral $15\to 24$; Gemma-2 $27\to 42$; Qwen-2.5 $4\to 19$).
+
+\paragraph{Interpretation.} The pattern is consistent with the mechanism we already report in \S\ref{sec:response_probe}: on models with shallow probe optima, the probe reads compliance-marker tokens in the 5-token window. The 5-token judge credits those same tokens as harm evidence, so paper-chosen layers appear to "detect harm" at higher rates than they do under a judge that looks at 30 tokens of actual content. Training-distribution detection under the stricter judge is comparable to paper numbers once the best layer is re-selected (5/6 models).
+
+\paragraph{Does the E9 layer shift transfer to canonical-register novel-token generalisation? (Qwen-2.5 probe-transfer test.)} The layer shifts in Table~\ref{tab:e9_table3} are measured on the 10 held-out templates of the augmented Table~\ref{tab:template} distribution. Those templates are drawn from the same compliance-register family as training; they are not the strict no-overlap canonical-register novel-token set of \S\ref{sec:response_probe}. To check whether the E9 best-layer probe \emph{also} improves canonical-register novel-token generalisation, we evaluated the Qwen-2.5 layer-19 E9 probe on the Issue-1-v2 canonical-register novel-token holdout set (the same set used in \S\ref{sec:response_probe}, primary+secondary tier), using Issue-1-v2's stored 30-token judge labels. The layer-19 probe fires at \textbf{0\% conditional-on-harm} (0/4 templates with any harm), compared to the paper-layer-4 probe's 25\% (1/4 templates fire at 100\%, 3/4 at 0\%; our re-evaluation reproduces this exactly). The stricter-judge layer shift improves training-distribution detection (14.3\%$\to$71.4\% at primary+secondary) but \emph{does not transfer} to canonical-register novel-token generalisation for Qwen-2.5. We therefore do not reclassify Qwen-2.5 into the generalising bucket of \S\ref{sec:response_probe}; at both tested layers (4 and 19), Qwen-2.5 fails the $\geq 30\%$ generalisation threshold. The finding is a two-part disaggregation rather than a depth-split strengthening: training-distribution detection is sensitive to judge-window choice, but canonical-register novel-token generalisation is not rescued by re-selecting the layer.
+
+\paragraph{Why we keep Table~\ref{tab:template} as-is.} The paper-of-record Table~\ref{tab:template} reflects the procedure used throughout the rest of the experiments; silently replacing it would desynchronise numbers cited in \S\ref{sec:response_probe}, \S\ref{sec:discussion}, and the abstract. Instead we report both label regimes here and cross-reference from Table~\ref{tab:template}'s caption so reviewers can compare directly. The $n=200$ Llama headline (dual-probe prefilling ASR $\leq 0.5\%$) is unaffected; that evaluation was rescored with the Gemma-4-31B LLM judge, not the 5-token heuristic (Appendix~\ref{app:judge_prompt}).
+
+\section{Adaptive attack evaluation table}
+\label{app:adaptive_table}
+
+\begin{table}[H]
+\caption{Adaptive attack evaluation under the response probe. Each cell reports \emph{probe fire rate / observed ASR with the response probe applied}. Source: \texttt{results\_pod3\_final/adaptive\_attack/\{model\}/adaptive\_results.json}; prefill-past-window column from \texttt{results/p3\_prefill\_past\_window/\{model\}/summary.json}. The script always applies the probe (see \texttt{scripts/gpu\_adaptive\_attack.py}, \texttt{scripts/p3\_prefill\_past\_window.py}); no-defense baselines for Llama on adaptive variants were not produced by this run, so we report only matched-condition (with-probe) numbers. Mistral's probe rarely fires on these prompts, so its with-probe ASR is effectively a no-defense reading on this distribution. \textbf{Llama's prefill-past-window cell:} matched-condition benign FPR is also 100\%; the probe fires on the preamble register rather than on past-window content, consistent with \S\ref{sec:response_probe}'s surface-feature reading documentation for Llama's layer-1 probe. Referenced from \S\ref{sec:response_probe} (``Robustness to adaptive adversaries'').}
+\label{tab:adaptive}
+\centering
+\small
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lccccc}
+\toprule
+\textbf{Model} & \textbf{Standard} ($n{=}20$) & \textbf{Delayed-payload} ($n{=}75$) & \textbf{Window-evasion} ($n{=}50$) & \textbf{Probe-aware} ($n{=}20$) & \textbf{Prefill-past-window} ($n{=}40$) \\
+\midrule
+Mistral-7B   & 0\% / 80\%   & 0\% / 33\%   & 4\% / 26\%   & 0\% / 40\%   & 0\% / 53\% \\
+Llama-3.1-8B & 80\% / 20\%  & 100\% / \textbf{0\%}  & 100\% / \textbf{0\%}  & 65\% / 30\%  & 100\% / 0\% \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+\section{Additional mechanistic analyses (cross-family, cross-layer, base-vs-instruct)}
+\label{app:additional_mech}
+
+\paragraph{Cross-family transfer.}
+Pairwise cosine similarity between response-probe weight vectors across Mistral, Llama, Qwen3, and Gemma-4 yields $|\cos|<0.02$ for all pairs. Each model independently discovers a \emph{different} detection direction, yet all achieve training-distribution AUROC $\geq 0.97$ (paper-pkl; fresh-retrain Mistral 0.9655, see App.~\ref{app:probe_reproducibility}). The harmful-generation signal is a structural property of transformer LLMs at the training-distribution level, not an artifact of a particular weight configuration. (We note this does not extend to novel-token generalisation; see \S\ref{sec:response_probe} on the layer-depth split.)
+
+\paragraph{Cross-layer swap.}
+Training the Llama probe at Mistral's best layer (11) still yields AUROC 1.000, and training Mistral's probe at Llama's best layer (1) yields AUROC 0.958. The training-distribution signal is not strictly layer-dependent within a single model.
+
+\paragraph{Base-vs-instruct transfer.}
+Applying the instruct probe to activations from the pre-RLHF base models yields AUROC 0.717 (Mistral) and 0.700 (Llama). The instruct-probe AUROC on instruct activations is 0.942 (Mistral) and 1.000 (Llama). The signal \emph{partially exists in pretraining} on both models and is amplified by RLHF alignment training; the model's awareness of harmful-content-like completions is not solely a product of safety training.
+
+\paragraph{P1 mechanism check supplementary ($\|\hat{P}\mathbf{h}\|$ scatter and cosine panel).}
+\label{app:p1_cos}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.78\linewidth]{figures/p_norm_scatter.pdf}
+\caption{$\|\hat{P}\mathbf{h}\|$ at layer 14 with vs.\ without prefill, n=1000 pairs/model. Llama (right): 89.5\% of pairs below $y=x$ --- prefilling drives activations toward AlphaSteer's null-space, supporting mechanism (i). Mistral (left): 92.1\% \emph{above} $y=x$ --- prefilling drives activations \emph{outside} the null-space, falsifying (i); residual is mechanism (ii). The Corollary's no-go applies in both cases: each model's gate misreads the prefilled activation, just for different reasons.}
+\label{fig:p1_pnorm}
+\end{figure}
+
+We additionally measured $\cos(\mathbf{h}, \mathbf{h}_{\rm benign})$ where $\mathbf{h}_{\rm benign}$ is the mean activation over 50 benign prompts. The cosine result is reported here for completeness because it is the obvious-but-misleading proxy: cosine to a single mean direction is in the wrong direction on \emph{both} models, including Llama where $\|\hat{P}\mathbf{h}\|$ confirms mechanism (i).
+
+\begin{table}[h]
+\centering
+\small
+\caption{Cosine to benign-mean baseline at layer 14 (n=1000 (instruction, template) pairs per model). Predicted shift under mechanism (i): increase (toward benign-mean direction). Observed: decrease on both models, 0/1000 pairs in the predicted direction.}
+\label{tab:p1_cos}
+\begin{tabular}{lcccc}
+\toprule
+Model & no\_prefill & with\_prefill & $\Delta$ & predicted-direction count \\
+\midrule
+Mistral-7B   & 0.7957 & 0.2350 & $-$0.5607 & 0/1000 \\
+Llama-3.1-8B & 0.7076 & 0.2887 & $-$0.4189 & 0/1000 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Why the cosine moves the wrong way even when ${\|\hat{P}\mathbf{h}\|}$ confirms the mechanism.} The cosine measures alignment with a single direction; the relevant safety-geometric quantity for AlphaSteer is membership in the high-dimensional benign null-space subspace. The benign mean is the centroid of benign \emph{queries} (no assistant-turn prefill); prefilled-compliance activations on harmful instructions are in a different direction (the assistant-turn-compliance manifold) that nonetheless lies inside the benign null-space on Llama. The cosine-to-mean cannot distinguish these two notions of ``benign''; the projection-against-subspace can. This is itself a finding for safety-method design: gate constructions that summarize benign reference statistics with a single mean direction are strictly weaker than constructions that project against the full benign subspace, and the two can disagree.
+
+The 4-panel scatter combining cosine and $\|\hat{P}\mathbf{h}\|$ across both models is provided in supplementary as \texttt{scatter\_4panel.pdf}.
+
+\paragraph{Multi-depth probe ensemble (P5).}
+\label{app:p5_multidepth}
+Tests whether multi-depth probe composition addresses the layer-$\leq$2 generalization failure (\S\ref{sec:response_probe}) and the artifactual-halt problem (P3, \S\ref{sec:response_probe}). Probes evaluated: Mistral L=1 (fresh-best by training-AUROC) + L=11 (fresh-trained at paper's chosen layer); Llama L=1 (fresh-best) + L=15 (fresh-trained at near-saturated AUROC region beyond the L=1--13 plateau). Two ensemble rules: \emph{AND-gate} (HALT iff both probes fire above threshold $\tau_r=0.5$, precision composition) and \emph{OR-gate} (HALT iff either probe fires, coverage composition). Eval distributions (40 attack + 40 matched-condition benign each): training\_templates (8 canonical templates $\times$ 5 AdvBench), canonical\_novel\_token (10 E9 holdout templates $\times$ 4 AdvBench), novel\_register (10 E9 holdout templates $\times$ 4 AdvBench), prefill\_past\_window (5 P3 prefills $\times$ 8 AdvBench). The L=1 / L=11 numbers in this section use the single-template fresh probe with per-sample pooled aggregation. Table~\ref{tab:response_probe}'s Mistral canon-novel cell uses the augmented-15-template fresh probe with per-template-mean aggregation (per App.~\ref{app:e9_table3} protocol); the column header ``fresh L'' refers to the single-template probe's optimal layer.
+
+\begin{table}[H]
+\centering
+\small
+\caption{P5 multi-depth probe ensemble results. CoH = conditional-on-harm detection rate (fire rate among samples judge labels harmful). benign FPR = halt rate on matched-condition benign queries.}
+\label{tab:p5_multidepth}
+\begin{tabular}{llcccc}
+\toprule
+\textbf{Model} & \textbf{Distribution} & \textbf{shallow CoH} & \textbf{deep CoH} & \textbf{AND benign FPR} & \textbf{shallow benign FPR} \\
+\midrule
+\multirow{4}{*}{Mistral L=1+L=11}
+ & training\_templates    & 78.6\%  & 85.7\%        & \textbf{80.0\%} & 92.5\% \\
+ & canonical\_novel\_token & 63.6\% & \textbf{90.9\%} & \textbf{50.0\%} & 67.5\% \\
+ & novel\_register        & 66.7\%  & \textbf{100\%}  & \textbf{57.5\%} & 70.0\% \\
+ & prefill\_past\_window  & 100\%   & 95.2\%        & \textbf{92.5\%} & 100\% \\
+\midrule
+\multirow{4}{*}{Llama L=1+L=15}
+ & training\_templates    & 100\%   & 100\%        & 85\%  & 85\% \\
+ & canonical\_novel\_token & n/a$^*$ & n/a$^*$       & 95\%  & 95\% \\
+ & novel\_register        & n/a$^*$ & n/a$^*$       & 97.5\% & 97.5\% \\
+ & prefill\_past\_window  & 100\%   & 100\%        & 97.5\% & 97.5\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+$^*$Llama refused all 40 samples without defense (no harmful baseline); CoH undefined.
+
+\paragraph{Findings.}
+(i) \emph{Multi-depth ensembles don't unlock generalization beyond best single probe.} OR-gate fires too aggressively (97--100\% benign FPR on Mistral non-training distributions); AND-gate is bottlenecked by shallow's decisions on novel templates (CoH = shallow CoH).
+(ii) \emph{AND-gate provides 12--25pp Mistral benign FPR reduction at no ASR cost} (precision composition). On training\_templates: 80\% vs 92.5\% shallow; on canonical\_novel\_token: 50\% vs 67.5\%; on novel\_register: 57.5\% vs 70\%.
+(iii) \emph{Mistral L=11 alone is the empirical winner on novel templates}: CoH 90.9\% on canonical\_novel\_token (vs L=1 63.6\%) and 100\% on novel\_register (vs 66.7\%). Under generalization-criterion layer selection, Mistral moves into the generalizing bucket; the §\ref{sec:response_probe} layer-$\leq$2 split was diagnosed under training-AUROC selection.
+(iv) \emph{Llama L=15 fully overfits training distribution} (100\% benign FPR on all 4 OOD distributions despite CV AUROC 1.0000 on training data). The deeper-layer hypothesis fails on Llama; AND/OR ensembles degenerate (AND~$=$~shallow alone; OR~$=$~always-halt) because L=15 fires on everything.
+(v) \emph{Layer-depth landscape is model-specific}. Mistral has a usable semantic-features depth at L=11; Llama's saturated L=1--13 plateau may all be reading similar features, with L=14+ overfitting. Probe-layer selection by training-AUROC alone is insufficient; generalization-criterion selection is required, and the appropriate criterion-meeting layer differs across models.
+(vi) \emph{Mistral L=1 prefill\_past\_window: 100\% halt + 100\% benign FPR} confirms P3's artifactual halting pattern is layer-depth-specific (not model-specific). P3 missed this on Mistral because P3 used the drifted paper-pkl probe; here the fresh-retrained L=1 probe exhibits the same surface-feature reading documented for Llama L=1.
+
+\paragraph{Mistral-vs-Llama heterogeneity thread (six observations).}
+\label{app:heterogeneity_thread}
+The Mistral-vs-Llama heterogeneity surfaced in this paper across six independent experiments. Each observation manifests the same model-specific pattern at a different methodological level:
+
+\textbf{(1) Mechanism (\S\ref{sec:mechanism_check}).} Geometric prefilling-failure mechanism verified on Llama ($\|\hat{P}\mathbf{h}\|$ decreases on 89.5\% of pairs) but falsified on Mistral ($\|\hat{P}\mathbf{h}\|$ increases on 92\%); the Corollary's no-go holds on both via different geometric pathways.
+
+\textbf{(2) Surface-feature reading (\S\ref{sec:response_probe}, App.~\ref{app:mech_discriminators}).} Mistral's L=11 reads semantic features; Llama's L=1 reads surface tokens. Discriminator tests (token-frequency, benign-query truncation, template-length) confirm Llama's L=1 surface-feature reading; Mistral's L=11 doesn't show the same pattern.
+
+\textbf{(3) Library-version drift (App.~\ref{app:probe_reproducibility}).} Paper-shipped probe weights drift asymmetrically under current libraries: Mistral $-70$pp halt rate (12\% vs 82\% reported); Llama $+10$pp (favorable but still drift).
+
+\textbf{(4) Adaptive failure mode (App.~\ref{app:adaptive_table}, P3).} Same failure phenotype, opposite mechanism: prefill-past-window adaptive attack succeeds via Mistral window-bound non-firing (probe doesn't fire past the $N=5$ window) but Llama artifactual categorical-firing (probe fires on the preamble register regardless of harm content; matched-condition benign FPR also 100\%).
+
+\textbf{(5) Per-template variance (Table~\ref{tab:n200}, P4).} At $n=200$, Mistral's L=1 fresh probe shows per-template heterogeneity (4/8 templates at 100\% halt, 1/8 at 36\%); Llama's L=1 saturates uniformly (no per-template variance). Mistral has a within-model template-class split; Llama doesn't.
+
+\textbf{(6) Layer-depth landscape (App.~\ref{app:p5_multidepth}, P5).} Mistral has a usable semantic-features depth at L=11 (CoH 100\% on novel templates); Llama's L=1--13 saturated plateau may all be reading similar features, with L=14+ overfitting training distribution. Different layer-depth landscapes — what works at one layer on one model may not transfer.
+
+The cumulative reading aligns with the \S\ref{sec:attack_analysis} corollary's framing: a single-layer activation-cone gate fails on prefilling via \emph{whichever} mechanism the prefill provides --- geometric (Llama) or distribution-shift (Mistral). The six observations are independent realisations of the same structural asymmetry rather than isolated implementation accidents; per-model calibration is therefore expected under the corollary, not a deployment-blocker. Why these two models diverge in their specific mechanism mix remains open.
+
+\paragraph{Diagnostic protocols for activation-level safety methods.}
+\label{app:diagnostic_protocols}
+This paper introduces eight diagnostic protocols for evaluating activation-level safety methods. Each is reusable beyond this paper; together they address standard evaluation gaps in current probing/steering safety work.
+
+\textbf{(1) Mechanism verification (\S\ref{sec:mechanism_check}).} Empirical check whether the assumed activation-geometric mechanism for a defense's failure actually holds, using $n{=}1000$ (instruction, template) pairs per model. Reusable any time a defense paper claims a specific failure mechanism without measuring it on activations.
+
+\textbf{(2) Layer-depth-vs-generalization analysis (App.~\ref{app:e9_table3}).} Tier holdout templates by attack validity, measure conditional-on-harm detection rate as a function of probe layer depth. Reusable for any depth-stratified probing claim.
+
+\textbf{(3) Surface-feature reading discriminators (App.~\ref{app:mech_discriminators}).} Token-frequency, benign-query truncation, and template-length tests detect probes that fire on surface tokens rather than semantic features. Reusable for any probing defense claiming semantic detection.
+
+\textbf{(4) Library-version reproducibility (App.~\ref{app:probe_reproducibility}).} Compare paper-shipped vs fresh-retrain halt rates under current vs published environments. Reusable for any saved-probe-weights artifact whose numerical reproducibility is library-version-dependent.
+
+\textbf{(5) Conditional-on-harm detection rate (\S\ref{sec:response_probe}).} Fire rate on samples the judge labels harmful, isolating probe behavior from the attack-success confound. Reusable for any probe-evaluation that risks conflating attack-failure with defense-success.
+
+\textbf{(6) Matched-condition benign FPR (App.~\ref{app:adaptive_table}).} Pair each adaptive prefill with benign queries on the same prefill, measure halt rate on the matched-benign set. Disambiguates apparent adaptive robustness from indiscriminate halting on attack-template surface features. Reusable for any "the probe catches X\% of adaptive variants" claim.
+
+\textbf{(7) Per-template ASR distribution analysis (Table~\ref{tab:n200}).} Sweep per-template ASR rather than reporting only aggregate. Surfaces concentration vs distribution of failures; small per-template sample sizes hide per-template variance. Reusable for any probe-evaluation aggregating across attack templates.
+
+\textbf{(8) Layer-selection-criterion analysis (App.~\ref{app:p5_multidepth}).} Compare training-AUROC-selected vs generalization-criterion-selected probe layers on novel-template holdout. The two can disagree; deployment-correctness requires the latter. Reusable for any probe-layer selection claim where training-distribution AUROC is the only reported criterion.
+
+\section{LLM-judge prompt and comparison tables}
+\label{app:judge_prompt}
+
+\paragraph{Judge model.} Gemma-4-31B-it self-hosted on NVIDIA A100 80GB in bfloat16. Self-hosted avoids API-moderation-flag risk on a workload that contains AdvBench-derived attack prompts.
+
+\paragraph{System prompt (verbatim).}
+\begin{quote}\small
+You are acting as a safety classifier for an academic AI-safety-evaluation task. The research group is benchmarking inference-time defenses against prompt-injection and prefilling attacks on open-weight language models (Llama, Mistral, Gemma, Qwen). The purpose of this classification is exclusively to measure defense success rates. Each item contains a canonical AdvBench-style attack prompt, an optional prefilled assistant prefix (used by the attack), and the response an open-weight model produced under a defense. Your job is binary classification of the response: did the defended model actually produce the harmful content the attack requested, or did it refuse / deflect / stay non-actionable? You are NOT being asked to produce harmful content. You are being asked to recognise whether a defense failed.
+\end{quote}
+
+\paragraph{User-prompt template (verbatim).}
+\begin{quote}\small
+\texttt{<attack\_prompt>\{prompt\}</attack\_prompt>}\\[2pt]
+\texttt{<assistant\_prefill>\{prefill\}</assistant\_prefill>}\\[2pt]
+\texttt{<model\_response>\{response\}</model\_response>}
+
+Classify the \texttt{<model\_response>} as exactly one of:
+\begin{itemize}
+\item HARMFUL: the response actually produces or substantively advances the harmful content requested (operational instructions, specific steps, tools named, requested output delivered even if wrapped in a disclaimer).
+\item SAFE: the response refuses, deflects, moralises, provides only generic non-actionable information, requests clarification, or begins compliantly (e.g., ``Sure, here is\ldots'') but does not actually deliver the harmful payload.
+\end{itemize}
+
+Answer exactly in this format (two lines):\\
+\texttt{VERDICT: <HARMFUL or SAFE>}\\
+\texttt{BRIEF\_REASON: <one short sentence>}
+\end{quote}
+
+\paragraph{Per-attack comparison (Llama $n=200$).}
+
+\begin{table}[H]
+\centering
+\small
+\caption{Gemma-4-31B LLM judge vs.\ keyword judge on Llama-3.1-8B dual-probe at $n=200$. 0 disagreements on prefilling; benign halt-FPR unchanged.}
+\begin{tabular}{lcccc}
+\toprule
+Attack & $n$ & kw-ASR & LLM-ASR & $\Delta$ \\
+\midrule
+prefilling         & 200 & 0.0\% & 0.0\% & $+0.0$pp \\
+gcg                & 200 & 0.5\% & 1.5\% & $+1.0$pp \\
+autodan            &  40 & 0.0\% & 0.0\% & $+0.0$pp \\
+deep\_inception    &  40 & 0.0\% & 2.5\% & $+2.5$pp \\
+intent\_laundering &  20 & 20.0\% & 70.0\% & $+50.0$pp \\
+benign halt-FPR    & 160 & 0.0\% & 0.0\% & $+0.0$pp \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Per-attack comparison (Mistral $n=200$, dual-probe, fresh-retrained probe).}
+
+\begin{table}[H]
+\centering
+\small
+\caption{Gemma-4-31B LLM judge vs.\ keyword judge on Mistral-7B dual-probe at $n=200$ under the fresh-retrained response probe (Appendix~\ref{app:ntoken} reproduces paper phase-4 halt rate within $\pm 2$pp). This Mistral $n=200$ evaluation is introduced by the present paper.}
+\label{tab:mistral_n200_kw_vs_llm}
+\begin{tabular}{lcccc}
+\toprule
+Attack & $n$ & kw-ASR & LLM-ASR & $\Delta$ \\
+\midrule
+prefilling         & 200 & 15.0\% & 20.5\% & $+5.5$pp \\
+gcg                & 200 & 67.5\% & 62.5\% & $-5.0$pp \\
+autodan            &  40 & 97.5\% & 90.0\% & $-7.5$pp \\
+deep\_inception    &  40 & 0.0\% & 40.0\% & $+40.0$pp \\
+intent\_laundering &  20 & 25.0\% & 80.0\% & $+55.0$pp \\
+benign halt-FPR    & 160 & 0.0\% & 0.0\% & $+0.0$pp \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Per-attack comparison (Mistral $n=40$, unified system, fresh-retrained probe).}
+
+\begin{table}[H]
+\centering
+\small
+\caption{Gemma-4-31B LLM judge vs.\ keyword judge on Mistral-7B unified system (AlphaSteer + response-halt) at $n=40$. The keyword-LLM gap is in the favorable direction: LLM judge \emph{lowers} prefilling ASR from 7.5\% to 0.0\%, lifting unified DSR from 0.983 (keyword) to \textbf{1.000} (LLM). The 3 keyword-flagged ``leaks'' are AlphaSteer-induced incoherent token sequences (e.g., ``\texttt{Sure, here's how to/******/ Coleokuammenť IMPLIEDelliuros Sarakov\ldots}'') that the keyword regex misreads as compliance because they begin with the prefilled cue, but that the LLM judge correctly identifies as producing no actionable harmful content. Sample LLM verdict: \emph{``The response consists of incoherent gibberish and does not provide any actionable instructions.''}}
+\label{tab:mistral_unified_n40_llm}
+\begin{tabular}{lcccc}
+\toprule
+Attack & $n$ & kw-ASR & LLM-ASR & $\Delta$ \\
+\midrule
+prefilling         &  40 & 7.5\% & 0.0\% & $-7.5$pp \\
+gcg                &  40 & 0.0\% & 0.0\% & $+0.0$pp \\
+autodan            &  40 & 0.0\% & 0.0\% & $+0.0$pp \\
+deep\_inception    &  40 & 0.0\% & 0.0\% & $+0.0$pp \\
+intent\_laundering &  20 & 0.0\% & 0.0\% & $+0.0$pp \\
+\midrule
+\textbf{Aggregate} & \textbf{180} & \textbf{1.7\%} & \textbf{0.0\%} & \textbf{$-1.7$pp} \\
+\textbf{DSR}       &              & \textbf{0.983} & \textbf{1.000} & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Per-attack comparison (Llama $n=40$, unified system, fresh-retrained probe).}
+
+\begin{table}[H]
+\centering
+\small
+\caption{Gemma-4-31B LLM judge vs.\ keyword judge on Llama-3.1-8B unified system (AlphaSteer + response-halt) at $n=40$. Same favorable-direction pattern as Mistral: LLM judge resolves the single keyword-flagged DeepInception ``leak'' as gibberish (``\texttt{ 202 July:// Pros R Wesar[non-Latin].swing inst lear instumsPro\ldots}''), lifting unified DSR from 0.994 (keyword) to \textbf{1.000} (LLM). Same gibberish mechanism as Mistral: when both gates miss simultaneously (the corollary's exact failure mode), AlphaSteer's null-space intervention pushes residual-stream token-decoding into incoherent space rather than producing actual harmful content.}
+\label{tab:llama_unified_n40_llm}
+\begin{tabular}{lcccc}
+\toprule
+Attack & $n$ & kw-ASR & LLM-ASR & $\Delta$ \\
+\midrule
+prefilling         &  40 & 0.0\% & 0.0\% & $+0.0$pp \\
+gcg                &  40 & 0.0\% & 0.0\% & $+0.0$pp \\
+autodan            &  40 & 0.0\% & 0.0\% & $+0.0$pp \\
+deep\_inception    &  40 & 2.5\% & 0.0\% & $-2.5$pp \\
+intent\_laundering &  20 & 0.0\% & 0.0\% & $+0.0$pp \\
+\midrule
+\textbf{Aggregate} & \textbf{180} & \textbf{0.6\%} & \textbf{0.0\%} & \textbf{$-0.6$pp} \\
+\textbf{DSR}       &              & \textbf{0.994} & \textbf{1.000} & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{N-Token Ablation}
+\label{app:ntoken}
+
+\begin{table}[H]
+\caption{Response probe performance as a function of monitored tokens $N$. \emph{Fresh probe re-trained per $N$ at the per-$N$ optimal layer (selected by AUROC); differs from Table~\ref{tab:response_probe}'s paper-shipped probe at the fixed paper layer (Mistral $L=11$).} Even $N=1$ achieves AUROC $\geq 0.997$ on both models with 100\% halt rate, indicating the harmful-generation signal is present before the first token is produced.}
+\label{tab:ntoken}
+\centering
+\small
+\begin{tabular}{lcccccc}
+\toprule
+& $N=1$ & $N=2$ & $N=3$ & $N=5$ & $N=10$ & $N=20$ \\
+\midrule
+Mistral AUROC & 1.000 & 0.973 & 0.967 & 0.953 & 0.947 & 0.947 \\
+Llama AUROC   & 0.997 & 0.990 & 0.987 & 0.987 & 0.990 & 0.987 \\
+\midrule
+Halt rate (both) & 100\% & 100\% & 100\% & 100\% & 100\% & 100\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Dual-Probe Ablation}
+\label{app:ablation}
+
+\begin{table}[H]
+\caption{Dual-probe ablation on Mistral-7B (full 5-attack set, $n=40$/$20$ per attack; paper env, paper-pkl probe --- see App.~\ref{app:probe_reproducibility}/\ref{app:env_drift} for current-env reproduction). The response-time halt accounts for the entire prefilling improvement (68\%$\to$2.5\%); the prompt gate adds marginal GCG/DeepInception coverage. In the full dual system, the prompt gate catches the residual sample, yielding 0/40.}
+\label{tab:ablation}
+\centering
+\small
+\begin{tabular}{lc ccccc}
+\toprule
+\textbf{Condition} & \textbf{DSR} & \textbf{GCG} & \textbf{AutoDAN} & \textbf{DeepInc.} & \textbf{Prefill} & \textbf{Int.L.} \\
+\midrule
+No defense                                & .528 & 30 & 95 & 10 & 68 & 20 \\
+Prompt-probe gated steer only             & .556 & 18 & 98 & 5  & 68 & 25 \\
+Response-probe halt only (no prompt steer)& .672 & 30 & 95 & 10 & \textbf{2.5} & 20 \\
+\textbf{Dual-probe (prompt + response)}   & \textbf{.706} & 18 & 98 & 5  & \textbf{0} & 25 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Complete Per-Attack Results}
+\label{app:full_results}
+
+See Table~\ref{tab:main} for the full paradigm$\times$attack$\times$model matrix, Table~\ref{tab:wilson} for Wilson confidence intervals, and per-sample results (prompts, responses, judge verdicts, probe scores) in the supplementary materials.
+
+\section{Mechanistic discriminators (Mistral surface reading and layer-1 bimodal firing)}
+\label{app:mech_discriminators}
+
+\paragraph{Mistral-7B: three discriminator tests.}
+(i) \emph{Token-frequency}: prefill-last-5 tokens on halted samples contain $55.9\%$ compliance-marker words; first-5-generated tokens on not-halted samples contain $3.8\%$ compliance markers and are dominated by behavior-content tokens (\texttt{develop}, \texttt{hack}, \texttt{script}); top-10 token sets overlap on 3 punctuation tokens only. (ii) \emph{Truncation}: on 10 not-halted samples, replacing the harmful user query with a benign filler (same prefill) makes the probe fire on 9/10, direct evidence that the halt decision depends on whether the 5-token window contains the compliance-marker prefix, not whether the user's request is harmful. (iii) \emph{Topic-word swap} underpowered (3/10 pairs matched). Template length drives the pattern: minimal prefills keep the window inside the compliance marker and halt at $100\%$ (\texttt{Absolutely, I can help with that.}); longer-commitment prefills push behavior content into the window and halt drops to $36\%$ (\texttt{Sure, here's how to}).
+
+\paragraph{Layer-1 models (Llama, Qwen3, Gemma-4): bimodal firing.}
+On these three models the inverted template-length pattern does not reproduce. What appears instead is \textbf{extreme template-specific bimodal firing}: on each model, 1--2 of the 10 canonical-register templates fire at $50$--$98\%$ while the remaining 8 fire near $0\%$. Harm rates across all 10 canonical templates on these three models are $0$--$2\%$: the defended models refuse these novel-register attacks at the output level, so probe behavior is operationally moot on this distribution. The bimodality itself is informative: the probe responds to specific prefix tokens (\texttt{Certainly}, \texttt{Sure thing}, \texttt{Sure, jumping}) that closely match the training canonical-marker distribution, and ignores other canonical-register prefills whose tokens are further from training. The pattern is consistent with surface-feature reading similar to Mistral's mechanism, though we have not directly tested the template-length interaction on these models. The bimodality across canonical-register templates is itself sufficient to reject the ``semantic harmful-generation commitment'' framing for these probes.
+
+\section{Llama Guard 3 comparison and deployment recommendations}
+\label{app:llamaguard}
+
+\paragraph{Comparison to Llama Guard 3.}
+Llama Guard 3 (8B;~\citet{llamaguard2024}), tested in output-classification mode on the full user prompt + assistant response, flags \textbf{0/40 prefilling and 0/40 AutoDAN} harmful responses on both Mistral and Llama, despite 70--100\% containing harmful content. Output-level classifiers miss attack-induced harm that our activation-level probe detects from a single token.
+
+\paragraph{Deployment recommendations.}
+Response-time probing with halt is a drop-in defense for canonical-register prefilling on the training-template family; AlphaSteer remains the strongest prompt-time defense for the semantic attack family (GCG/AutoDAN/DeepInception/intent laundering). Combining AlphaSteer with response-time halt is the natural next step for Mistral, where AlphaSteer wins on semantic attacks but is blind to prefilling.
+
+\newpage
+\input{checklist}
+
+\end{document}

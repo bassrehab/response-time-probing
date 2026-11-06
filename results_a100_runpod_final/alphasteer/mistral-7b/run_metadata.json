@@ -1,0 +1,11 @@
+{
+  "experiment_name": "queue1_alphasteer",
+  "timestamp": "2026-04-02T10:47:11.975021",
+  "git_hash": "61cff8d7d99d2535df9ca932124a5920aab2efaf",
+  "git_dirty": false,
+  "python_version": "3.11.10",
+  "platform": "Linux 6.8.0-100-generic",
+  "hardware": "CUDA (NVIDIA A100-SXM4-80GB)",
+  "script": "gpu_run_all.sh",
+  "args": {}
+}

@@ -1,0 +1,22 @@
+{
+  "defense": "static_0.8",
+  "n_queries": 100,
+  "over_refusal_rate": 0.0,
+  "hedging_rate": 0.06,
+  "mean_response_length": 1162.23,
+  "mean_response_tokens": 282.65,
+  "median_response_length": 1242,
+  "mean_latency_ms": 20148.0910325062,
+  "per_category_refusal": {
+    "advice": 0.0,
+    "coding": 0.0,
+    "reasoning": 0.0,
+    "writing": 0.0
+  },
+  "per_category_length": {
+    "advice": 1313.32,
+    "coding": 976.88,
+    "reasoning": 1268.64,
+    "writing": 1090.08
+  }
+}

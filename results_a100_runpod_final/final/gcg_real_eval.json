@@ -1,0 +1,56 @@
+{
+  "mistral-7b": {
+    "none": {
+      "gcg_asr": 0.3,
+      "dsr": 0.7,
+      "fpr": 0.0
+    },
+    "static_1.3": {
+      "gcg_asr": 0.075,
+      "dsr": 0.925,
+      "fpr": 0.0
+    },
+    "gated_bb_1.3": {
+      "gcg_asr": 0.075,
+      "dsr": 0.925,
+      "fpr": 0.95
+    },
+    "alphasteer": {
+      "gcg_asr": 0.0,
+      "dsr": 1.0,
+      "fpr": 0.0
+    },
+    "cast": {
+      "gcg_asr": 0.125,
+      "dsr": 0.875,
+      "fpr": 0.0
+    }
+  },
+  "llama31-8b": {
+    "none": {
+      "gcg_asr": 0.025,
+      "dsr": 0.975,
+      "fpr": 0.0
+    },
+    "static_1.3": {
+      "gcg_asr": 0.025,
+      "dsr": 0.975,
+      "fpr": 0.0
+    },
+    "gated_bb_1.3": {
+      "gcg_asr": 0.0,
+      "dsr": 1.0,
+      "fpr": 0.05
+    },
+    "alphasteer": {
+      "gcg_asr": 0.0,
+      "dsr": 1.0,
+      "fpr": 0.0
+    },
+    "cast": {
+      "gcg_asr": 0.0,
+      "dsr": 1.0,
+      "fpr": 0.0
+    }
+  }
+}

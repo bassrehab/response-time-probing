@@ -1,0 +1,13 @@
+{
+  "model": "gemma3-12b",
+  "prompt_probe_layer": 10,
+  "prompt_probe_auroc": 1.0,
+  "response_probe_layer": 4,
+  "response_probe_auroc": 1.0,
+  "steering_layer": 24,
+  "cos_sim_response_probe_vs_refusal": 0.020936429870635022,
+  "halt_asr": 0.0,
+  "halt_rate": 0.825,
+  "weight_norm": 1.0099586760272528,
+  "weight_sparsity": 0.5640625
+}

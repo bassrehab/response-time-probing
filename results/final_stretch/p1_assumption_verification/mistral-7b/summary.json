@@ -1,0 +1,38 @@
+{
+  "model": "mistral-7b",
+  "n_pairs": 1000,
+  "cos_no_prefill": {
+    "mean": 0.7957031443715096,
+    "std": 0.04467911125277611
+  },
+  "cos_with_prefill": {
+    "mean": 0.23502604359388352,
+    "std": 0.020487962272483236
+  },
+  "delta_cos": {
+    "mean": -0.560677100777626,
+    "std": 0.04789332010498042
+  },
+  "n_pairs_with_positive_shift": 0,
+  "P_norm_no_prefill": {
+    "mean": 3.8987629532814028,
+    "std": 0.15766396352322062
+  },
+  "P_norm_with_prefill": {
+    "mean": 4.177145699501038,
+    "std": 0.07478440292830521
+  },
+  "delta_P_norm": {
+    "mean": 0.278382746219635,
+    "std": 0.1770834203149852
+  },
+  "n_pairs_with_negative_P_norm_shift": 79,
+  "delta_cos_train_only": {
+    "mean": -0.5631434026608865,
+    "std": 0.04934612915232089
+  },
+  "delta_cos_test_only": {
+    "mean": -0.5569776479527354,
+    "std": 0.0453768075623038
+  }
+}
